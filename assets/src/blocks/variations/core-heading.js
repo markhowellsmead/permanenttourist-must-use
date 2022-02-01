@@ -1,7 +1,5 @@
 import { registerBlockVariation } from '@wordpress/blocks';
 
-console.log('here123');
-
 registerBlockVariation('core/heading', {
     name: 'sht/h1',
     title: 'H1',
