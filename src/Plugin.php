@@ -105,10 +105,10 @@ class Plugin
 			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 		}
 
-		$plugin_data = get_plugin_data(__FILE__, false);
+		$plugin_data = get_plugin_data(pt_must_use_get_instance()->file, false);
 
-		$dir_path = plugin_dir_path(__FILE__);
-		$dir_url = plugin_dir_url(__FILE__);
+		$dir_path = plugin_dir_path(pt_must_use_get_instance()->file);
+		$dir_url = plugin_dir_url(pt_must_use_get_instance()->file);
 
 		$file = defined('WP_DEBUG') && WP_DEBUG ? 'blocks.js' : 'blocks.min.js';
 
