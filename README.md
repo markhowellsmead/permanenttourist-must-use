@@ -1,15 +1,8 @@
-# WordPress Site Blocks
+# Permanent Tourist Must Use
 
 ## Description
 
-This WordPress plugin is intended for use as a block registration plugin. By building and compiling blocks through this plugin, and not in the Theme, you can ensure that the blocks remain available if you choose to switch to another Theme.
-
-## Usage
-
-1. Install this as a plugin in your local WordPress installation.
-2. Run `npm install` in the plugin root folder. You'll need to be using the versions of Node and NPM specified in the `engines` section of package.json.
-3. Run `npm start` in the plugin root folder. Then add the blocks in the _assets/src/blocks/_ folder. Webpack will watech this folder for changes and build a single output file, which is enqueued in the block editor.
-4. This plugin doesn't currently load, handle or compile any CSS. That belongs in the Theme.
+This WordPress plugin contains all of the blocks and portable functionality for [permanenttourist.ch](https://permanenttourist.ch) which doesn't belong to the Theme. Using this plugin allows the use of any theme, and the blocks and some essential functionality will always be retained.
 
 ## Author
 
