@@ -53,3 +53,14 @@ function pt_must_use_blocks_register_post_meta()
 }
 
 add_action('init', 'pt_must_use_blocks_register_post_meta');
+
+function pt_must_use_block_categories(array $categories)
+{
+	return array_merge($categories, [
+		[
+			'slug'  => 'sht-blocks',
+			'title' => __('Blocks by Say Hello', 'sha'),
+		],
+	]);
+}
+add_action('block_categories_all', 'pt_must_use_block_categories');
