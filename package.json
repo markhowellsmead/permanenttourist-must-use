@@ -1,0 +1,45 @@
+{
+    "name": "mhm-site-blocks",
+    "description": "Block registration plugin for a WordPress website",
+    "main": "gulpfile.babel.js",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:markhowellsmead/mhm-site-blocks.git"
+    },
+    "bugs": {
+        "url": "https://github.com/markhowellsmead/mhm-site-blocks/issues"
+    },
+    "homepage": "https://github.com/markhowellsmead/mhm-site-blocks/",
+    "devDependencies": {
+        "@babel/core": "^7.16.12",
+        "@babel/preset-env": "^7.16.11",
+        "@babel/preset-react": "^7.16.7",
+        "@babel/register": "^7.16.9",
+        "@wordpress/dependency-extraction-webpack-plugin": "^3.3.0",
+        "babel-loader": "^8.2.3",
+        "gulp": "^4.0.2",
+        "gulp-filter": "^7.0.0",
+        "gulp-rename": "^2.0.0",
+        "gulp-uglify": "^3.0.2",
+        "webpack-stream": "^7.0.0"
+    },
+    "author": "Mark Howells-Mead - https://permanenttourist.ch",
+    "license": "GPL-3.0-or-later",
+    "scripts": {
+        "start": "gulp"
+    },
+    "babel": {
+        "presets": [
+            "@babel/env",
+            "@babel/preset-react"
+        ]
+    },
+    "browserslist": [
+        "> 1%",
+        "IE 11"
+    ],
+    "engines": {
+        "node": "14.18.3",
+        "npm": "8.3.2"
+    }
+}
