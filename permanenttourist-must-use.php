@@ -4,52 +4,58 @@ Plugin Name: Permanent Tourist Must Use
 Plugin URI: #
 Description: This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch.
 Author: Mark Howells-Mead
-Version: 0.1.0
+Version: 0.2.0
 Author URI: https://www.permanenttourist.ch/
 Text Domain: pt-must-use
 Domain Path: languages
 */
 
-function pt_must_use_blocks_editor_assets()
-{
-	if (!function_exists('get_plugin_data')) {
-		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+namespace PT\MustUse;
+
+/*
+	 * This lot auto-loads a class or trait just when you need it. You don't need to
+	 * use require, include or anything to get the class/trait files, as long
+	 * as they are stored in the correct folder and use the correct namespaces.
+	 *
+	 * See http://www.php-fig.org/psr/psr-4/ for an explanation of the file structure
+	 * and https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md for usage examples.
+	 */
+
+spl_autoload_register(function ($class) {
+
+	// project-specific namespace prefix
+	$prefix = 'PT\\MustUse\\';
+
+	// base directory for the namespace prefix
+	$base_dir = __DIR__ . '/src/';
+
+	// does the class use the namespace prefix?
+	$len = strlen($prefix);
+
+	if (strncmp($prefix, $class, $len) !== 0) {
+		// no, move to the next registered autoloader
+		return;
 	}
 
-	$plugin_data = get_plugin_data(__FILE__, false);
+	// get the relative class name
+	$relative_class = substr($class, $len);
 
-	$dir_path = plugin_dir_path(__FILE__);
-	$dir_url = plugin_dir_url(__FILE__);
+	// replace the namespace prefix with the base directory, replace namespace
+	// separators with directory separators in the relative class name, append
+	// with .php
+	$file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
 
-	$file = defined('WP_DEBUG') && WP_DEBUG ? 'blocks.js' : 'blocks.min.js';
+	// if the file exists, require it
+	if (file_exists($file)) {
+		require $file;
+	}
+});
 
-	$script_asset_path = "{$dir_path}assets/gutenberg/blocks.asset.php";
-	$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $plugin_data['Version'] ?? '0'];
-	wp_enqueue_script(
-		'pt-must-use-gutenberg-script',
-		"{$dir_url}assets/dist/blocks/{$file}",
-		$script_asset['dependencies'],
-		$script_asset['version']
-	);
-}
+require_once 'src/Plugin.php';
 
-add_action('enqueue_block_editor_assets', 'pt_must_use_blocks_editor_assets');
-
-function pt_must_use_blocks_register_post_meta()
+function pt_must_use_get_instance()
 {
-
-	$args = [
-		'show_in_rest' => true,
-		'single' => true,
-		'type' => 'boolean',
-		'auth_callback' => function () {
-			return current_user_can('edit_posts');
-		}
-	];
-
-	register_post_meta('post', 'hide_title', $args);
-	register_post_meta('page', 'hide_title', $args);
-	register_post_meta('photo', 'hide_title', $args);
+	return Plugin::getInstance(__FILE__);
 }
 
-add_action('init', 'pt_must_use_blocks_register_post_meta');
+pt_must_use_get_instance();
