@@ -1,15 +1,15 @@
 {
-    "name": "mhm-site-blocks",
+    "name": "permanenttourist-must-use",
     "description": "Block registration plugin for a WordPress website",
     "main": "gulpfile.babel.js",
     "repository": {
         "type": "git",
-        "url": "git@github.com:markhowellsmead/mhm-site-blocks.git"
+        "url": "git@github.com:markhowellsmead/permanenttourist-must-use.git"
     },
     "bugs": {
-        "url": "https://github.com/markhowellsmead/mhm-site-blocks/issues"
+        "url": "https://github.com/markhowellsmead/permanenttourist-must-use/issues"
     },
-    "homepage": "https://github.com/markhowellsmead/mhm-site-blocks/",
+    "homepage": "https://github.com/markhowellsmead/permanenttourist-must-use/",
     "devDependencies": {
         "@babel/core": "^7.16.12",
         "@babel/preset-env": "^7.16.11",
