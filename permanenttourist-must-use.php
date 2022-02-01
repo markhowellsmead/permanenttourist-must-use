@@ -34,3 +34,22 @@ function pt_must_use_blocks_editor_assets()
 }
 
 add_action('enqueue_block_editor_assets', 'pt_must_use_blocks_editor_assets');
+
+function pt_must_use_blocks_register_post_meta()
+{
+
+	$args = [
+		'show_in_rest' => true,
+		'single' => true,
+		'type' => 'boolean',
+		'auth_callback' => function () {
+			return current_user_can('edit_posts');
+		}
+	];
+
+	register_post_meta('post', 'hide_title', $args);
+	register_post_meta('page', 'hide_title', $args);
+	register_post_meta('photo', 'hide_title', $args);
+}
+
+add_action('init', 'pt_must_use_blocks_register_post_meta');
