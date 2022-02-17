@@ -91,35 +91,24 @@ class Plugin
 				Block\ViewpointCards::class,
 				Block\ViewpointDescendants::class,
 				Block\YearsOnline::class,
+
+				Package\Archives::class,
+				Package\CLI::class,
+				Package\Gutenberg::class,
+				Package\Footnotes::class,
+				Package\LoginScreen::class,
+				Package\Media::class,
+				Package\Navigation::class,
+
+				PostType\BlockArea::class,
+				PostType\Destination::class,
+				PostType\Feature::class,
+				PostType\Page::class,
+				PostType\Photo::class,
 			]
 		);
 
-		add_action('enqueue_block_editor_assets', [$this, 'blockEditorAssets']);
 		add_action('init', [$this, 'registerPostMeta']);
-		add_action('block_categories_all', [$this, 'blockCategories']);
-	}
-
-	public function blockEditorAssets()
-	{
-		if (!function_exists('get_plugin_data')) {
-			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-		}
-
-		$plugin_data = get_plugin_data(pt_must_use_get_instance()->file, false);
-
-		$dir_path = plugin_dir_path(pt_must_use_get_instance()->file);
-		$dir_url = plugin_dir_url(pt_must_use_get_instance()->file);
-
-		$file = defined('WP_DEBUG') && WP_DEBUG ? 'blocks.js' : 'blocks.min.js';
-
-		$script_asset_path = "{$dir_path}assets/gutenberg/blocks.asset.php";
-		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $plugin_data['Version'] ?? '0'];
-		wp_enqueue_script(
-			'pt-must-use-gutenberg-script',
-			"{$dir_url}assets/dist/blocks/{$file}",
-			$script_asset['dependencies'],
-			$script_asset['version']
-		);
 	}
 
 	public function registerPostMeta()
@@ -137,15 +126,5 @@ class Plugin
 		register_post_meta('post', 'hide_title', $args);
 		register_post_meta('page', 'hide_title', $args);
 		register_post_meta('photo', 'hide_title', $args);
-	}
-
-	public function blockCategories(array $categories)
-	{
-		return array_merge($categories, [
-			[
-				'slug'  => 'sht-blocks',
-				'title' => __('Blocks by Say Hello', 'sha'),
-			],
-		]);
 	}
 }
