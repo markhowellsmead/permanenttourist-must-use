@@ -93,7 +93,7 @@ class Plugin
 				Block\YearsOnline::class,
 
 				Package\Archives::class,
-				Package\CLI::class,
+				// Package\CLI::class, // See file for comments about errors
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
