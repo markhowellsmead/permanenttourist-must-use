@@ -93,7 +93,7 @@ class Plugin
 				Block\YearsOnline::class,
 
 				Package\Archives::class,
-				Package\CLI::class,
+				// Package\CLI::class, // See file for comments about errors
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
@@ -109,6 +109,8 @@ class Plugin
 		);
 
 		add_action('init', [$this, 'registerPostMeta']);
+		add_action('comment_form_before', [$this, 'enqueueReplyScript']);
+		add_action('wp_head', [$this, 'noJsScript']);
 	}
 
 	public function registerPostMeta()
@@ -126,5 +128,20 @@ class Plugin
 		register_post_meta('post', 'hide_title', $args);
 		register_post_meta('page', 'hide_title', $args);
 		register_post_meta('photo', 'hide_title', $args);
+	}
+
+	/**
+	 * Adds a JS script to the head that removes 'no-js' from the html class list
+	 */
+	public function noJsScript()
+	{
+		echo "<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>" . chr(10);
+	}
+
+	public function enqueueReplyScript()
+	{
+		if (is_singular() && get_option('thread_comments')) {
+			wp_enqueue_script('comment-reply');
+		}
 	}
 }
