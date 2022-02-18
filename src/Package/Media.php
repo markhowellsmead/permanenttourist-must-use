@@ -59,7 +59,7 @@ class Media
 
 		$image_src = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'post-thumbnail');
 
-		if (is_array($image_src)) {
+		if (is_array($image_src) && (int) ($image_src[1] ?? 0) && (int) ($image_src[2] ?? 0)) {
 			$aspect = $image_src[1] / $image_src[2];
 			if ($aspect >= $this->xwide_aspectratio) {
 				$css_classes[] = 'o-body--xwidethumbnail';
@@ -77,7 +77,7 @@ class Media
 	public function thumbnailAspect()
 	{
 		$image_src = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'post-thumbnail');
-		if (is_array($image_src)) {
+		if (is_array($image_src) && (int) ($image_src[1] ?? 0) && (int) ($image_src[2] ?? 0)) {
 			$aspect = round((int) $image_src[1] / $image_src[2], 6);
 
 			if ($aspect >= $this->xwide_aspectratio) {
