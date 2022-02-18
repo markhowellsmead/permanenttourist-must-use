@@ -100,6 +100,8 @@ class Plugin
 				Package\Media::class,
 				Package\Navigation::class,
 
+				Pattern\HeaderMediaText::class,
+
 				PostType\BlockArea::class,
 				PostType\Destination::class,
 				PostType\Feature::class,
