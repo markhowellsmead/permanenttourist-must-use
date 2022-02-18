@@ -9,7 +9,6 @@ import './count-photos';
 import './count-posts';
 import './footnotes';
 import './image';
-import './image-gallery';
 import './language-excerpt';
 import './post-excerpt';
 import './post-header';
