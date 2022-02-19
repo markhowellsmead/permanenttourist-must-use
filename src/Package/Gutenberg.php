@@ -2,6 +2,8 @@
 
 namespace PT\MustUse\Package;
 
+use function \PT\MustUse\pt_must_use_get_instance;
+
 /**
  * Adjustments for the Gutenberg Editor
  *
