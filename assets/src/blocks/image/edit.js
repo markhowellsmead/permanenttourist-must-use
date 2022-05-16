@@ -14,7 +14,7 @@ import { Fragment, Component } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 
 import ImageSelectorWithPlaceholder from '../_components/ImageSelectorWithPlaceholder';
-import { LazyImage } from '../_components/LazyImage';
+import FigureWithImage from '../_components/FigureWithImage';
 
 import ratios from './ratios';
 
@@ -27,15 +27,8 @@ class Edit extends Component {
     render() {
         const { attributes, colors, setAttributes } = this.props;
 
-        const {
-            figcaption,
-            focalPoint,
-            image,
-            textOpacity,
-            textColor,
-            ratio,
-            text_shadow,
-        } = attributes;
+        const { figcaption, focalPoint, image, textOpacity, textColor, ratio, text_shadow } =
+            attributes;
 
         let classNameBase = getBlockDefaultClassName('mhm/image');
         let className = classNameBase;
@@ -131,12 +124,11 @@ class Edit extends Component {
                         }}
                     />
                     {!!image.id && (
-                        <LazyImage
-                            className={`${classNameBase}__figure`}
+                        <FigureWithImage
+                            classNameBase={classNameBase}
                             image={image}
-                            background={false}
-                            admin={true}
-                            objectFocalPoint={focalPoint}
+                            focalPoint={focalPoint}
+                            lazy={true}
                         />
                     )}
                     <RichText

@@ -3,7 +3,7 @@ import { _x } from '@wordpress/i18n';
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 import classnames from 'classnames';
 
-import { LazyImage } from '../_components/LazyImage';
+import FigureWithImage from '../_components/FigureWithImage';
 import edit from './edit';
 import transforms from './transforms';
 
@@ -80,10 +80,11 @@ registerBlockType('mhm/image', {
         return (
             <section className={`${className} ${ratio}`}>
                 {!!image.id && (
-                    <LazyImage
-                        className={`${classNameBase}__figure`}
+                    <FigureWithImage
+                        classNameBase={classNameBase}
                         image={image}
-                        objectFocalPoint={focalPoint}
+                        focalPoint={focalPoint}
+                        lazy={true}
                     />
                 )}
                 {!!figcaption && (
