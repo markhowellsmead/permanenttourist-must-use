@@ -4,7 +4,7 @@ import { __, _x } from '@wordpress/i18n';
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 
 import LazyImageSelector from '../_components/LazyImageSelector';
-import { LazyImage } from '../_components/LazyImage';
+import FigureWithImage from '../_components/FigureWithImage';
 import { BlockTitle } from '../_components/blocktitles';
 
 registerBlockType('mhm/bravo', {
@@ -124,11 +124,11 @@ registerBlockType('mhm/bravo', {
                         )}
                     </div>
                     {attributes.image && attributes.image.id && (
-                        <LazyImage
-                            className={`${classNameBase}__figure`}
+                        <FigureWithImage
+                            classNameBase={classNameBase}
                             image={attributes.image}
-                            background={false}
-                            admin={false}
+                            focalPoint={focalPoint}
+                            lazy={true}
                         />
                     )}
                 </div>

@@ -2,7 +2,7 @@ import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 import { _x } from '@wordpress/i18n';
 
-import { LazyImage } from '../_components/LazyImage';
+import FigureWithImage from '../_components/FigureWithImage';
 import edit from './edit';
 
 registerBlockType('mhm/project-header', {
@@ -84,12 +84,11 @@ registerBlockType('mhm/project-header', {
                     </div>
                     {!!attributes.image.id && (
                         <div className={`${classNameBase}__figurewrap ${attributes.ratio}`}>
-                            <LazyImage
-                                className={`${classNameBase}__figure`}
+                            <FigureWithImage
+                                classNameBase={classNameBase}
                                 image={attributes.image}
-                                background={false}
-                                admin={false}
-                                objectFocalPoint={attributes.focalPoint}
+                                focalPoint={focalPoint}
+                                lazy={true}
                             />
                             {!!attributes.figcaption && (
                                 <RichText.Content
