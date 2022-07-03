@@ -87,7 +87,7 @@ registerBlockType('mhm/project-header', {
                             <FigureWithImage
                                 classNameBase={classNameBase}
                                 image={attributes.image}
-                                focalPoint={focalPoint}
+                                focalPoint={attributes.focalPoint}
                                 lazy={true}
                             />
                             {!!attributes.figcaption && (

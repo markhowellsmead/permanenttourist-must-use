@@ -55,13 +55,9 @@ export default class LazyImageSelector extends Component {
         let style_orig = {};
         let style_pre = {};
 
-        if (this.props.objectFocalPoint) {
-            style_orig.objectPosition = `${this.props.objectFocalPoint.x * 100}% ${
-                this.props.objectFocalPoint.y * 100
-            }%`;
-            style_pre.objectPosition = `${this.props.objectFocalPoint.x * 100}% ${
-                this.props.objectFocalPoint.y * 100
-            }%`;
+        if (!!objectFocalPoint) {
+            style_orig.objectPosition = `${objectFocalPoint.x * 100}% ${objectFocalPoint.y * 100}%`;
+            style_pre.objectPosition = `${objectFocalPoint.x * 100}% ${objectFocalPoint.y * 100}%`;
         }
 
         const image_attribute = attributes[attribute_key];

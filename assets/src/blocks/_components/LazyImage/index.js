@@ -47,7 +47,7 @@ export class LazyImage extends Component {
         let style_orig = {};
         let style_pre = {};
 
-        if (objectFocalPoint) {
+        if (!!objectFocalPoint) {
             style_orig.objectPosition = `${objectFocalPoint.x * 100}% ${objectFocalPoint.y * 100}%`;
             style_pre.objectPosition = `${objectFocalPoint.x * 100}% ${objectFocalPoint.y * 100}%`;
         }
@@ -56,7 +56,7 @@ export class LazyImage extends Component {
             style_orig.backgroundImage = "url('${image.org[0]}')";
             style_pre.backgroundImage = "url('${image.pre}')";
 
-            if (focalPoint) {
+            if (!!focalPoint) {
                 style_orig.backgroundPosition = `${focalPoint.x * 100}% ${focalPoint.y * 100}%`;
                 style_pre.backgroundPosition = `${focalPoint.x * 100}% ${focalPoint.y * 100}%`;
             }

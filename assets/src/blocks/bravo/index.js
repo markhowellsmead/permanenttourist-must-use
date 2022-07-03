@@ -96,11 +96,9 @@ registerBlockType('mhm/bravo', {
         let className = getBlockDefaultClassName('mhm/bravo');
         const classNameBase = getBlockDefaultClassName('mhm/bravo');
 
-        if (
-            !!attributes.image.id &&
-            parseInt(attributes.image.attributes.width) <
-                parseInt(attributes.image.attributes.height)
-        ) {
+        const { focalPoint, image, text, title } = attributes;
+
+        if (!!image.id && parseInt(image.attributes.width) < parseInt(image.attributes.height)) {
             className += ` ${className}--tall`;
         }
 
@@ -112,21 +110,21 @@ registerBlockType('mhm/bravo', {
                             <RichText.Content
                                 tagName='h2'
                                 className={`${classNameBase}__title`}
-                                value={attributes.title}
+                                value={title}
                             />
                         </header>
-                        {!!attributes.text && attributes.text !== '<p></p>' && (
+                        {!!text && text !== '<p></p>' && (
                             <RichText.Content
                                 tagName='div'
                                 className={`${classNameBase}__text`}
-                                value={attributes.text}
+                                value={text}
                             />
                         )}
                     </div>
-                    {attributes.image && attributes.image.id && (
+                    {image && image.id && (
                         <FigureWithImage
                             classNameBase={classNameBase}
-                            image={attributes.image}
+                            image={image}
                             focalPoint={focalPoint}
                             lazy={true}
                         />
