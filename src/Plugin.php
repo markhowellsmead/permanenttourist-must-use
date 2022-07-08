@@ -95,6 +95,7 @@ class Plugin
 				Block\YearsOnline::class,
 
 				Package\Archives::class,
+				Package\Assets::class,
 				// Package\CLI::class, // See file for comments about errors
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
