@@ -2,8 +2,6 @@
 
 namespace PT\MustUse\Pattern;
 
-use function \PT\MustUse\pt_must_use_get_instance;
-
 /**
  * Manage single block pattern
  *

@@ -2,7 +2,6 @@
 
 namespace PT\MustUse\Package;
 
-use function \PT\MustUse\pt_must_use_get_instance;
 use DOMDocument;
 use DOMXpath;
 

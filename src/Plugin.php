@@ -2,8 +2,6 @@
 
 namespace PT\MustUse;
 
-use function \PT\MustUse\pt_must_use_get_instance;
-
 class Plugin
 {
 	private static $instance;

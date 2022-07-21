@@ -10,8 +10,6 @@ Text Domain: pt-must-use
 Domain Path: languages
 */
 
-namespace PT\MustUse;
-
 /*
 	 * This lot auto-loads a class or trait just when you need it. You don't need to
 	 * use require, include or anything to get the class/trait files, as long
@@ -51,11 +49,16 @@ spl_autoload_register(function ($class) {
 	}
 });
 
-require_once 'src/Plugin.php';
+//require_once 'src/Plugin.php';
 
-function pt_must_use_get_instance()
-{
-	return Plugin::getInstance(__FILE__);
+/**
+ * Returns the Theme Instance
+ *
+ * @return Object Theme Object
+ */
+if (!function_exists('pt_must_use_get_instance')) {
+	function pt_must_use_get_instance()
+	{
+		return PT\MustUse\Plugin::getInstance(__FILE__);
+	}
 }
-
-pt_must_use_get_instance();
