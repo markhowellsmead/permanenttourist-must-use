@@ -62,3 +62,6 @@ if (!function_exists('pt_must_use_get_instance')) {
 		return PT\MustUse\Plugin::getInstance(__FILE__);
 	}
 }
+
+pt_must_use_get_instance();
+pt_must_use_get_instance()->run();
