@@ -74,4 +74,3 @@ if (!function_exists('pt_must_use_get_instance')) {
 }
 
 pt_must_use_get_instance();
-pt_must_use_get_instance()->run();

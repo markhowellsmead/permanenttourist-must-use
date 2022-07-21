@@ -70,7 +70,7 @@ class Plugin
 	 * Execution function which is called after the class has been initialized.
 	 * This contains hook and filter assignments, etc.
 	 */
-	public function run()
+	private function run()
 	{
 
 		$this->loadClasses(
