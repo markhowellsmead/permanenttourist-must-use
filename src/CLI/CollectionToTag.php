@@ -1,6 +1,6 @@
 <?php
 
-namespace SayHello\Theme\CLI;
+namespace PT\MustUse\CLI;
 
 use WP_CLI;
 use WP_CLI_Command;

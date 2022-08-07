@@ -94,7 +94,7 @@ class Plugin
 
 				Package\Archives::class,
 				Package\Assets::class,
-				// Package\CLI::class, // See file for comments about errors
+				// Package\CLI::class, // Only comment in when in use
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
