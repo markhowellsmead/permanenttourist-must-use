@@ -17,6 +17,7 @@
     "supports": {
         "align": true
     },
+    "usesContext": ["postId"],
     "editorStyle": "file:./dist/styles/edit.min.css",
     "style": "file:./dist/styles/view.min.css"
 }

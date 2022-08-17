@@ -21,7 +21,7 @@ class Block
 	public function renderBlock(array $attributes, string $content, WP_Block $block)
 	{
 		$html = '';
-		$video_ref = get_field('video_ref', get_the_ID());
+		$video_ref = get_field('video_ref', $block->context['postId']);
 		$align = $attributes['align'] ?? '';
 		$classNameBase = wp_get_block_default_classname($block->name);
 
@@ -44,12 +44,12 @@ class Block
 		<?php
 			$html = ob_get_contents();
 			ob_end_clean();
-		} elseif (has_post_thumbnail(get_the_ID())) {
+		} elseif (has_post_thumbnail($block->context['postId'])) {
 			ob_start();
 		?>
 			<div <?php echo get_block_wrapper_attributes(['class' => "with--post-thumbnail {$align}"]); ?>>
 				<figure class="<?php echo $classNameBase; ?>__figure">
-					<?php echo wp_get_attachment_image(get_post_thumbnail_id(get_the_ID()), 'full', false, ['class' => "{$classNameBase}__image"]); ?>
+					<?php echo wp_get_attachment_image(get_post_thumbnail_id($block->context['postId']), 'full', false, ['class' => "{$classNameBase}__image"]); ?>
 				</figure>
 			</div>
 		<?php
