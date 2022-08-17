@@ -3,8 +3,8 @@
     "apiVersion": 2,
     "name": "mhm/primary-media",
     "title": "Primary media",
-    "category": "text",
-    "icon": "star",
+    "category": "media",
+    "icon": "format-image",
     "description": "",
     "keywords": ["alert", "message"],
     "version": "0.0.1",
@@ -15,7 +15,8 @@
         }
     },
     "supports": {
-        "align": true
+        "align": ["wide", "full"],
+        "html": false
     },
     "usesContext": ["postId"],
     "editorStyle": "file:./dist/styles/edit.min.css",
