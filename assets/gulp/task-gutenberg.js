@@ -11,7 +11,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 export const task = config => {
     return (
         gulp
-            .src([`${config.assetsSrc}blocks/index.js`])
+            .src([`${config.assetsSrc}/blocks/index.js`])
             // Webpack
             .pipe(
                 gulpWebpack(
