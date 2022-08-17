@@ -44,8 +44,9 @@ class Gutenberg
 
 		$file = defined('WP_DEBUG') && WP_DEBUG ? 'blocks.js' : 'blocks.min.js';
 
-		$script_asset_path = "{$dir_path}assets/gutenberg/blocks.asset.php";
+		$script_asset_path = "{$dir_path}assets/dist/blocks/blocks.asset.php";
 		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $plugin_data['Version'] ?? '0'];
+
 		wp_enqueue_script(
 			'pt-must-use-gutenberg-script',
 			"{$dir_url}assets/dist/blocks/{$file}",
