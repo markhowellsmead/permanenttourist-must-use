@@ -7,7 +7,7 @@ const sass = require('gulp-sass')(require('sass'));
 
 export const task = config => {
     return (
-        src(config.blockStylesSrc + '/*.scss')
+        src([`${config.blockStylesSrc}/*.scss`, `!_${config.blockStylesSrc}/*.scss`])
             .pipe(
                 sass({
                     includePaths: ['./node_modules/'],
