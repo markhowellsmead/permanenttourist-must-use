@@ -3,7 +3,6 @@ import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { ToggleControl } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { withDispatch, withSelect } from '@wordpress/data';
-import { registerPlugin } from '@wordpress/plugins';
 
 // Page titles are never output directly
 const validPostTypes = ['post'];

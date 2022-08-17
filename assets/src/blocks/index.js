@@ -1,5 +1,5 @@
 import './block-styles';
-import './post-controls';
+// import './post-controls';
 import './variations';
 
 import './albums';
