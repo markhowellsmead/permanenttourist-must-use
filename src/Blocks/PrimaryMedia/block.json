@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "mhm/primary-media",
+    "title": "Primary media",
+    "category": "text",
+    "icon": "star",
+    "description": "",
+    "keywords": ["alert", "message"],
+    "version": "0.0.1",
+    "textdomain": "permanenttourist_must_use",
+    "attributes": {
+        "align": {
+            "type": "string"
+        }
+    },
+    "supports": {
+        "align": true
+    },
+    "editorStyle": "file:./dist/styles/edit.min.css",
+    "style": "file:./dist/styles/view.min.css"
+}

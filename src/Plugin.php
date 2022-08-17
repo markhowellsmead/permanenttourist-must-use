@@ -108,6 +108,8 @@ class Plugin
 				PostType\Feature::class,
 				PostType\Page::class,
 				PostType\Photo::class,
+
+				Blocks\PrimaryMedia\Block::class,
 			]
 		);
 

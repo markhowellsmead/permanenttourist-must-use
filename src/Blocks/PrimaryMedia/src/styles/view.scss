@@ -1,0 +1,19 @@
+.wp-block-mhm-primary-media {
+    //     border: 1rem solid red;
+
+    //     &__inner {
+    //         border: 1rem solid green;
+    //     }
+
+    &__videoplayer {
+        width: 100%;
+        aspect-ratio: 16/9;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+    }
+}
