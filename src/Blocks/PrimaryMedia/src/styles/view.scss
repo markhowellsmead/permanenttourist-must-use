@@ -1,9 +1,17 @@
 .wp-block-mhm-primary-media {
-    //     border: 1rem solid red;
+    > * {
+        margin-block-start: 0;
+        margin-block-end: 0;
 
-    //     &__inner {
-    //         border: 1rem solid green;
-    //     }
+        & + * {
+            margin-block-start: var(--wp--style--block-gap);
+        }
+    }
+
+    &__figure {
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+    }
 
     &__videoplayer {
         width: 100%;
