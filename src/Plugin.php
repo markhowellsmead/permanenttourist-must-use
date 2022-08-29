@@ -100,6 +100,7 @@ class Plugin
 				Package\LoginScreen::class,
 				Package\Media::class,
 				Package\Navigation::class,
+				Package\Shortcodes::class,
 
 				Pattern\HeaderMediaText::class,
 
