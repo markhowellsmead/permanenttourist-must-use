@@ -16,14 +16,17 @@ const config = {
 };
 
 import { task as taskGutenberg } from './assets/gulp/task-gutenberg';
+import { task as taskStyles } from './assets/gulp/task-styles';
 import { task as taskBlockStyles } from './assets/gulp/task-block-styles';
 
 export const block_styles = () => taskBlockStyles(config);
 export const gutenberg = () => taskGutenberg(config);
+export const styles = () => taskStyles(config);
 
 export const watch = () => {
     const settings = { usePolling: true, interval: 100 };
     gulp.watch(`${config.assetsSrc}/**/*.{js,jsx}`, settings, gulp.series(gutenberg));
+    gulp.watch(`${config.assetsSrc}/styles/**/*.scss`, settings, gulp.series(styles));
     gulp.watch(`${config.blockStylesSrc}/*.{scss,css,js}`, settings, gulp.series(block_styles));
 };
 

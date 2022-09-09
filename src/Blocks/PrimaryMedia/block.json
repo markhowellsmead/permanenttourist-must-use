@@ -1,7 +1,7 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 2,
-    "name": "mhm/primary-media",
+    "name": "sht/primary-media",
     "title": "Primary media",
     "category": "media",
     "icon": "format-image",

@@ -97,6 +97,7 @@ class Plugin
 				// Package\CLI::class, // Only comment in when in use
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
+				Package\Lazysizes::class,
 				Package\LoginScreen::class,
 				Package\Media::class,
 				Package\Navigation::class,
@@ -110,7 +111,10 @@ class Plugin
 				PostType\Page::class,
 				PostType\Photo::class,
 
-				Blocks\PrimaryMedia\Block::class,
+				// Blocks\PrimaryMedia\Block::class,
+
+				// Vendor\Lazyimage::class,
+
 			]
 		);
 
