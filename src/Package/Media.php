@@ -141,8 +141,12 @@ class Media
 			return '';
 		}
 
-		$aPath = parse_url($atts['url']);
+		$aPath = parse_url(trim($atts['url']));
 		$aPath['host'] = str_replace('www.', '', $aPath['host']);
+
+		if (empty($aPath['host'] ?? '') || empty($aPath['path'] ?? '')) {
+			return '';
+		}
 
 		switch ($aPath['host']) {
 			case 'youtu.be':
