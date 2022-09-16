@@ -1,5 +1,7 @@
 .wp-block-sht-primary-media {
-    padding-top: 7vh;
+    body.single & {
+        padding-top: 7vh;
+    }
 
     &__figure {
         position: relative;

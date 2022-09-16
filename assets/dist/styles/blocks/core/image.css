@@ -1,4 +1,4 @@
-.wp-block-image img {
-  max-width: 100%;
+.wp-block-image.alignfull img {
+  border-radius: 0;
 }
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJsb2Nrcy9jb3JlL2ltYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0k7RUFDSSIsImZpbGUiOiJibG9ja3MvY29yZS9pbWFnZS5jc3MifQ== */
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJsb2Nrcy9jb3JlL2ltYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRVE7RUFDSSIsImZpbGUiOiJibG9ja3MvY29yZS9pbWFnZS5jc3MifQ== */
