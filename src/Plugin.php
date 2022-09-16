@@ -85,6 +85,7 @@ class Plugin
 				Block\PhotosByAlbum::class,
 				Block\PhotosByCollection::class,
 				Block\PhotosByViewpoint::class,
+				Block\PrimaryMedia::class,
 				Block\PublicationDate::class,
 				Block\Subpages::class,
 				Block\ViewpointAncestors::class,
