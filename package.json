@@ -35,6 +35,7 @@
         "@babel/preset-react": "^7.18.6",
         "@babel/register": "^7.18.9",
         "@wordpress/dependency-extraction-webpack-plugin": "^3.7.0",
+        "@wordpress/icons": "^9.8.0",
         "babel-loader": "^8.2.5",
         "classnames": "^2.3.1",
         "fs": "^0.0.1-security",
