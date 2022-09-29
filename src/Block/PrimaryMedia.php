@@ -30,7 +30,7 @@ class PrimaryMedia
 	public function renderBlock($attributes, $content, $block)
 	{
 
-		if ((bool)get_field('hide_thumbnail')) {
+		if (is_singular('post') && (bool) get_field('hide_thumbnail')) {
 			return '';
 		}
 
@@ -38,7 +38,7 @@ class PrimaryMedia
 
 		$post_id = get_the_ID();
 		$classNameBase = wp_get_block_default_classname($block->name);
-		$align = $args['attributes']['align'] ?? '';
+		$align = $attributes['align'] ?? '';
 
 		$media_size = 'medium';
 		switch ($align) {
