@@ -1,0 +1,7 @@
+.wp-block-post-template {
+    .wp-block-sht-primary-media__figure {
+        .category-video & {
+            aspect-ratio: 16/9;
+        }
+    }
+}

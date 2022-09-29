@@ -1,0 +1,7 @@
+.wp-block-group.has-background:not(.alignfull) {
+  border-radius: var(--image-border-radius);
+}
+.wp-block-group.is-content-alignment-stretch {
+  align-items: stretch;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJsb2Nrcy9jb3JlL2dyb3VwLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0k7RUFDSTs7QUFHSjtFQUNJIiwiZmlsZSI6ImJsb2Nrcy9jb3JlL2dyb3VwLmNzcyJ9 */

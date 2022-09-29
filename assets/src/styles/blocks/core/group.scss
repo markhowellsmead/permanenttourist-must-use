@@ -1,0 +1,9 @@
+.wp-block-group {
+    &.has-background:not(.alignfull) {
+        border-radius: var(--image-border-radius);
+    }
+
+    &.is-content-alignment-stretch {
+        align-items: stretch;
+    }
+}
