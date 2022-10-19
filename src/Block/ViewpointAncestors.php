@@ -29,7 +29,7 @@ class ViewpointAncestors
 		}
 
 		ob_start();
-		sht_theme()->getTemplatePart('partials/block/viewpoint-ancestors', [
+		get_template_part('partials/block/viewpoint-ancestors', null, [
 			'attributes' => $attributes,
 			'posts' => get_posts([
 				'post_type' => 'mhm-viewpoint',

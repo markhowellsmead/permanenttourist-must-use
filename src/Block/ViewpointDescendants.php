@@ -44,7 +44,7 @@ class ViewpointDescendants
 
 		ob_start();
 
-		sht_theme()->getTemplatePart('partials/block/viewpoint-descendants', [
+		get_template_part('partials/block/viewpoint-descendants', null, [
 			'attributes' => $attributes,
 			'posts' => get_posts([
 				'post_type' => 'mhm-viewpoint',

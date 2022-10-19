@@ -37,7 +37,7 @@ class PhotosByViewpoint
 				'description' => __('An image gallery containing photos from a viewpoint.', 'Block description', 'sha'),
 				'render_callback' => function ($block, $content = '', $is_preview = false) {
 					$block['is_preview'] = $is_preview;
-					sht_theme()->getTemplatePart('partials/block/photos-by-viewpoint', $block);
+					get_template_part('partials/block/photos-by-viewpoint', null, $block);
 				},
 			]);
 		}

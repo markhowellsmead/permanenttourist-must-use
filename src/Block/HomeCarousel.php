@@ -31,7 +31,7 @@ class HomeCarousel
 				'description' => __('An image carousel featuring selected, optionally linked images.', 'Block description', 'sha'),
 				'render_callback' => function ($block, $content = '', $is_preview = false) {
 					$block['entries'] = get_field('entries');
-					sht_theme()->getTemplatePart('partials/block/home-carousel', $block);
+					get_template_part('partials/block/home-carousel', null, $block);
 				},
 			]);
 		}

@@ -41,7 +41,7 @@ class ViewpointCards
 		}
 
 		ob_start();
-		sht_theme()->getTemplatePart('partials/block/viewpoint-cards', [
+		get_template_part('partials/block/viewpoint-cards', null, [
 			'attributes' => $attributes,
 			'posts' => $posts
 		]);

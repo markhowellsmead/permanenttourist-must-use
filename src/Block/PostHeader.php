@@ -39,7 +39,7 @@ class PostHeader
 	public function renderBlock($attributes)
 	{
 		ob_start();
-		sht_theme()->getTemplatePart('partials/block/post-header', [
+		get_template_part('partials/block/post-header', null, [
 			'attributes' => $attributes
 		]);
 		$html = ob_get_contents();
