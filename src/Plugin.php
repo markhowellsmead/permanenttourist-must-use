@@ -87,6 +87,7 @@ class Plugin
 				Block\PhotosByViewpoint::class,
 				Block\PrimaryMedia::class,
 				Block\PublicationDate::class,
+				Block\SeriesLink::class,
 				Block\Subpages::class,
 				Block\ViewpointAncestors::class,
 				Block\ViewpointCards::class,

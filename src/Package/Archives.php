@@ -24,10 +24,22 @@ class Archives
 			);
 			$title = ' ' . $original_title;
 		} elseif (is_tag()) {
-			$prefix = sprintf(
-				'<span class="c-archive__titleprefix">%s</span>',
-				_x('Posts about', 'Archive title post tag', 'sht')
-			);
+
+			$term_id = get_queried_object_id();
+			$tag_is_series = (bool) get_field('tag_is_series', "term_{$term_id}");
+
+			if ($tag_is_series) {
+				$prefix = sprintf(
+					'<span class="c-archive__titleprefix">%s</span>',
+					_x('Post series', 'Archive title post tag', 'sht')
+				);
+			} else {
+				$prefix = sprintf(
+					'<span class="c-archive__titleprefix">%s</span>',
+					_x('Posts about', 'Archive title post tag', 'sht')
+				);
+			}
+
 			$title = ' ' . $original_title;
 		} elseif (is_author()) {
 			$prefix = sprintf(

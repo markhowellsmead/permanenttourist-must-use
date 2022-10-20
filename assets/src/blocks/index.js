@@ -16,6 +16,7 @@ import './primary-media';
 import './project-grid';
 import './project-header';
 import './publication-date';
+import './series-link';
 import './shb-video-bar';
 import './subpages';
 import './viewpoint-ancestors';
