@@ -15,15 +15,14 @@ registerBlockType(blockName, {
     icon,
     category: 'common',
     supports: {
-        align: ['wide', 'full'],
+        align: ['center', 'wide', 'full'],
         mode: false,
         html: false,
         multiple: true,
         reusable: true,
         inserter: true,
         typography: {
-            background: true,
-            color: true,
+            align: true,
             fontSize: true,
         },
     },

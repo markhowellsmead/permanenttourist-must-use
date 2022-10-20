@@ -64,8 +64,6 @@ class SeriesLink
 				);
 			}
 
-			dump($links, 1, 1);
-
 			$content = sprintf(
 				'<div class="%s__entries">%s</div>',
 				$classNameBase,
