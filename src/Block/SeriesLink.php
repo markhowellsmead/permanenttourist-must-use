@@ -65,8 +65,9 @@ class SeriesLink
 			}
 
 			$content = sprintf(
-				'<div class="%s__entries">%s</div>',
+				'<div class="%s__entries">%s %s</div>',
 				$classNameBase,
+				_x('From the series', '', 'permanenttourst-must-use'),
 				implode(', ', $links)
 			);
 		} else {
