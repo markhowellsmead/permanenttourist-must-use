@@ -123,6 +123,7 @@ class Plugin
 		add_action('init', [$this, 'registerPostMeta']);
 		add_action('comment_form_before', [$this, 'enqueueReplyScript']);
 		add_action('wp_head', [$this, 'noJsScript']);
+		add_action('wp_head', [$this, 'mastodonValidation']);
 	}
 
 	public function registerPostMeta()
@@ -155,5 +156,10 @@ class Plugin
 		if (is_singular() && get_option('thread_comments')) {
 			wp_enqueue_script('comment-reply');
 		}
+	}
+
+	public function mastodonValidation()
+	{
+		echo '<a rel="me" href="https://swiss.social/@permanenttourist">Mastodon</a>';
 	}
 }
