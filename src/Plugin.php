@@ -160,6 +160,6 @@ class Plugin
 
 	public function mastodonValidation()
 	{
-		echo '<a rel="me" href="https://swiss.social/@permanenttourist">Mastodon</a>';
+		echo '<link rel="me" href="https://swiss.social/@permanenttourist">';
 	}
 }
