@@ -1,6 +1,6 @@
 <?php
 
-namespace PT\MustUse\Block;
+namespace PT\MustUse\Plugin;
 
 /**
  * GitInstaller
