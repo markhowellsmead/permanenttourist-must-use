@@ -107,6 +107,8 @@ class Plugin
 
 				Pattern\HeaderMediaText::class,
 
+				Plugin\GitInstaller::class,
+
 				PostType\BlockArea::class,
 				PostType\Destination::class,
 				PostType\Feature::class,
