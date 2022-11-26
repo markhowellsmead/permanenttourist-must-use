@@ -1,6 +1,7 @@
 import './block-styles';
 // import './post-controls';
 import './variations';
+import './stores';
 
 import './albums';
 import './blog-cards';
@@ -10,6 +11,7 @@ import './count-posts';
 import './footnotes';
 import './image';
 import './language-excerpt';
+import './menu';
 import './post-excerpt';
 import './post-header';
 import './primary-media';
