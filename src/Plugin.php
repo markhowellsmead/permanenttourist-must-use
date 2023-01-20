@@ -81,6 +81,7 @@ class Plugin
 				Block\CountPhotos::class,
 				Block\HomeCarousel::class,
 				Block\ImageGallery::class,
+				Block\Menu::class,
 				Block\PostHeader::class,
 				Block\PhotosByAlbum::class,
 				Block\PhotosByCollection::class,
