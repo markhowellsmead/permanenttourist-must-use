@@ -20,6 +20,9 @@ class Menu
 		register_block_type('sht/menu', [
 			'render_callback' => [$this, 'renderBlock'],
 			'attributes' => [
+				'align' => [
+					'type'  => 'string',
+				],
 				'menu' => [
 					'type'  => 'string',
 				],
