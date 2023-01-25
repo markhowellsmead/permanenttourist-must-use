@@ -89,8 +89,8 @@ class PrimaryMedia
 			}
 		}
 
-		if (empty($content)) {
-			return;
+		if (!is_singular('post') && empty($content)) {
+			return sprintf('<div aria-hidden class="%1$s__figure %1$s__figure--empty"><a href="%2$s">%3$s</a></div>', $classNameBase, get_the_permalink($post_id), get_the_title($post_id));
 		}
 
 		if (!empty($align)) {
