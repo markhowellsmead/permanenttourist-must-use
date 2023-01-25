@@ -68,4 +68,9 @@ domReady(() => {
         name: 'large',
         label: 'Large',
     });
+
+    registerBlockStyle('core/image', {
+        name: 'webcam',
+        label: 'Webcam (3x2)',
+    });
 });
