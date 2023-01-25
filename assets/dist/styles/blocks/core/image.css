@@ -1,4 +1,17 @@
 .wp-block-image.alignfull img {
   border-radius: 0;
 }
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJsb2Nrcy9jb3JlL2ltYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRVE7RUFDSSIsImZpbGUiOiJibG9ja3MvY29yZS9pbWFnZS5jc3MifQ== */
+.wp-block-image.is-style-webcam {
+  overflow: hidden;
+}
+.wp-block-image.is-style-webcam > a {
+  display: block;
+}
+.wp-block-image.is-style-webcam img {
+  aspect-ratio: 3/2;
+}
+.wp-block-image .components-resizable-box__container,
+.wp-block-image img {
+  max-width: 100%;
+}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJsb2Nrcy9jb3JlL2ltYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRVE7RUFDSTs7QUFJUjtFQUNJOztBQUVBO0VBQ0k7O0FBR0o7RUFDSTs7QUFJUjtBQUFBO0VBRUkiLCJmaWxlIjoiYmxvY2tzL2NvcmUvaW1hZ2UuY3NzIn0= */
