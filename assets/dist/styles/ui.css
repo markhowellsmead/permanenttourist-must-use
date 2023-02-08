@@ -145,7 +145,8 @@ body.single .wp-block-sht-primary-media {
 .wp-block-sht-primary-media__figure > a {
   display: block;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .wp-block-sht-primary-media__figure--video {
   aspect-ratio: 16/9;
@@ -164,7 +165,8 @@ body.single .wp-block-sht-primary-media {
 }
 .wp-block-post .wp-block-sht-primary-media__image {
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .wp-block-sht-primary-media iframe {
   position: absolute;
