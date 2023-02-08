@@ -81,10 +81,13 @@ class PrimaryMedia
 			$image = wp_get_attachment_image(get_post_thumbnail_id($post_id), $media_size, false, ['class' => "{$classNameBase}__image"]);
 
 			if (!empty($image)) {
-				if (is_singular('post') || is_singular('page')) {
+
+				// Weirdness when placing this block in a post list on a page
+				// This ensures the correct link being set
+				if (is_singular(get_post_type(get_the_ID()))) {
 					$content = sprintf('<figure class="%1$s__figure %1$s__figure--%2$s">%3$s</figure>', $classNameBase, $media_size, $image);
 				} else {
-					$content = sprintf('<figure class="%1$s__figure %1$s__figure--%2$s"><a href="%4$s">%3$s</a></figure>', $classNameBase, $media_size, $image, get_the_permalink($post_id));
+					$content = sprintf('<figure class="%1$s__figure %1$s__figure--%2$s"><a href="%4$s" title="%5$s">%3$s</a></figure>', $classNameBase, $media_size, $image, get_the_permalink($post_id), 'Article: ' . get_the_title($post_id));
 				}
 			}
 		}
