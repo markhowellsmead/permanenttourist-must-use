@@ -20,5 +20,6 @@
     },
     "usesContext": ["postId"],
     "editorScript": "file:./dist/scripts/editor.js",
+    "style": "file:./dist/styles/view.min.css",
     "render": "file:./render.php"
 }

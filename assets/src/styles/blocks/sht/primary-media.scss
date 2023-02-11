@@ -12,6 +12,12 @@
         }
     }
 
+    &--empty {
+        aspect-ratio: 3/2;
+        background-color: var(--wp--preset--color--white);
+        //opacity: 0.5;
+    }
+
     &__figure {
         position: relative;
         border-radius: 8px;
