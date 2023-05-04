@@ -1,0 +1,25 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "sht/post-series-list",
+    "title": "Post Series List",
+    "category": "widgets",
+    "icon": "format-image",
+    "description": "",
+    "keywords": [],
+    "version": "0.0.1",
+    "textdomain": "permanenttourist_must_use",
+    "attributes": {
+        "align": {
+            "type": "string"
+        }
+    },
+    "supports": {
+        "align": ["wide", "full"],
+        "html": false
+    },
+    "usesContext": ["postId"],
+    "editorScript": "file:./dist/scripts/editor.js",
+    "style": "file:./dist/styles/view.min.css",
+    "render": "file:./render.php"
+}

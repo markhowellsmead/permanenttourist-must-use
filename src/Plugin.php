@@ -116,6 +116,7 @@ class Plugin
 				PostType\Photo::class,
 
 				// Blocks\PrimaryMedia\Block::class,
+				Blocks\PostSeriesList\Block::class,
 
 			]
 		);
