@@ -22,11 +22,11 @@
         ]
     },
     "browserslist": [
-        "> 1%"
+        "> 2%"
     ],
     "engines": {
-        "node": "v16.13.2",
-        "npm": "8.13.2"
+        "node": "v18.14.2",
+        "npm": "9.6.5"
     },
     "dependencies": {
         "@babel/core": "^7.18.9",
