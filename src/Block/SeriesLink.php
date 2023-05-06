@@ -20,7 +20,7 @@ class SeriesLink
 		register_block_type('sht/series-link', [
 			'render_callback' => [$this, 'renderBlock'],
 			'attributes' => [
-				'align' => [
+				'textAlignment' => [
 					'type'  => 'string',
 				],
 			],
@@ -50,6 +50,7 @@ class SeriesLink
 		ob_start();
 
 		$classNameBase = wp_get_block_default_classname($block->name);
+		$alignmentClass = !empty($attributes['textAlignment'] ?? '') ? " has-text-align-{$attributes['textAlignment']}" : '';
 
 		$content = '';
 
@@ -83,15 +84,9 @@ class SeriesLink
 		if (empty($content)) {
 			return '';
 		}
-
-		$align = $attributes['align'] ?? '';
-
-		if (!empty($align)) {
-			$align = " align{$align}";
-		}
 ?>
 
-		<div class="<?php echo $classNameBase . $align; ?>">
+		<div class="<?php echo $classNameBase . $alignmentClass; ?>">
 			<?php echo $content; ?>
 		</div>
 <?php
