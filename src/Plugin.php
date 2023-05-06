@@ -94,6 +94,7 @@ class Plugin
 				Block\ViewpointDescendants::class,
 				Block\YearsOnline::class,
 
+				Package\Admin::class,
 				Package\Archives::class,
 				Package\Assets::class,
 				Package\AttachmentGeoMetadata::class,
