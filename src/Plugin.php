@@ -98,6 +98,7 @@ class Plugin
 				Package\Assets::class,
 				Package\AttachmentGeoMetadata::class,
 				// Package\CLI::class, // Only comment in when in use
+				Package\Flickr::class,
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
