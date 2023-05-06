@@ -96,6 +96,7 @@ class Plugin
 
 				Package\Archives::class,
 				Package\Assets::class,
+				Package\AttachmentGeoMetadata::class,
 				// Package\CLI::class, // Only comment in when in use
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
