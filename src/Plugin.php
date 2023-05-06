@@ -102,6 +102,7 @@ class Plugin
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
+				//Package\MapFromMeta::class,
 				Package\Media::class,
 				//Package\PostMap::class,
 				Package\Navigation::class,
