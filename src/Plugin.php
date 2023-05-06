@@ -86,7 +86,6 @@ class Plugin
 				Block\PhotosByAlbum::class,
 				Block\PhotosByCollection::class,
 				Block\PhotosByViewpoint::class,
-				Block\PrimaryMedia::class,
 				Block\PublicationDate::class,
 				Block\SeriesLink::class,
 				Block\Subpages::class,
@@ -97,13 +96,19 @@ class Plugin
 
 				Package\Archives::class,
 				Package\Assets::class,
+				Package\AttachmentGeoMetadata::class,
 				// Package\CLI::class, // Only comment in when in use
+				Package\Flickr::class,
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
+				//Package\MapFromMeta::class,
 				Package\Media::class,
+				//Package\PostMap::class,
 				Package\Navigation::class,
 				Package\Shortcodes::class,
+				// Package\TrackUnregisteredMedia::class,
+				Package\UpdatePostWithExifData::class,
 
 				Pattern\HeaderMediaText::class,
 
@@ -113,10 +118,11 @@ class Plugin
 				PostType\Destination::class,
 				PostType\Feature::class,
 				PostType\Page::class,
-				PostType\Photo::class,
+				//PostType\Photo::class,
+				//PostType\Viewpoints::class,
 
-				// Blocks\PrimaryMedia\Block::class,
-				Blocks\PostSeriesList\Block::class,
+				Blocks\PrimaryMedia\Block::class,
+				// Blocks\PostSeriesList\Block::class,
 
 			]
 		);
