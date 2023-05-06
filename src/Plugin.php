@@ -108,6 +108,7 @@ class Plugin
 				Package\Navigation::class,
 				Package\Shortcodes::class,
 				// Package\TrackUnregisteredMedia::class,
+				Package\UpdatePostWithExifData::class,
 
 				Pattern\HeaderMediaText::class,
 
