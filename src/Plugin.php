@@ -101,6 +101,7 @@ class Plugin
 				Package\Footnotes::class,
 				Package\LoginScreen::class,
 				Package\Media::class,
+				//Package\PostMap::class,
 				Package\Navigation::class,
 				Package\Shortcodes::class,
 				// Package\TrackUnregisteredMedia::class,
