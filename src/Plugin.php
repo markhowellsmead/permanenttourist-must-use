@@ -86,7 +86,6 @@ class Plugin
 				Block\PhotosByAlbum::class,
 				Block\PhotosByCollection::class,
 				Block\PhotosByViewpoint::class,
-				Block\PrimaryMedia::class,
 				Block\PublicationDate::class,
 				Block\SeriesLink::class,
 				Block\Subpages::class,
@@ -115,8 +114,8 @@ class Plugin
 				PostType\Page::class,
 				PostType\Photo::class,
 
-				// Blocks\PrimaryMedia\Block::class,
-				Blocks\PostSeriesList\Block::class,
+				Blocks\PrimaryMedia\Block::class,
+				// Blocks\PostSeriesList\Block::class,
 
 			]
 		);

@@ -6,8 +6,7 @@
     "category": "media",
     "icon": "format-image",
     "description": "",
-    "keywords": ["alert", "message"],
-    "version": "0.0.1",
+    "keywords": ["image", "featured-image"],
     "textdomain": "permanenttourist_must_use",
     "attributes": {
         "align": {
@@ -20,5 +19,7 @@
     },
     "usesContext": ["postId"],
     "editorStyle": "file:./dist/styles/edit.min.css",
-    "style": "file:./dist/styles/view.min.css"
+    "editorScript": "file:./dist/scripts/editor.js",
+    "style": "file:./dist/styles/view.min.css",
+    "render": "file:./render.php"
 }

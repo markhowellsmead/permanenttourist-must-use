@@ -14,7 +14,6 @@ import './language-excerpt';
 import './menu';
 import './post-excerpt';
 import './post-header';
-import './primary-media';
 import './project-grid';
 import './project-header';
 import './publication-date';
