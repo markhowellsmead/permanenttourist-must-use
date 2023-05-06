@@ -103,6 +103,7 @@ class Plugin
 				Package\Media::class,
 				Package\Navigation::class,
 				Package\Shortcodes::class,
+				// Package\TrackUnregisteredMedia::class,
 
 				Pattern\HeaderMediaText::class,
 
