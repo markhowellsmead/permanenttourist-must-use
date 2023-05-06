@@ -114,6 +114,7 @@ class Plugin
 				PostType\Feature::class,
 				PostType\Page::class,
 				PostType\Photo::class,
+				//PostType\Viewpoints::class,
 
 				Blocks\PrimaryMedia\Block::class,
 				// Blocks\PostSeriesList\Block::class,
