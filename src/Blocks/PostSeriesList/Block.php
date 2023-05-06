@@ -1,6 +1,6 @@
 <?php
 
-namespace PT\MustUse\Blocks\PrimaryMedia;
+namespace PT\MustUse\Blocks\PostSeriesList;
 
 class Block
 {

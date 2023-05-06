@@ -1,0 +1,1 @@
+(()=>{"use strict";const e=window.wp.blocks,t=window.wp.blockEditor,r=(window.wp.i18n,JSON.parse('{"name":"sht/primary-media"}')),{name:n}=r;(0,e.registerBlockType)(n,{edit:()=>{const e=(0,t.useBlockProps)();return React.createElement("div",e,React.createElement("p",null,"This block currently has no preview."))}})})();

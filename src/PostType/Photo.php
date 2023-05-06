@@ -2,6 +2,8 @@
 
 namespace PT\MustUse\PostType;
 
+use stdClass;
+
 /**
  * Photo post type
  *
@@ -12,11 +14,20 @@ class Photo
 
 	public function run()
 	{
-		// add_action('init', [$this, 'registerPostType']);
-		// add_action('init', [$this, 'addCapabilities']);
+		add_action('init', [$this, 'registerPostType']);
+		add_action('init', array($this, 'registerCustomTaxonomies'), 0);
+		add_action('init', [$this, 'addCapabilities']);
 		add_filter('get_the_archive_title', [$this, 'changeTheTitle'], 30);
 		add_action('pre_get_posts', [$this, 'postsPerAlbumPage']);
+		add_action('pre_get_posts', array($this, 'postsPerPage'), 10, 1);
+		add_shortcode('pt-photo', array($this, 'shortcode'), 10, 1);
 		add_shortcode('photo_post_id', [$this, 'shortcodePostID'], 10, 0);
+
+		add_filter('permanenttourist-v10/post_meta_information', array($this, 'postThumbnailMeta'), 10, 2);
+		add_filter('sherborne_road/post_meta_information', array($this, 'postThumbnailMeta'), 10, 2);
+		add_action('mhm-attachment-from-ftp-publish/post_created', array($this, 'changePostSlug'), 10, 1);
+		//add_action('wp_enqueue_scripts', array( $this, 'addScripts' ));
+		add_action('init', array($this, 'restFeaturedImage'), 12);
 	}
 
 	public function changeTheTitle($title)
@@ -113,20 +124,346 @@ class Photo
 	public function addCapabilities()
 	{
 		$admin = get_role('administrator');
-		$admin->remove_cap('edit_others_photo');
-		$admin->remove_cap('edit_others_photos');
-		$admin->add_cap('edit_photo');
-		$admin->add_cap('delete_photo');
+
 		$admin->add_cap('read_photo');
-		$admin->add_cap('publish_photo');
+		$admin->add_cap('edit_photo');
+		$admin->add_cap('read_photo');
+		$admin->add_cap('delete_photo');
 		$admin->add_cap('edit_photos');
-		$admin->add_cap('delete_photos');
-		$admin->add_cap('read_photos');
+		$admin->add_cap('edit_others_photos');
 		$admin->add_cap('publish_photos');
+		$admin->add_cap('read_private_photos');
+		$admin->add_cap('delete_photos');
+		$admin->add_cap('delete_private_photos');
+		$admin->add_cap('delete_published_photos');
+		$admin->add_cap('delete_others_photos');
+		$admin->add_cap('edit_private_photos');
+		$admin->add_cap('edit_published_photos');
 	}
 
 	public function shortcodePostID()
 	{
 		return get_the_ID();
+	}
+
+
+	/**
+	 * Converts a float value to a fraction value.
+	 *
+	 * @param float $n         The float value to be converted
+	 * @param float $tolerance Rounding. Default six places.
+	 *
+	 * @return string The calculated fraction
+	 */
+	public function float2rat($n, $tolerance = 1.e-6)
+	{
+		$h1 = 1;
+		$h2 = 0;
+		$k1 = 0;
+		$k2 = 1;
+		$b  = 1 / $n;
+		do {
+			$b   = 1 / $b;
+			$a   = floor($b);
+			$aux = $h1;
+			$h1  = $a * $h1 + $h2;
+			$h2  = $aux;
+			$aux = $k1;
+			$k1  = $a * $k1 + $k2;
+			$k2  = $aux;
+			$b   = $b - $a;
+		} while (abs($n - $h1 / $k1) > $n * $tolerance);
+
+		return "$h1/$k1";
+	}
+
+	//////////////////////////////////////////////////
+
+	public function registerCustomTaxonomies()
+	{
+		register_taxonomy(
+			'collection',
+			['post', 'photo'],
+			[
+				'labels'            => [
+					'name'              => _x('Collections', 'taxonomy general name'),
+					'singular_name'     => _x('Collection', 'taxonomy singular name'),
+					'search_items'      => __('Search Collections'),
+					'all_items'         => __('All Collections'),
+					'parent_item'       => __('Parent Collection'),
+					'parent_item_colon' => __('Parent Collection:'),
+					'edit_item'         => __('Edit Collection'),
+					'update_item'       => __('Update Collection'),
+					'add_new_item'      => __('Add New Collection'),
+					'new_item_name'     => __('New Collection Name'),
+					'menu_name'         => __('Collection'),
+				],
+				'hierarchical'      => false,
+				'show_ui'           => true,
+				'show_in_rest'      => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array('slug' => 'collection'),
+			]
+		);
+
+		register_taxonomy(
+			'place',
+			['post', 'photo'],
+			[
+				'labels'            => [
+					'name'              => _x('Places', 'taxonomy general name'),
+					'singular_name'     => _x('Place', 'taxonomy singular name'),
+					'search_items'      => __('Search Places'),
+					'all_items'         => __('All Places'),
+					'parent_item'       => __('Parent Place'),
+					'parent_item_colon' => __('Parent Place:'),
+					'edit_item'         => __('Edit Place'),
+					'update_item'       => __('Update Place'),
+					'add_new_item'      => __('Add New Place'),
+					'new_item_name'     => __('New Place Name'),
+					'menu_name'         => __('Place'),
+				],
+				'hierarchical'      => true,
+				'show_ui'           => true,
+				'show_in_rest'      => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array('slug' => 'place'),
+			]
+		);
+
+		register_taxonomy(
+			'album',
+			['photo', 'post'],
+			[
+				'labels'            => [
+					'name'              => _x('Albums', 'taxonomy general name'),
+					'singular_name'     => _x('Album', 'taxonomy singular name'),
+					'search_items'      => __('Search Albums'),
+					'all_items'         => __('All Albums'),
+					'parent_item'       => __('Parent Album'),
+					'parent_item_colon' => __('Parent Album:'),
+					'edit_item'         => __('Edit Album'),
+					'update_item'       => __('Update Album'),
+					'add_new_item'      => __('Add New Album'),
+					'new_item_name'     => __('New Album Name'),
+					'menu_name'         => __('Album'),
+				],
+				'hierarchical'      => false,
+				'show_ui'           => true,
+				'show_in_rest'      => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array('slug' => 'albums'),
+			]
+		);
+	}
+
+	public function postsPerPage($query)
+	{
+		if (!is_admin() && (is_post_type_archive($this->post_type) || is_tax('album') || is_tax('collection') || is_tax('place'))) {
+			$query->set('posts_per_page', '40');
+		}
+	}
+
+	public function postThumbnailMeta($content_meta_array, $post)
+	{
+		$thumbnailID = get_post_thumbnail_id($post->ID);
+		$meta        = wp_get_attachment_metadata($thumbnailID);
+
+		unset($content_meta_array['publishdate']);
+
+		if ($meta && is_array($meta['image_meta'])) {
+			// Date taken
+			if (isset($meta['image_meta']['created_timestamp']) && intval($meta['image_meta']['created_timestamp']) !== 0) {
+				$content_meta_array['created'] = array(
+					'type'    => 'date-taken',
+					'content' => sprintf(
+						'Photographed on %1$s',
+						date('j\<\s\u\p\>S\<\/\s\u\p\> F Y', $meta['image_meta']['created_timestamp'])
+					),
+				);
+			}
+
+			// Exposure
+			if (
+				isset($meta['image_meta']['shutter_speed']) &&
+				floatval($meta['image_meta']['shutter_speed']) > 0 &&
+				isset($meta['image_meta']['aperture']) &&
+				floatval($meta['image_meta']['aperture']) > 0 &&
+				isset($meta['image_meta']['iso']) &&
+				floatval($meta['image_meta']['iso']) > 0
+			) {
+				if ($meta['image_meta']['shutter_speed'] > 1) {
+					$shutter_speed = $meta['image_meta']['shutter_speed'];
+				} else {
+					$shutter_speed = $this->float2rat(floatval($meta['image_meta']['shutter_speed']));
+				}
+
+				$content_meta_array['exposure'] = array(
+					'type'    => 'exif',
+					'content' => sprintf(
+						'Exposure: %1$ss @ %2$s, ISO %3$s',
+						$shutter_speed,
+						'f' . $meta['image_meta']['aperture'],
+						$meta['image_meta']['iso']
+					),
+				);
+			}
+
+			// Camera
+			if (isset($meta['image_meta']['camera']) && !empty($meta['image_meta']['camera'])) {
+				$content_meta_array['camera'] = array(
+					'type'    => 'equipment',
+					'content' => sprintf(
+						'Camera: %1$s',
+						$meta['image_meta']['camera']
+					),
+				);
+			}
+
+			// Credit and copyright
+			if (isset($meta['image_meta']['copyright']) && !empty($meta['image_meta']['copyright'])) {
+				$content_meta_array['credit'] = array(
+					'type'    => 'equipment',
+					'content' => sprintf(
+						'Copyright %1$s',
+						$meta['image_meta']['copyright']
+					),
+				);
+			}
+		}
+
+		return $content_meta_array;
+	}
+
+	/**
+	 * Change the post slug (post_name) to the ID of the Post for this post type.
+	 */
+	public function changePostSlug($post_id)
+	{
+		$post = get_post($post_id);
+		if ($post->post_type == $this->post_type) {
+			wp_update_post(
+				array(
+					'ID'        => $post_id,
+					'post_name' => (string) $post_id,
+				)
+			);
+		}
+	}
+
+	/**
+	 * Add JavaScripts to the page.
+	 */
+	public function addScripts()
+	{
+		wp_enqueue_script('permanenttourist-photo-collection-api', plugins_url('Resources/Public/JavaScript/collection-api.js', __FILE__), array('jquery'), 1.5, true);
+	}
+
+	public function shortcode($atts)
+	{
+		$atts = shortcode_atts(array(
+			'per_page' => '30',
+			'html_before' => '<div class="frp_dataroom root">',
+			'html_after' => '</div>',
+			'collection' => '',
+		), $atts);
+
+		if (empty($atts['collection'])) {
+			return '';
+		} else {
+			return '<div class="mod grid500" data-pt-photo-collection="' . $atts['collection'] . '" data-pt-photo-perpage="' . $atts['per_page'] . '"></div>';
+		}
+	}
+
+	public function restFeaturedImage()
+	{
+		$post_types = get_post_types(array('public' => true), 'objects');
+
+		foreach ($post_types as $post_type) {
+			$post_type_name = $post_type->name;
+			$show_in_rest = (isset($post_type->show_in_rest) && $post_type->show_in_rest) ? true : false;
+			$supports_thumbnail = post_type_supports($post_type_name, 'thumbnail');
+
+			// Only proceed if the post type is set to be accessible over the REST API
+			// and supports featured images.
+			if ($show_in_rest && $supports_thumbnail) {
+				// Compatibility with the REST API v2 beta 9+
+				if (function_exists('register_rest_field')) {
+					register_rest_field(
+						$post_type_name,
+						'featured_image',
+						array(
+							'get_callback' => array($this, 'getFeaturedImages'),
+							'schema' => null,
+						)
+					);
+				} elseif (function_exists('register_api_field')) {
+					register_api_field(
+						$post_type_name,
+						'featured_image',
+						array(
+							'get_callback' => array($this, 'getFeaturedImages'),
+							'schema' => null,
+						)
+					);
+				}
+			}
+		}
+	}
+
+	public function getFeaturedImages($object, $field_name, $request)
+	{
+
+		// Only proceed if the post has a featured image.
+		if (!empty($object['featured_media'])) {
+			$image_id = (int) $object['featured_media'];
+		} elseif (!empty($object['featured_image'])) {
+			// This was added for backwards compatibility with < WP REST API v2 Beta 11.
+			$image_id = (int) $object['featured_image'];
+		} else {
+			return;
+		}
+
+		$image = get_post($image_id);
+
+		if (!$image) {
+			return;
+		}
+
+		// This is taken from WP_REST_Attachments_Controller::prepare_item_for_response().
+		$featured_image['id'] = $image_id;
+		$featured_image['alt_text'] = get_post_meta($image_id, '_wp_attachment_image_alt', true);
+		$featured_image['caption'] = $image->post_excerpt;
+		$featured_image['description'] = $image->post_content;
+		$featured_image['media_type'] = wp_attachment_is_image($image_id) ? 'image' : 'file';
+		$featured_image['media_details'] = wp_get_attachment_metadata($image_id);
+		unset($featured_image['media_details']['file']);
+		$featured_image['post'] = !empty($image->post_parent) ? (int) $image->post_parent : null;
+		//$featured_image['source_url'] = wp_get_attachment_url($image_id);
+
+		if (empty($featured_image['media_details'])) {
+			$featured_image['media_details'] = new stdClass();
+		} elseif (!empty($featured_image['media_details']['sizes'])) {
+			//$img_url_basename = wp_basename($featured_image['source_url']);
+			foreach ($featured_image['media_details']['sizes'] as $size => &$size_data) {
+				$image_src = wp_get_attachment_image_src($image_id, $size);
+				if (!$image_src) {
+					continue;
+				}
+				$size_data['source_url'] = $image_src[0];
+			}
+		} elseif (is_string($featured_image['media_details'])) {
+			// This was added to work around conflicts with plugins that cause
+			// wp_get_attachment_metadata() to return a string.
+			$featured_image['media_details'] = new stdClass();
+			$featured_image['media_details']->sizes = new stdClass();
+		} else {
+			$featured_image['media_details']['sizes'] = new stdClass();
+		}
+
+		return apply_filters('featured_image', $featured_image, $image_id);
 	}
 }
