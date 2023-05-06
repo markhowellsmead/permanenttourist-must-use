@@ -2,6 +2,7 @@ import { _x } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 import { gallery as icon } from '@wordpress/icons';
 import { useBlockProps } from '@wordpress/block-editor';
+import { AlignmentToolbar, BlockControls } from '@wordpress/block-editor';
 
 const blockName = 'sht/series-link';
 
@@ -15,7 +16,7 @@ registerBlockType(blockName, {
     icon,
     category: 'common',
     supports: {
-        align: ['center', 'wide', 'full'],
+        align: false,
         mode: false,
         html: false,
         multiple: true,
@@ -27,21 +28,36 @@ registerBlockType(blockName, {
         },
     },
     attributes: {
-        align: {
+        textAlignment: {
             type: 'string',
         },
     },
-    edit: () => {
-        const blockProps = useBlockProps();
+    edit: props => {
+        const { attributes, setAttributes } = props;
+        const { textAlignment } = attributes;
+
+        const alignmentClass = textAlignment !== null ? 'has-text-align-' + textAlignment : '';
+
+        const blockProps = useBlockProps({
+            className: alignmentClass,
+        });
 
         return (
-            <div {...blockProps}>
-                <p
-                    dangerouslySetInnerHTML={{
-                        __html: 'There are no options for this block',
-                    }}
-                />
-            </div>
+            <>
+                <BlockControls>
+                    <AlignmentToolbar
+                        value={attributes.textAlignment}
+                        onChange={newalign => setAttributes({ textAlignment: newalign })}
+                    />
+                </BlockControls>
+                <div {...blockProps}>
+                    <p
+                        dangerouslySetInnerHTML={{
+                            __html: 'There are no options for this block',
+                        }}
+                    />
+                </div>
+            </>
         );
     },
 });
