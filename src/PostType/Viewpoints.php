@@ -2,7 +2,6 @@
 
 namespace PT\MustUse\PostType;
 
-
 class Viewpoints
 {
 
