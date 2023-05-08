@@ -33,7 +33,7 @@ class Flickr
 
 			$html = get_transient("pt_flickr_{$md5}");
 
-			if (!empty($html) && (!defined('WP_DEBUG') || !WP_DEBUG)) {
+			if (!empty($html) && !is_user_logged_in()) {
 				return $html;
 			}
 
@@ -44,7 +44,13 @@ class Flickr
 			$filepaths = [];
 
 			foreach ($iterator as $fileinfo) {
+
+				if (!preg_match('/\.(jpg|jpeg|png|gif|webp)$/i', $fileinfo->getFilename())) {
+					continue;
+				}
+
 				$file_name = $fileinfo->getFilename();
+
 				if ($fileinfo->isFile() && strpos($file_name, $filename) === 0 && !preg_match('/[0-9]+x[0-9]+/i', $file_name)) {
 					$image_size = getimagesize($fileinfo->getPathname());
 					$filepaths["w{$image_size[0]}"] = $fileinfo->getPathname();
