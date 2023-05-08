@@ -52,7 +52,7 @@ class Flickr
 			}
 
 			if (empty($filepaths)) {
-				return '';
+				return PHP_EOL . "<!-- pt_flickr: No matching file found for the ID {$atts['id']} -->" . PHP_EOL;
 			}
 
 			ksort($filepaths);
