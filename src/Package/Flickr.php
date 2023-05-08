@@ -33,7 +33,7 @@ class Flickr
 
 			$html = get_transient("pt_flickr_{$md5}");
 
-			if (defined('WP_DEBUG') && !WP_DEBUG || !empty($html)) {
+			if (!empty($html) && (!defined('WP_DEBUG') || !WP_DEBUG)) {
 				return $html;
 			}
 
