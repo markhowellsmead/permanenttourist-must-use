@@ -11,6 +11,10 @@
     "attributes": {
         "align": {
             "type": "string"
+        },
+        "hideInlineEmbed": {
+            "type": "boolean",
+            "default": false
         }
     },
     "supports": {

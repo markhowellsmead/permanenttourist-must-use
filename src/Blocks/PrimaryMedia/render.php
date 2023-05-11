@@ -1,6 +1,6 @@
 <?php
 
-if (is_singular('post') && (bool) get_field('hide_thumbnail')) {
+if (is_singular('post') && get_page_template_slug() === 'single-no-thumbnail') {
 	return '';
 }
 
@@ -22,7 +22,7 @@ $content = '';
 
 if (!empty($video_url = get_field('video_ref', $post_id))) {
 
-	if (is_singular('post') || is_singular('page')) {
+	if (is_singular('post') || is_singular('page') && !$attributes['hideInlineEmbed'] ?? false) {
 		$video_player = wp_oembed_get($video_url);
 
 		$content = sprintf(
