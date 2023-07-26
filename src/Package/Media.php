@@ -2,6 +2,9 @@
 
 namespace PT\MustUse\Package;
 
+use DOMDocument;
+use DOMXPath;
+
 /**
  * Everything to do with images, videos etc
  *
@@ -385,5 +388,37 @@ class Media
 		}
 
 		return $gps;
+	}
+
+	/**
+	 * Modifies the iframe src attribute to add the hq=1 parameter
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public function addHqParam(string $html): string
+	{
+		if (empty($html)) {
+			return $html;
+		}
+
+		libxml_use_internal_errors(true);
+		$dom = new DOMDocument();
+		$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+		$xpath = new DOMXPath($dom);
+		$nodeList = $xpath->query('//iframe');
+
+		foreach ($nodeList as $node) {
+			$host = parse_url($node->getAttribute('src'), PHP_URL_HOST);
+			if (strpos($host, 'youtube.com') === false && strpos($host, 'youtu.be') === false) {
+				continue;
+			}
+
+			$new_src = add_query_arg('hq', '1', $node->getAttribute('src'));
+			$node->setAttribute('src', $new_src);
+		}
+
+		$body = $dom->saveHtml($dom->getElementsByTagName('body')->item(0));
+		return str_replace(['<body>', '</body>'], '', $body);
 	}
 }
