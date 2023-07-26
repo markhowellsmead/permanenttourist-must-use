@@ -1,5 +1,7 @@
 <?php
 
+use PT\MustUse\Package\Media as MediaPackage;
+
 if (is_singular('post') && get_page_template_slug() === 'single-no-thumbnail') {
 	return '';
 }
@@ -23,7 +25,22 @@ $content = '';
 if (!empty($video_url = get_field('video_ref', $post_id))) {
 
 	if (is_singular('post') || is_singular('page') && !$attributes['hideInlineEmbed'] ?? false) {
+
+		$url_parts = parse_url($video_url, PHP_URL_QUERY);
+
+		if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
+			$video_url = add_query_arg('hq', '1', $video_url);
+		}
+
 		$video_player = wp_oembed_get($video_url);
+
+		if (empty($video_player)) {
+			return $video_player;
+		}
+
+		$media_package = new MediaPackage();
+
+		$video_player = $media_package->addHqParam($video_player);
 
 		$content = sprintf(
 			'<figure class="%1$s__figure %1$s__figure--video">%2$s</figure>',
