@@ -23,6 +23,7 @@
     },
     "styles": [
         { "name": "default", "label": "Default", "isDefault": true },
+        { "name": "3x2", "label": "3x2" },
         { "name": "16x9", "label": "16x9" }
     ],
     "usesContext": ["postId"],
