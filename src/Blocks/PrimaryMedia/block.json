@@ -21,6 +21,10 @@
         "align": ["wide", "full"],
         "html": false
     },
+    "styles": [
+        { "name": "default", "label": "Default", "isDefault": true },
+        { "name": "16x9", "label": "16x9" }
+    ],
     "usesContext": ["postId"],
     "editorStyle": "file:./dist/styles/edit.min.css",
     "editorScript": "file:./dist/scripts/editor.js",

@@ -10,6 +10,8 @@ $post_id = get_the_ID();
 $classNameBase = wp_get_block_default_classname($block->name);
 $align = $attributes['align'] ?? '';
 
+$className = $attributes['className'] ?? '';
+
 $media_size = 'medium';
 switch ($align) {
 	case 'wide':
@@ -43,7 +45,8 @@ if (!empty($video_url = get_field('video_ref', $post_id))) {
 		$video_player = $media_package->addHqParam($video_player);
 
 		$content = sprintf(
-			'<figure class="%1$s__figure %1$s__figure--video">%2$s</figure>',
+			'<figure class="%1$s %2$s__figure %3$s__figure--video">%2$s</figure>',
+			$className,
 			$classNameBase,
 			$video_player,
 		);
@@ -53,7 +56,8 @@ if (!empty($video_url = get_field('video_ref', $post_id))) {
 
 		if (!empty($thumbnail)) {
 			$content = sprintf(
-				'<figure class="%1$s__figure %1$s__figure--%2$s"><a href="%5$s"><img class="%1$s__image" src="%3$s" alt="%4$s" /></a></figure>',
+				'<figure class="%1$s %2$s__figure %2$s__figure--%3$s"><a href="%6$s"><img class="%2$s__image" src="%4$s" alt="%5$s" /></a></figure>',
+				$className,
 				$classNameBase,
 				$media_size,
 				pt_must_use_get_instance()->Package->Media->getVideoThumbnail($video_url),
@@ -70,15 +74,15 @@ if (!empty($video_url = get_field('video_ref', $post_id))) {
 		// Weirdness when placing this block in a post list on a page
 		// This ensures the correct link being set
 		if (is_singular(get_post_type(get_the_ID()))) {
-			$content = sprintf('<figure class="%1$s__figure %1$s__figure--%2$s">%3$s</figure>', $classNameBase, $media_size, $image);
+			$content = sprintf('<figure class="%1$s %2$s__figure %2$s__figure--%3$s">%4$s</figure>', $className, $classNameBase, $media_size, $image);
 		} else {
-			$content = sprintf('<figure class="%1$s__figure %1$s__figure--%2$s"><a href="%4$s" title="%5$s">%3$s</a></figure>', $classNameBase, $media_size, $image, get_the_permalink($post_id), 'Article: ' . get_the_title($post_id));
+			$content = sprintf('<figure class="%1$s %2$s__figure %2$s__figure--%3$s"><a href="%5$s" title="%6$s">%4$s</a></figure>', $className, $classNameBase, $media_size, $image, get_the_permalink($post_id), 'Article: ' . get_the_title($post_id));
 		}
 	}
 }
 
 if (!is_singular('post') && empty($content)) {
-	return sprintf('<div aria-hidden class="%1$s__figure %1$s__figure--empty"><a href="%2$s">%3$s</a></div>', $classNameBase, get_the_permalink($post_id), get_the_title($post_id));
+	return sprintf('<div aria-hidden class="%1$s %2$s__figure %2$s__figure--empty"><a href="%3$s">%4$s</a></div>', $className, $classNameBase, get_the_permalink($post_id), get_the_title($post_id));
 }
 
 if (!empty($align)) {
@@ -87,6 +91,6 @@ if (!empty($align)) {
 
 ?>
 
-<div class="<?php echo $classNameBase . $align; ?>">
+<div class="<?php echo $className . ' ' . $classNameBase . $align; ?>">
 	<?php echo $content; ?>
 </div>
