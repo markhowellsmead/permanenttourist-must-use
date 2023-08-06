@@ -12,10 +12,14 @@
     &__figure {
         margin-inline-start: 0;
         margin-inline-end: 0;
-        aspect-ratio: 3/2;
-        overflow: hidden;
+
+        &.is-style-3x2 {
+            overflow: hidden;
+            aspect-ratio: 3/2;
+        }
 
         &.is-style-16x9 {
+            overflow: hidden;
             aspect-ratio: 16/9;
         }
     }
