@@ -21,9 +21,7 @@ class Assets
 		$dir_path = plugin_dir_path(pt_must_use_get_instance()->file);
 		$dir_url = plugin_dir_url(pt_must_use_get_instance()->file);
 
-		$deps = ['wp-block-library'];
-
-		wp_enqueue_style('permanenttourist-must-use-style', $dir_url . 'assets/dist/styles/ui' . ($min ? '.min' : '') . '.css', $deps, filemtime($dir_path . 'assets/dist/styles/ui' . ($min ? '.min' : '') . '.css'));
+		wp_enqueue_style('permanenttourist-must-use-style', $dir_url . 'assets/dist/styles/ui' . ($min ? '.min' : '') . '.css', [], filemtime($dir_path . 'assets/dist/styles/ui' . ($min ? '.min' : '') . '.css'));
 	}
 
 	public function registerAdminAssets()
