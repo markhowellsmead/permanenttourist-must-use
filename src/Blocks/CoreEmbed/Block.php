@@ -29,6 +29,7 @@ class Block
 ?>
 		<div class="wp-block-group has-background is-layout-constrained wp-block-group-is-layout-constrained" style="background-color:#ffcc00">
 			<p class="has-text-align-center">A photo or blog post was embedded here, which is currently not available.</p>
+			<p style="margin-block-start: var(--wp--preset--spacing--small)" class=" has-text-align-center has-small-font-size"><?php echo $block['attrs']['url']; ?></p>
 		</div>
 <?php
 		$html = ob_get_clean();
