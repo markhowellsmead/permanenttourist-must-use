@@ -122,6 +122,7 @@ class Plugin
 				//PostType\Photo::class,
 				//PostType\Viewpoints::class,
 
+				Blocks\CoreEmbed\Block::class,
 				Blocks\CoreImage\Block::class,
 				Blocks\CoreVideo\Block::class,
 				Blocks\PrimaryMedia\Block::class,
