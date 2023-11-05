@@ -119,7 +119,7 @@ class Plugin
 				PostType\Destination::class,
 				PostType\Feature::class,
 				PostType\Page::class,
-				//PostType\Photo::class,
+				PostType\Photo::class,
 				//PostType\Viewpoints::class,
 
 				Blocks\CoreEmbed\Block::class,
