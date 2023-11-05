@@ -91,7 +91,7 @@ class Photo
 				'menu_position' => 10,
 				'hierarchical' => true,
 				'rewrite' => [
-					'slug' => _x('photo', 'URL slug for custom post type', 'sha')
+					'slug' => 'photos'
 				],
 				'supports' => [
 					'title',
