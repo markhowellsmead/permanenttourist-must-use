@@ -12,6 +12,8 @@ use stdClass;
 class Photo
 {
 
+	private $post_type = 'photo';
+
 	public function run()
 	{
 		add_action('init', [$this, 'registerPostType']);
@@ -59,7 +61,7 @@ class Photo
 	public function registerPostType()
 	{
 		register_post_type(
-			'photo',
+			$this->post_type,
 			[
 				'can_export' => false,
 				'capabilities'	=> [
@@ -183,7 +185,7 @@ class Photo
 	{
 		register_taxonomy(
 			'collection',
-			['post', 'photo'],
+			$this->post_type,
 			[
 				'labels'            => [
 					'name'              => _x('Collections', 'taxonomy general name'),
@@ -203,13 +205,13 @@ class Photo
 				'show_in_rest'      => true,
 				'show_admin_column' => true,
 				'query_var'         => true,
-				'rewrite'           => array('slug' => 'collection'),
+				'rewrite'           => ['slug' => 'collection'],
 			]
 		);
 
 		register_taxonomy(
 			'place',
-			['post', 'photo'],
+			$this->post_type,
 			[
 				'labels'            => [
 					'name'              => _x('Places', 'taxonomy general name'),
@@ -255,7 +257,7 @@ class Photo
 				'show_in_rest'      => true,
 				'show_admin_column' => true,
 				'query_var'         => true,
-				'rewrite'           => array('slug' => 'albums'),
+				'rewrite'           => ['slug' => 'albums'],
 			]
 		);
 	}
