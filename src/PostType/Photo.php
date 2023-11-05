@@ -17,26 +17,26 @@ class Photo
 	public function run()
 	{
 		add_action('init', [$this, 'registerPostType']);
-		add_action('init', array($this, 'registerCustomTaxonomies'), 0);
+		add_action('init', [$this, 'registerCustomTaxonomies'], 0);
 		add_action('init', [$this, 'addCapabilities']);
 		add_filter('get_the_archive_title', [$this, 'changeTheTitle'], 30);
 		add_action('pre_get_posts', [$this, 'postsPerAlbumPage']);
-		add_action('pre_get_posts', array($this, 'postsPerPage'), 10, 1);
-		add_shortcode('pt-photo', array($this, 'shortcode'), 10, 1);
+		add_action('pre_get_posts', [$this, 'postsPerPage'], 10, 1);
+		add_shortcode('pt-photo', [$this, 'shortcode'], 10, 1);
 		add_shortcode('photo_post_id', [$this, 'shortcodePostID'], 10, 0);
 
-		add_filter('permanenttourist-v10/post_meta_information', array($this, 'postThumbnailMeta'), 10, 2);
-		add_filter('sherborne_road/post_meta_information', array($this, 'postThumbnailMeta'), 10, 2);
-		add_action('mhm-attachment-from-ftp-publish/post_created', array($this, 'changePostSlug'), 10, 1);
+		add_filter('permanenttourist-v10/post_meta_information', [$this, 'postThumbnailMeta'], 10, 2);
+		add_filter('sherborne_road/post_meta_information', [$this, 'postThumbnailMeta'], 10, 2);
+		add_action('mhm-attachment-from-ftp-publish/post_created', [$this, 'changePostSlug'], 10, 1);
 		//add_action('wp_enqueue_scripts', array( $this, 'addScripts' ));
-		add_action('init', array($this, 'restFeaturedImage'), 12);
+		add_action('init', [$this, 'restFeaturedImage'], 12);
 	}
 
 	public function changeTheTitle($title)
 	{
 
-		if (is_post_type_archive('photo')) {
-			return ''; //_x('Photographs', 'Archive title', 'picard');
+		if (is_post_type_archive($this->post_type)) {
+			return _x('Photographic archive', 'Archive title', 'picard');
 		}
 
 		if (is_tax('album')) {
@@ -85,7 +85,7 @@ class Photo
 				'menu_icon' => 'dashicons-welcome-widgets-menus',
 				'public' => true,
 				'show_in_admin_bar' => true,
-				'show_in_nav_menus' => false,
+				'show_in_nav_menus' => true,
 				'show_in_rest' => true,
 				'show_ui' => true,
 				'menu_position' => 10,
@@ -147,7 +147,6 @@ class Photo
 	{
 		return get_the_ID();
 	}
-
 
 	/**
 	 * Converts a float value to a fraction value.
@@ -231,13 +230,13 @@ class Photo
 				'show_in_rest'      => true,
 				'show_admin_column' => true,
 				'query_var'         => true,
-				'rewrite'           => array('slug' => 'place'),
+				'rewrite'           => ['slug' => 'place'],
 			]
 		);
 
 		register_taxonomy(
 			'album',
-			['photo', 'post'],
+			$this->post_type,
 			[
 				'labels'            => [
 					'name'              => _x('Albums', 'taxonomy general name'),
@@ -279,13 +278,13 @@ class Photo
 		if ($meta && is_array($meta['image_meta'])) {
 			// Date taken
 			if (isset($meta['image_meta']['created_timestamp']) && intval($meta['image_meta']['created_timestamp']) !== 0) {
-				$content_meta_array['created'] = array(
+				$content_meta_array['created'] = [
 					'type'    => 'date-taken',
 					'content' => sprintf(
 						'Photographed on %1$s',
 						date('j\<\s\u\p\>S\<\/\s\u\p\> F Y', $meta['image_meta']['created_timestamp'])
 					),
-				);
+				];
 			}
 
 			// Exposure
@@ -303,7 +302,7 @@ class Photo
 					$shutter_speed = $this->float2rat(floatval($meta['image_meta']['shutter_speed']));
 				}
 
-				$content_meta_array['exposure'] = array(
+				$content_meta_array['exposure'] = [
 					'type'    => 'exif',
 					'content' => sprintf(
 						'Exposure: %1$ss @ %2$s, ISO %3$s',
@@ -311,29 +310,29 @@ class Photo
 						'f' . $meta['image_meta']['aperture'],
 						$meta['image_meta']['iso']
 					),
-				);
+				];
 			}
 
 			// Camera
 			if (isset($meta['image_meta']['camera']) && !empty($meta['image_meta']['camera'])) {
-				$content_meta_array['camera'] = array(
+				$content_meta_array['camera'] = [
 					'type'    => 'equipment',
 					'content' => sprintf(
 						'Camera: %1$s',
 						$meta['image_meta']['camera']
 					),
-				);
+				];
 			}
 
 			// Credit and copyright
 			if (isset($meta['image_meta']['copyright']) && !empty($meta['image_meta']['copyright'])) {
-				$content_meta_array['credit'] = array(
+				$content_meta_array['credit'] = [
 					'type'    => 'equipment',
 					'content' => sprintf(
 						'Copyright %1$s',
 						$meta['image_meta']['copyright']
 					),
-				);
+				];
 			}
 		}
 
@@ -348,10 +347,10 @@ class Photo
 		$post = get_post($post_id);
 		if ($post->post_type == $this->post_type) {
 			wp_update_post(
-				array(
+				[
 					'ID'        => $post_id,
 					'post_name' => (string) $post_id,
-				)
+				]
 			);
 		}
 	}
@@ -361,17 +360,17 @@ class Photo
 	 */
 	public function addScripts()
 	{
-		wp_enqueue_script('permanenttourist-photo-collection-api', plugins_url('Resources/Public/JavaScript/collection-api.js', __FILE__), array('jquery'), 1.5, true);
+		wp_enqueue_script('permanenttourist-photo-collection-api', plugins_url('Resources/Public/JavaScript/collection-api.js', __FILE__), ['jquery'], 1.5, true);
 	}
 
 	public function shortcode($atts)
 	{
-		$atts = shortcode_atts(array(
+		$atts = shortcode_atts([
 			'per_page' => '30',
 			'html_before' => '<div class="frp_dataroom root">',
 			'html_after' => '</div>',
 			'collection' => '',
-		), $atts);
+		], $atts);
 
 		if (empty($atts['collection'])) {
 			return '';
@@ -382,7 +381,7 @@ class Photo
 
 	public function restFeaturedImage()
 	{
-		$post_types = get_post_types(array('public' => true), 'objects');
+		$post_types = get_post_types(['public' => true], 'objects');
 
 		foreach ($post_types as $post_type) {
 			$post_type_name = $post_type->name;
@@ -397,19 +396,19 @@ class Photo
 					register_rest_field(
 						$post_type_name,
 						'featured_image',
-						array(
-							'get_callback' => array($this, 'getFeaturedImages'),
+						[
+							'get_callback' => [$this, 'getFeaturedImages'],
 							'schema' => null,
-						)
+						]
 					);
 				} elseif (function_exists('register_api_field')) {
 					register_api_field(
 						$post_type_name,
 						'featured_image',
-						array(
-							'get_callback' => array($this, 'getFeaturedImages'),
+						[
+							'get_callback' => [$this, 'getFeaturedImages'],
 							'schema' => null,
-						)
+						]
 					);
 				}
 			}
