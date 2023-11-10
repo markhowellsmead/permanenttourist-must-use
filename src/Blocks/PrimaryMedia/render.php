@@ -28,7 +28,7 @@ switch ($align) {
 
 $content = '';
 
-if (!empty($video_url = get_field('video_ref', $post_id))) {
+if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 
 	if (is_singular('post') || is_singular('page') && !$attributes['hideInlineEmbed'] ?? false) {
 
