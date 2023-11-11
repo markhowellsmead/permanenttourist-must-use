@@ -89,7 +89,7 @@ class Photo
 				'show_in_rest' => true,
 				'show_ui' => true,
 				'menu_position' => 10,
-				'hierarchical' => true,
+				'hierarchical' => false,
 				'rewrite' => [
 					'slug' => 'photos'
 				],
