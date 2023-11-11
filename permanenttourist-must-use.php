@@ -4,7 +4,7 @@ Plugin Name: Permanent Tourist Must Use
 Plugin URI: #
 Description: This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch.
 Author: Mark Howells-Mead
-Version: 0.18.3
+Version: 0.18.4
 Author URI: https://www.permanenttourist.ch/
 Text Domain: pt-must-use
 Domain Path: languages
