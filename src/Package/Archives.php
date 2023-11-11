@@ -75,11 +75,7 @@ class Archives
 			);
 			$title = ' ' . $original_title;
 		} elseif (is_tax('collection')) {
-			$prefix = sprintf(
-				'<span class="c-archive__titleprefix">%s</span>',
-				_x('Photos from the collection', 'Archive title year', 'sht')
-			);
-			$title = ' ' . $original_title;
+			return $original_title;
 		} elseif (is_tax('place')) {
 			$prefix = sprintf(
 				'<span class="c-archive__titleprefix">%s</span>',
