@@ -40,15 +40,17 @@ export const App = ({ element }) => {
                     return (
                         <figure key={id} className={className}>
                             <div className={`${classNameBase}__imagewrap`}>
-                                <img
-                                    src={
-                                        media_details.sizes.medium?.source_url ||
-                                        media_details.sizes.full?.source_url
-                                    }
-                                    width={width}
-                                    height={height}
-                                    alt={title.rendered}
-                                />
+                                <a href={item.link} target='_blank'>
+                                    <img
+                                        src={
+                                            media_details.sizes.medium?.source_url ||
+                                            media_details.sizes.full?.source_url
+                                        }
+                                        width={width}
+                                        height={height}
+                                        alt={title.rendered}
+                                    />
+                                </a>
                             </div>
                             <figcaption className={`${classNameBase}__figure`}>
                                 <h2
