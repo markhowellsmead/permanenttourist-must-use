@@ -12,18 +12,18 @@ use WP_REST_Response;
 
 class AttachmentFromFTPPublish
 {
-	public $post_tag = 'collection';
 	public $post_type = 'photo';
+	public $post_tag = 'collection';
 	public $post_title_default = '[Attachment via FTP with no image title]';
 
 	public function run()
 	{
-		// $this->post_tag = apply_filters('mhm-attachment-from-ftp-publish/post_tag', $this->post_tag);
-		// $this->post_title_default = apply_filters('mhm-attachment-from-ftp-publish/post_title_default', $this->post_title_default);
-		// $this->post_type = apply_filters('mhm-attachment-from-ftp-publish/post_type', $this->post_type);
+		$this->post_type = apply_filters('mhm-attachment-from-ftp-publish/post_type', $this->post_type);
+		$this->post_tag = apply_filters('mhm-attachment-from-ftp-publish/post_tag', $this->post_tag);
+		$this->post_title_default = apply_filters('mhm-attachment-from-ftp-publish/post_title_default', $this->post_title_default);
 
-		// add_action('mhm-attachment-from-ftp/attachment_created', [$this, 'postFromAttachment']);
-		// add_action('mhm-attachment-from-ftp/title_description_overwritten', [$this, 'updatePosts']);
+		add_action('mhm-attachment-from-ftp/attachment_created', [$this, 'postFromAttachment']);
+		add_action('mhm-attachment-from-ftp/title_description_overwritten', [$this, 'updatePosts']);
 
 		add_action('rest_api_init', [$this, 'registerRestRoute']);
 	}
