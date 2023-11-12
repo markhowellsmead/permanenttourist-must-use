@@ -55,7 +55,7 @@ export const App = ({ element }) => {
                             <figcaption className={`${classNameBase}__figure`}>
                                 <h2
                                     dangerouslySetInnerHTML={{
-                                        __html: title.rendered || '[No title]',
+                                        __html: `[${id}] ${title.rendered || '[No title]'}`,
                                     }}
                                 />
                                 {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
