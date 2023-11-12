@@ -9,7 +9,6 @@ import './index.scss';
 
 export const App = ({ element }) => {
     const classNameBase = 'c-attachment-from-ftp';
-    const { dataset } = element;
     const { api } = attachment_from_ftp;
 
     const { data, loading, error } = apiGet(
@@ -34,8 +33,6 @@ export const App = ({ element }) => {
                     const { created_timestamp } = image_meta;
                     const { photo_posts } = item.pt;
 
-                    console.log(item);
-
                     const className = classnames({
                         [`${classNameBase}__entry`]: true,
                         [`${classNameBase}__entry--disabled`]: photo_posts.length,
@@ -52,9 +49,6 @@ export const App = ({ element }) => {
                             year: 'numeric',
                         }).format(created_timestamp * 1000);
                     }
-
-                    console.log(created_timestamp, meta_date);
-                    // console.log(item);
 
                     return (
                         <figure key={id} className={className}>
