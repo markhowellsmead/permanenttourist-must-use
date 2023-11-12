@@ -7,6 +7,7 @@ export const TitleField = ({ classNameBase, post }) => {
     const [fieldValue, setFieldValue] = useState(title.rendered);
     const [success, setSuccess] = useState(false);
     const [updating, setUpdating] = useState(false);
+    const [editing, setEditing] = useState(false);
 
     const updateTitle = () => {
         if (!fieldValue.length) {
@@ -49,20 +50,35 @@ export const TitleField = ({ classNameBase, post }) => {
 
     return (
         <div className={`${classNameBase}__fieldwrap ${classNameBase}__fieldwrap--title`}>
-            <RichText
-                className={`${classNameBase}__title ${classNameBase}__field ${classNameBase}__field--title ${empty_class}`}
-                value={fieldValue}
-                onChange={value => {
-                    setFieldValue(value);
-                }}
-            />
-            <button
-                disabled={!fieldValue.length || updating}
-                className='button button-primary'
-                onClick={updateTitle}
-            >
-                Update
-            </button>
+            {!editing && (
+                <h2
+                    className={`${classNameBase}__title`}
+                    dangerouslySetInnerHTML={{ __html: fieldValue }}
+                    onClick={() => setEditing(true)}
+                />
+            )}
+            {editing && (
+                <>
+                    <RichText
+                        tagName='h2'
+                        className={`${classNameBase}__title ${classNameBase}__field ${classNameBase}__field--title ${empty_class}`}
+                        value={fieldValue}
+                        onChange={value => {
+                            setFieldValue(value);
+                        }}
+                    />
+                    <button
+                        disabled={!fieldValue.length || updating}
+                        className='button button-primary'
+                        onClick={updateTitle}
+                    >
+                        Update
+                    </button>
+                    <button className='button button-secondary' onClick={() => setEditing(false)}>
+                        Cancel
+                    </button>
+                </>
+            )}
             {success && (
                 <div
                     className={`${classNameBase}__fieldwrap-message ${classNameBase}__fieldwrap-message--success`}
