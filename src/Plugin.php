@@ -121,6 +121,7 @@ class Plugin
 
 				Plugin\GitInstaller::class,
 
+				PostType\Attachment::class,
 				PostType\BlockArea::class,
 				PostType\Destination::class,
 				PostType\Feature::class,
