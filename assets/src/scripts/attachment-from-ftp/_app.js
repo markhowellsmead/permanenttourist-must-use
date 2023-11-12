@@ -31,6 +31,8 @@ export const App = ({ element }) => {
                     const { width, height } = media_details;
                     const { photo_posts } = item.pt;
 
+                    console.log(item);
+
                     const className = classnames({
                         [`${classNameBase}__entry`]: true,
                         [`${classNameBase}__entry--disabled`]: photo_posts.length,
