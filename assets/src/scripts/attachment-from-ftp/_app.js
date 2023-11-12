@@ -68,6 +68,4 @@ export const App = ({ element }) => {
             </div>
         </div>
     );
-
-    return 'app';
 };
