@@ -8,7 +8,7 @@ use WP_Error;
 use WP_REST_Posts_Controller;
 use WP_REST_Request;
 
-class AttachmentFromFTP
+class AttachmentFromFTPPublish
 {
 	public $post_tag = 'collection';
 	public $post_type = 'photo';
