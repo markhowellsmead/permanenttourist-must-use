@@ -69,11 +69,10 @@ class AttachmentFromFTPPublish
 		$post_data = $this->postFromAttachment(attachment_id: $attachment_id, rest_response: true);
 
 		if ($post_data) {
-			$controller = new WP_REST_Posts_Controller('photo');
-			$post_data = $controller->prepare_item_for_response($post_data, $request);
-			$post_data = $controller->prepare_response_for_collection($post_data);
-
-			return rest_ensure_response($post_data);
+			$controller = new WP_REST_Attachments_Controller('attachment');
+			$attachment = get_post($attachment_id);
+			$data = $controller->prepare_item_for_response($attachment, $request);
+			return new WP_REST_Response($data, 200);
 		} else {
 			return rest_ensure_response([
 				'error' => 'no_post_created',
