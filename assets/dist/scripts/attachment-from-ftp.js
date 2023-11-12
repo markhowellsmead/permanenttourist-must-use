@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=window.wp.element,e=(window.wp.i18n,t=>{let{element:e}=t;const{dataset:a}=e,{attachmentFromFtpFilename:n}=e.dataset;return React.createElement("button",{className:"button button-primary"},n)}),a=document.querySelectorAll("[data-attachment-from-ftp]");a.length&&a.forEach((a=>{(0,t.createRoot)(a).render(React.createElement(e,{element:a}))}))})();
