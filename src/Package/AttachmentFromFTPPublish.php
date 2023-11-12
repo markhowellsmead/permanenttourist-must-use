@@ -26,6 +26,8 @@ class AttachmentFromFTPPublish
 		add_action('mhm-attachment-from-ftp/title_description_overwritten', [$this, 'updatePosts']);
 
 		add_action('rest_api_init', [$this, 'registerRestRoute']);
+		add_action('admin_menu', [$this, 'adminMenuItems']);
+		add_action('admin_enqueue_scripts', [$this, 'adminEnqueueScripts']);
 	}
 
 	public function registerRestRoute()
@@ -37,6 +39,50 @@ class AttachmentFromFTPPublish
 				return true; //current_user_can('edit_photos');
 			},
 		]);
+	}
+
+	public function adminMenuItems()
+	{
+		add_submenu_page(
+			'upload.php',
+			'Photos from attachments',
+			'Photos from attachments',
+			'edit_posts',
+			'photos-from-attachments',
+			[$this, 'adminMenuPage']
+		);
+	}
+
+	public function adminEnqueueScripts()
+	{
+		if (get_current_screen()->base !== 'media_page_photos-from-attachments') {
+			return;
+		}
+
+		// NO MIN FILE AVAILABLE HERE!
+		$loader_script = "/assets/dist/scripts/attachment-from-ftp.js";
+		$filemtime = filemtime(pt_must_use_get_instance()->dir . $loader_script);
+		$script_asset_path = pt_must_use_get_instance()->dir . '/assets/dist/scripts/attachment-from-ftp.asset.php';
+		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $filemtime];
+
+		wp_enqueue_script('pt-must-use-attachment-from-ftp', pt_must_use_get_instance()->url . $loader_script, $script_asset['dependencies'], $script_asset['version'], true);
+		wp_localize_script('pt-must-use-attachment-from-ftp', 'attachment_from_ftp', [
+			'api' => [
+				'root' => esc_url_raw(rest_url()),
+				'nonce' => wp_create_nonce('wp_rest'),
+			],
+			'version' => $filemtime,
+			'url' => pt_must_use_get_instance()->url,
+			'min' => $min ? 1 : 0,
+			'debug' => $min ? 0 : 1,
+		]);
+	}
+
+	public function adminMenuPage()
+	{
+?>
+		<div data-attachmentfromftppublish-app></div>
+<?php
 	}
 
 	public function restPhotoFromAttachment(WP_REST_Request $request)

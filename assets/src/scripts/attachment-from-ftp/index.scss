@@ -1,0 +1,65 @@
+%stack {
+
+    * {
+        margin: 0;
+
+        +* {
+            margin-top: .5rem;
+        }
+    }
+}
+
+.c-attachment-from-ftp {
+
+    figure,
+    img {
+        vertical-align: middle;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__entries {
+        display: grid;
+        gap: 1rem;
+
+        @media screen and (min-width: 48em) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        @media screen and (min-width: 100em) {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 2rem;
+        }
+    }
+
+    &__entry {
+        margin: 0;
+        @extend %stack;
+
+        &--disabled {
+            opacity: .35;
+        }
+
+        &--no-title {
+            h2 {
+                color: red;
+            }
+        }
+    }
+
+    &__figure {
+        * {
+            font-size: 1em;
+            @extend %stack;
+        }
+    }
+
+    &__imagewrap {
+        aspect-ratio: 3/2;
+        max-width: 100%;
+    }
+}
