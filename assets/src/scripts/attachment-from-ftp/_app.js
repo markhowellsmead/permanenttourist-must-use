@@ -9,7 +9,10 @@ export const App = ({ element }) => {
     const { dataset } = element;
     const { api } = attachment_from_ftp;
 
-    const { data, loading, error } = apiGet(`${api.root}/wp/v2/media/?per_page=100`, api.nonce);
+    const { data, loading, error } = apiGet(
+        `${api.root}/wp/v2/media/?per_page=100&media_type=image`,
+        api.nonce
+    );
 
     if (loading) {
         return <Spinner />;
