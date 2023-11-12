@@ -30,8 +30,8 @@ export const App = ({ element }) => {
             <div className={`${classNameBase}__entries`}>
                 {data.map(item => {
                     const { id, title, media_details } = item;
-                    const { image_meta } = media_details;
-                    const { width, height } = media_details;
+                    const { width, height, image_meta } = media_details;
+                    const { created_timestamp } = image_meta;
                     const { photo_posts } = item.pt;
 
                     console.log(item);
@@ -41,6 +41,20 @@ export const App = ({ element }) => {
                         [`${classNameBase}__entry--disabled`]: photo_posts.length,
                         [`${classNameBase}__entry--no-title`]: !title.rendered,
                     });
+
+                    // create date object from created_timestamp (milliseconds) and convert to string dS F Y
+                    let meta_date = '';
+
+                    if (created_timestamp) {
+                        meta_date = new Intl.DateTimeFormat('en-GB', {
+                            day: 'numeric',
+                            month: 'numeric',
+                            year: 'numeric',
+                        }).format(created_timestamp * 1000);
+                    }
+
+                    console.log(created_timestamp, meta_date);
+                    // console.log(item);
 
                     return (
                         <figure key={id} className={className}>
@@ -59,6 +73,7 @@ export const App = ({ element }) => {
                             </div>
                             <figcaption className={`${classNameBase}__figure`}>
                                 <TitleField classNameBase={classNameBase} post={item} />
+                                {meta_date && <p>{meta_date}</p>}
                                 {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
                                 <p>Connected to {photo_posts.length} photo posts</p>
                             </figcaption>
