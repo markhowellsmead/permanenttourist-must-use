@@ -75,7 +75,17 @@ export const App = ({ element }) => {
                                 <TitleField classNameBase={classNameBase} post={item} />
                                 {meta_date && <p>{meta_date}</p>}
                                 {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
-                                <p>Connected to {photo_posts.length} photo posts</p>
+                                {!!photo_posts.length && (
+                                    <p>
+                                        Connected to {photo_posts.length} photo post
+                                        {photo_posts.length > 1 ? 's' : ''}
+                                    </p>
+                                )}
+                                {!photo_posts.length && (
+                                    <button className={`button button-primary`} disabled>
+                                        Create photo post
+                                    </button>
+                                )}
                             </figcaption>
                         </figure>
                     );
