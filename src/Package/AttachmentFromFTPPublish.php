@@ -5,8 +5,10 @@ namespace PT\MustUse\Package;
 use DateTimeZone;
 use WP_CLI;
 use WP_Error;
+use WP_REST_Attachments_Controller;
 use WP_REST_Posts_Controller;
 use WP_REST_Request;
+use WP_REST_Response;
 
 class AttachmentFromFTPPublish
 {
@@ -43,7 +45,7 @@ class AttachmentFromFTPPublish
 
 		$args = [
 			'post_type' => $this->post_type,
-			'posts_per_page' => 1,
+			'posts_per_page' => -1,
 			'meta_query' => [
 				[
 					'key'     => '_thumbnail_id',
@@ -58,12 +60,14 @@ class AttachmentFromFTPPublish
 		if (!empty($posts)) {
 			$controller = new WP_REST_Posts_Controller('photo');
 
+			$return_posts = [];
+
 			foreach ($posts as $post) {
 				$post_data = $controller->prepare_item_for_response($post, $request);
-				$return[] = $controller->prepare_response_for_collection($post_data);
+				$return_posts[] = $controller->prepare_response_for_collection($post_data);
 			}
 
-			return new WP_Error('posts_already_exist', 'Posts already exist', $return);
+			return new WP_Error('posts_already_exist', 'Posts already exist', $return_posts);
 		}
 
 		$post_data = $this->postFromAttachment(attachment_id: $attachment_id, rest_response: true);
