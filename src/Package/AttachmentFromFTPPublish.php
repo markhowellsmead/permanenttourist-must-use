@@ -81,7 +81,9 @@ class AttachmentFromFTPPublish
 	public function adminMenuPage()
 	{
 ?>
-		<div data-attachmentfromftppublish-app></div>
+		<div class="wrap">
+			<div data-attachmentfromftppublish-app></div>
+		</div>
 <?php
 	}
 
