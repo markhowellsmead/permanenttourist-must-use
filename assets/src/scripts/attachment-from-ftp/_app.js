@@ -1,7 +1,10 @@
 import { Spinner } from '@wordpress/components';
+
 import classnames from 'classnames';
 
 import { apiGet } from './_api';
+import { TitleField } from './_fields';
+
 import './index.scss';
 
 export const App = ({ element }) => {
@@ -55,11 +58,7 @@ export const App = ({ element }) => {
                                 </a>
                             </div>
                             <figcaption className={`${classNameBase}__figure`}>
-                                <h2
-                                    dangerouslySetInnerHTML={{
-                                        __html: `[${id}] ${title.rendered || '[No title]'}`,
-                                    }}
-                                />
+                                <TitleField classNameBase={classNameBase} post={item} />
                                 {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
                                 <p>Connected to {photo_posts.length} photo posts</p>
                             </figcaption>
