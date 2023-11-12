@@ -7,7 +7,6 @@ use WP_CLI;
 use WP_Error;
 use WP_REST_Posts_Controller;
 use WP_REST_Request;
-use WP_REST_Response;
 
 class AttachmentFromFTP
 {
@@ -33,7 +32,7 @@ class AttachmentFromFTP
 			'methods' => 'GET',
 			'callback' => [$this, 'restPhotoFromAttachment'],
 			'permission_callback' => function () {
-				return true; //current_user_can('edit_photos');
+				return current_user_can('edit_photos');
 			},
 		]);
 	}
@@ -42,16 +41,16 @@ class AttachmentFromFTP
 	{
 		$attachment_id = $request->get_param('id');
 
-
-		// query post by post thumbnail ID
 		$args = [
 			'post_type' => $this->post_type,
 			'posts_per_page' => 1,
-			'meta_query' => [[
-				'key'     => '_thumbnail_id',
-				'compare' => '=',
-				'value' => $attachment_id
-			]]
+			'meta_query' => [
+				[
+					'key'     => '_thumbnail_id',
+					'compare' => '=',
+					'value' => $attachment_id
+				]
+			]
 		];
 
 		$posts = get_posts($args);
@@ -70,6 +69,10 @@ class AttachmentFromFTP
 		$post_data = $this->postFromAttachment(attachment_id: $attachment_id, rest_response: true);
 
 		if ($post_data) {
+			$controller = new WP_REST_Posts_Controller('photo');
+			$post_data = $controller->prepare_item_for_response($post_data, $request);
+			$post_data = $controller->prepare_response_for_collection($post_data);
+
 			return rest_ensure_response($post_data);
 		} else {
 			return rest_ensure_response([
@@ -227,7 +230,6 @@ class AttachmentFromFTP
 
 	public function updatePostTags($post_id, $data, $post_tag_name)
 	{
-		$this->successLog('updatePostTags', $data);
 		if (!empty($data['post_tags'])) {
 			// Retain current tags and add new ones
 			wp_set_post_terms($post_id, $data['post_tags'], $post_tag_name, true);
@@ -261,11 +263,13 @@ class AttachmentFromFTP
 				if (empty($posts = get_posts([
 					'post_type' => $this->post_type,
 					'posts_per_page' => -1,
-					'meta_query' => [[
-						'key'     => '_thumbnail_id',
-						'compare' => '=',
-						'value' => $attachment_id
-					]]
+					'meta_query' => [
+						[
+							'key'     => '_thumbnail_id',
+							'compare' => '=',
+							'value' => $attachment_id
+						]
+					]
 				]))) {
 					return;
 				}
