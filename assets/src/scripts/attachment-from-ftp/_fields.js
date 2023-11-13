@@ -5,7 +5,7 @@ export const TitleField = ({ classNameBase, post }) => {
     const { api } = attachment_from_ftp;
     const { id, title } = post;
     const [fieldValue, setFieldValue] = useState(title.rendered);
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
     const [updating, setUpdating] = useState(false);
     const [editing, setEditing] = useState(false);
 
@@ -20,8 +20,6 @@ export const TitleField = ({ classNameBase, post }) => {
             title: fieldValue,
         };
 
-        console.info(`${api.root}wp/v2/media/${id}`);
-
         fetch(`${api.root}wp/v2/media/${id}`, {
             method: 'POST',
             headers: {
@@ -32,10 +30,11 @@ export const TitleField = ({ classNameBase, post }) => {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                setSuccess(true);
+                // setSuccess(true);
+                setEditing(false);
+                setUpdating(false);
                 setTimeout(() => {
-                    setSuccess(false);
+                    // setSuccess(false);
                 }, 5000);
             })
             .catch(error => {
@@ -53,7 +52,7 @@ export const TitleField = ({ classNameBase, post }) => {
             {!editing && (
                 <h2
                     className={`${classNameBase}__title`}
-                    dangerouslySetInnerHTML={{ __html: fieldValue }}
+                    dangerouslySetInnerHTML={{ __html: fieldValue || 'NO TITLE' }}
                     onClick={() => setEditing(true)}
                 />
             )}
@@ -79,13 +78,13 @@ export const TitleField = ({ classNameBase, post }) => {
                     </button>
                 </>
             )}
-            {success && (
+            {/* {success && (
                 <div
                     className={`${classNameBase}__fieldwrap-message ${classNameBase}__fieldwrap-message--success`}
                 >
                     Success!
                 </div>
-            )}
+            )} */}
         </div>
     );
 };
