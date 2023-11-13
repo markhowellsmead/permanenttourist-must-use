@@ -14,12 +14,15 @@
     figure,
     img {
         vertical-align: middle;
+        box-sizing: border-box;
     }
 
     img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        border: .6em solid #fff;
+        box-shadow: 0 0 1em rgba(0, 0, 0, .125);
     }
 
     &__entries {
@@ -104,6 +107,13 @@
     &__imagewrap {
         aspect-ratio: 3/2;
         max-width: 100%;
+
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
 }
