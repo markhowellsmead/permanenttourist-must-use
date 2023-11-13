@@ -12,7 +12,7 @@ export const App = ({ element }) => {
     const { api } = attachment_from_ftp;
 
     const { data, loading, error } = apiGet(
-        `${api.root}/wp/v2/media/?per_page=100&media_type=image`,
+        `${api.root}/wp/v2/media/?per_page=24&media_type=image&orderby=date&order=desc`,
         api.nonce
     );
 
