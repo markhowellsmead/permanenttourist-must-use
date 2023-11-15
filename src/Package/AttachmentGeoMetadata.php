@@ -7,10 +7,10 @@ class AttachmentGeoMetadata
 
 	public function run()
 	{
-		add_filter('wp_read_image_metadata', array($this, 'add_geo_exif'), 10, 2);
+		add_filter('wp_read_image_metadata', [$this, 'addGeoExif'], 10, 2);
 	}
 
-	public function add_geo_exif($meta, $file)
+	public function addGeoExif($meta, $file)
 	{
 		$exif = @exif_read_data($file);
 		if ($exif && isset($exif['GPSLatitude']) && isset($exif['GPSLongitude'])) {
