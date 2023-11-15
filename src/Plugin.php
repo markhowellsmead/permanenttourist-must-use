@@ -9,6 +9,8 @@ class Plugin
 	public $prefix = '';
 	public $version = '';
 	public $file = '';
+	public $url = '';
+	public $path = '';
 
 	/**
 	 * Creates an instance if one isn't already available,
@@ -32,6 +34,8 @@ class Plugin
 			self::$instance->prefix = 'pt_must_use';
 			self::$instance->version = $data['Version'];
 			self::$instance->file = $file;
+			self::$instance->url = plugin_dir_url($file);
+			self::$instance->path = plugin_dir_path($file);
 
 			self::$instance->run();
 		}
@@ -98,6 +102,7 @@ class Plugin
 				Package\Archives::class,
 				Package\Assets::class,
 				Package\AttachmentGeoMetadata::class,
+				Package\AttachmentFromFTPPublish::class,
 				// Package\CLI::class, // Only comment in when in use
 				Package\Flickr::class,
 				Package\Gutenberg::class,
@@ -115,6 +120,7 @@ class Plugin
 
 				Plugin\GitInstaller::class,
 
+				PostType\Attachment::class,
 				PostType\BlockArea::class,
 				PostType\Destination::class,
 				PostType\Feature::class,
