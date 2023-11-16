@@ -30,6 +30,8 @@ class Photo
 		add_action('mhm-attachment-from-ftp-publish/post_created', [$this, 'changePostSlug'], 10, 1);
 		//add_action('wp_enqueue_scripts', array( $this, 'addScripts' ));
 		add_action('init', [$this, 'restFeaturedImage'], 12);
+		add_action('restrict_manage_posts', [$this, 'templateDropdown']);
+		add_action('pre_get_posts', [$this, 'adminListFilterByTemplate']);
 	}
 
 	public function changeTheTitle($title)
@@ -466,5 +468,31 @@ class Photo
 		}
 
 		return apply_filters('featured_image', $featured_image, $image_id);
+	}
+
+	public function templateDropdown($post_type)
+	{
+		if ($post_type === $this->post_type) {
+			$templates = get_page_templates(null, $post_type);
+?>
+			<select name="template_filter" id="template_filter">
+				<option value=""><?php _e('All templates', 'permanenttourist-must-use'); ?></option>
+				<?php foreach ($templates as $name => $key) : ?>
+					<option value="<?php echo $key; ?>" <?php selected($key, isset($_GET['template_filter']) ? $_GET['template_filter'] : ''); ?>><?php echo $name; ?></option>
+				<?php endforeach; ?>
+			</select>
+<?php
+		}
+	}
+
+	public function adminListFilterByTemplate($query)
+	{
+		global $pagenow;
+
+		if (is_admin() && $pagenow === 'edit.php' && isset($_GET['post_type']) && $_GET['post_type'] === $this->post_type && isset($_GET['template_filter']) && !empty($_GET['template_filter'])) {
+			$template = sanitize_text_field($_GET['template_filter']);
+			$query->set('meta_key', '_wp_page_template');
+			$query->set('meta_value', $template);
+		}
 	}
 }
