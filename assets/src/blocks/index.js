@@ -6,6 +6,7 @@ import './stores';
 import './albums';
 import './blog-cards';
 import './bravo';
+import './core-query';
 import './count-photos';
 import './count-posts';
 import './footnotes';
