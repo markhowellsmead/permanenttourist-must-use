@@ -113,6 +113,10 @@ if (!empty($align)) {
 	$align = " align{$align}";
 }
 
+if (empty($content)) {
+	return;
+}
+
 ?>
 
 <div class="<?php echo $className . ' ' . $classNameBase . $align; ?>">
