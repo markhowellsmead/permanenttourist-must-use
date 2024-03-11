@@ -24,6 +24,8 @@ class Photo
 		add_action('pre_get_posts', [$this, 'postsPerPage'], 10, 1);
 		add_shortcode('pt-photo', [$this, 'shortcode'], 10, 1);
 		add_shortcode('photo_post_id', [$this, 'shortcodePostID'], 10, 0);
+		add_action('template_redirect', [$this, 'noPosts404']);
+		add_filter('rewrite_rules_array', [$this, 'archiveRewriteRules']);
 
 		add_filter('permanenttourist-v10/post_meta_information', [$this, 'postThumbnailMeta'], 10, 2);
 		add_filter('sherborne_road/post_meta_information', [$this, 'postThumbnailMeta'], 10, 2);
@@ -494,5 +496,42 @@ class Photo
 			$query->set('meta_key', '_wp_page_template');
 			$query->set('meta_value', $template);
 		}
+	}
+
+	/**
+	 * Handle the 404 status for the custom post type archive
+	 * if no posts are found.
+	 *
+	 * @return void
+	 */
+	public function noPosts404()
+	{
+		if (is_post_type_archive('photo')) {
+			global $wp_query;
+
+			// Check if there are posts in the custom post type archive query
+			if (!$wp_query->have_posts()) {
+				// Set 404 if no posts found
+				$wp_query->set_404();
+				status_header(404);
+			}
+		}
+	}
+
+	/**
+	 * Add year and month archive URLs to the rewrite rules
+	 * e.g. /photos/2024/03/
+	 *
+	 * @param array $rules
+	 * @return array
+	 */
+	public function archiveRewriteRules($rules)
+	{
+		$new_rules = [
+			'photos/([0-9]{4})/([0-9]{1,2})/?$' => 'index.php?post_type=photo&year=$matches[1]&monthnum=$matches[2]',
+			'photos/([0-9]{4})/?$' => 'index.php?post_type=photo&year=$matches[1]',
+		];
+
+		return $new_rules + $rules;
 	}
 }
