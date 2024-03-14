@@ -76,8 +76,6 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 	}
 } elseif (has_post_thumbnail($post_id)) {
 
-	$media_size = 'thumbnail';
-
 	$thumbnail_id = get_post_thumbnail_id($post_id);
 	$image = wp_get_attachment_image_url($thumbnail_id, $media_size);
 	$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
