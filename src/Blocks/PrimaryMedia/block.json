@@ -15,6 +15,9 @@
         "hideInlineEmbed": {
             "type": "boolean",
             "default": false
+        },
+        "resolution": {
+            "type": "string"
         }
     },
     "supports": {
