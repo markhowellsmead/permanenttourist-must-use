@@ -26,6 +26,10 @@ switch ($align) {
 		break;
 }
 
+if (!empty($attributes['resolution'])) {
+	$media_size = $attributes['resolution'];
+}
+
 $content = '';
 
 if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
@@ -71,9 +75,21 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 		}
 	}
 } elseif (has_post_thumbnail($post_id)) {
-	$image = wp_get_attachment_image(get_post_thumbnail_id($post_id), $media_size, false, ['class' => "{$classNameBase}__image"]);
+
+	$media_size = 'thumbnail';
+
+	$thumbnail_id = get_post_thumbnail_id($post_id);
+	$image = wp_get_attachment_image_url($thumbnail_id, $media_size);
+	$alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 
 	if (!empty($image)) {
+
+		$image = sprintf(
+			'<img loading="lazy" decode="sync" class="%1$s__image" src="%2$s" alt="%3$s" />',
+			$classNameBase,
+			$image,
+			$alt
+		);
 
 		// Weirdness when placing this block in a post list on a page
 		// This ensures the correct link being set
