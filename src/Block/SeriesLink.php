@@ -37,9 +37,11 @@ class SeriesLink
 		$tags = get_the_tags();
 		$series = [];
 
-		foreach ($tags as $tag) {
-			if ((bool) get_field('tag_is_series', "term_{$tag->term_id}")) {
-				$series[] = $tag;
+		if (is_array($tags)) {
+			foreach ($tags as $tag) {
+				if ((bool) get_field('tag_is_series', "term_{$tag->term_id}")) {
+					$series[] = $tag;
+				}
 			}
 		}
 
