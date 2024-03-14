@@ -432,7 +432,7 @@ class Media
 	 */
 	public function removeAsyncDecoding($loading_attrs)
 	{
-		$loading_attrs['decode'] = 'sync';
+		$loading_attrs['decoding'] = 'sync';
 		return $loading_attrs;
 	}
 }
