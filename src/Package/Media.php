@@ -27,6 +27,7 @@ class Media
 		add_filter('post_class', [$this, 'postClasses']);
 		add_action('wpseo_add_opengraph_images', [$this, 'videoThumbnail']);
 		add_filter('wpseo_opengraph_image_size', [$this, 'yoastSeoOpengraphChangeImageSize'], 10, 0);
+		add_filter('wp_get_loading_optimization_attributes', [$this, 'removeAsyncDecoding']);
 	}
 
 	public function addImageSizes()
@@ -420,5 +421,18 @@ class Media
 
 		$body = $dom->saveHtml($dom->getElementsByTagName('body')->item(0));
 		return str_replace(['<body>', '</body>'], '', $body);
+	}
+
+	/**
+	 * Modify the loading attribute of images to be synchronous
+	 * This avoids an intermittent issue where the image is not lazy-loaded
+	 *
+	 * @param array $loading_attrs
+	 * @return array
+	 */
+	public function removeAsyncDecoding($loading_attrs)
+	{
+		$loading_attrs['decode'] = 'sync';
+		return $loading_attrs;
 	}
 }
