@@ -12,8 +12,6 @@ registerBlockType(block_name, {
         const { attributes, setAttributes } = props;
         const { hideInlineEmbed, resolution } = attributes;
 
-        console.log(attributes);
-
         const toggleHideInlineEmbed = () => {
             setAttributes({ hideInlineEmbed: !hideInlineEmbed });
         };
