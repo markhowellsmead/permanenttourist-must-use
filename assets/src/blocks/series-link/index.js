@@ -53,7 +53,7 @@ registerBlockType(blockName, {
                 <div {...blockProps}>
                     <p
                         dangerouslySetInnerHTML={{
-                            __html: 'There are no options for this block',
+                            __html: 'Series link block - there are no options for this block',
                         }}
                     />
                 </div>
