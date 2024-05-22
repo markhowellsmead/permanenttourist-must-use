@@ -2,9 +2,6 @@
 
 namespace PT\MustUse\Blocks\CoreEmbed;
 
-use DOMDocument;
-use DOMXPath;
-
 class Block
 {
 	public function run()
