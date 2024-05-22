@@ -74,7 +74,7 @@ class Admin
 				<?php
 				foreach ($this->templates as $template) {
 				?>
-					<option value="<?php echo $template['name']; ?>" <?php selected($_GET['template'], $template['name']); ?>><?php echo $template['title']; ?></option>
+					<option value="<?php echo $template['name']; ?>" <?php selected($_GET['template'] ?? '', $template['name']); ?>><?php echo $template['title']; ?></option>
 				<?php
 				}
 				?>
