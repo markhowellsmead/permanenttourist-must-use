@@ -1,18 +1,46 @@
-import { registerBlockType } from '@wordpress/blocks';
+import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { PanelBody, PanelRow, SelectControl, ToggleControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
+
+import { FeaturedImage } from './featured-image';
+
 import block_json from '../../../block.json';
 const { name: block_name } = block_json;
+
+const classNameBase = getBlockDefaultClassName(block_name);
 
 registerBlockType(block_name, {
     edit: props => {
         const blockProps = useBlockProps();
-        const { attributes, setAttributes } = props;
-        const { hideInlineEmbed, resolution } = attributes;
+        const { attributes, setAttributes, context } = props;
+        const { hideInlineEmbed, resolution, className } = attributes;
+        const { postId, postType } = context;
 
-        console.log(attributes);
+        if (!context || !postId || !postType) {
+            return (
+                <div {...blockProps}>
+                    <div
+                        className={`${className} ${classNameBase}__figure ${classNameBase}__figure--empty`}
+                    >
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: _x(
+                                    'The preview of this block only appears in a page or post context .',
+                                    'Block placeholder',
+                                    'permanenttourist-must-use'
+                                ),
+                            }}
+                        />
+                    </div>
+                </div>
+            );
+        }
+
+        const postData = useSelect(select => {
+            return select('core').getEntityRecord('postType', postType, postId);
+        });
 
         const toggleHideInlineEmbed = () => {
             setAttributes({ hideInlineEmbed: !hideInlineEmbed });
@@ -47,7 +75,12 @@ registerBlockType(block_name, {
                     </PanelBody>
                 </InspectorControls>
                 <div {...blockProps}>
-                    <p>This block currently has no preview.</p>
+                    <FeaturedImage
+                        postData={postData}
+                        resolution={resolution}
+                        className={className}
+                        classNameBase={classNameBase}
+                    />
                 </div>
             </>
         );

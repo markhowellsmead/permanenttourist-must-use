@@ -9,6 +9,14 @@
   margin-inline-start: 0;
   margin-inline-end: 0;
 }
+.wp-block-sht-primary-media__figure.is-style-2x1 {
+  overflow: hidden;
+  aspect-ratio: 2/1;
+}
+.wp-block-sht-primary-media__figure.is-style-3x1 {
+  overflow: hidden;
+  aspect-ratio: 3/1;
+}
 .wp-block-sht-primary-media__figure.is-style-3x2 {
   overflow: hidden;
   aspect-ratio: 3/2;
