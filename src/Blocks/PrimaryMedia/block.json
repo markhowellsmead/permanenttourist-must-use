@@ -27,9 +27,11 @@
     "styles": [
         { "name": "default", "label": "Default", "isDefault": true },
         { "name": "3x2", "label": "3x2" },
-        { "name": "16x9", "label": "16x9" }
+        { "name": "16x9", "label": "16x9" },
+        { "name": "2x1", "label": "2x1" },
+        { "name": "3x1", "label": "3x1" }
     ],
-    "usesContext": ["postId"],
+    "usesContext": ["postId", "postType"],
     "editorStyle": "file:./dist/styles/edit.min.css",
     "editorScript": "file:./dist/scripts/editor.js",
     "style": "file:./dist/styles/view.min.css",
