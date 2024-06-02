@@ -126,6 +126,7 @@ class Plugin
 				PostType\Feature::class,
 				PostType\Page::class,
 				PostType\Photo::class,
+				PostType\Place::class,
 				//PostType\Viewpoints::class,
 
 				Blocks\CoreEmbed\Block::class,
