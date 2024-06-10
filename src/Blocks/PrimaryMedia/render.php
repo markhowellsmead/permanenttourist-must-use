@@ -31,6 +31,7 @@ if (!empty($attributes['resolution'])) {
 }
 
 $content = '';
+$media_package = new MediaPackage();
 
 if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 
@@ -48,8 +49,6 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 			return $video_player;
 		}
 
-		$media_package = new MediaPackage();
-
 		$video_player = $media_package->addHqParam($video_player);
 
 		$content = sprintf(
@@ -60,7 +59,7 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 		);
 	} else {
 
-		$thumbnail = pt_must_use_get_instance()->Package->Media->getVideoThumbnail($video_url);
+		$thumbnail = $media_package->getVideoThumbnail($video_url);
 
 		if (!empty($thumbnail)) {
 			$content = sprintf(
@@ -68,7 +67,7 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 				$className,
 				$classNameBase,
 				$media_size,
-				pt_must_use_get_instance()->Package->Media->getVideoThumbnail($video_url),
+				$media_package->getVideoThumbnail($video_url),
 				get_the_title($post_id),
 				get_the_permalink($post_id)
 			);
