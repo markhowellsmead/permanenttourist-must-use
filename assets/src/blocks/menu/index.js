@@ -14,7 +14,7 @@ registerBlockType(blockName, {
     icon,
     category: 'common',
     supports: {
-        align: ['left', 'right'],
+        align: ['wide', 'full'],
         mode: false,
         html: false,
         multiple: true,
