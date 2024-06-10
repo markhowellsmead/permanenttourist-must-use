@@ -2,6 +2,8 @@
 
 namespace PT\MustUse\Package;
 
+use PT\MustUse\Package\Gutenberg as GutenbergPackage;
+
 use DOMDocument;
 use DOMXpath;
 
@@ -54,7 +56,8 @@ class Footnotes
 	 */
 	public function addFootnoteLinks(string $content)
 	{
-		if (!is_admin() && !pt_must_use_get_instance()->Package->Gutenberg->isContextEdit()) {
+		$gutenberg_package = new GutenbergPackage();
+		if (!is_admin() && !$gutenberg_package->isContextEdit()) {
 			$content = preg_replace('~\[\[([0-9]+)\]\]~', '<sup><a data-fnq id="footnotesource$1" href="#' . _x('footnote', 'Anchor slug for footnotes', 'sht') . '$1">$1</a></sup>', $content);
 		}
 		return $content;

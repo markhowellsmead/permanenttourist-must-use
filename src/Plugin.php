@@ -2,6 +2,8 @@
 
 namespace PT\MustUse;
 
+use stdClass;
+
 class Plugin
 {
 	private static $instance;
@@ -11,6 +13,7 @@ class Plugin
 	public $file = '';
 	public $url = '';
 	public $path = '';
+	private $properties = [];
 
 	/**
 	 * Creates an instance if one isn't already available,
@@ -42,6 +45,16 @@ class Plugin
 		return self::$instance;
 	}
 
+	public function __get($name)
+	{
+		return $this->properties[$name];
+	}
+
+	public function __set($name, $value)
+	{
+		$this->properties[$name] = $value;
+	}
+
 	/**
 	 * Loads and initializes the provided classes.
 	 *
@@ -49,23 +62,28 @@ class Plugin
 	 */
 	private function loadClasses($classes)
 	{
+
+		$instance = pt_must_use_get_instance();
+
 		foreach ($classes as $class) {
 			$class_parts = explode('\\', $class);
 			$class_short = end($class_parts);
 			$class_set   = $class_parts[count($class_parts) - 2];
 
-			if (!isset(pt_must_use_get_instance()->{$class_set}) || !is_object(pt_must_use_get_instance()->{$class_set})) {
-				pt_must_use_get_instance()->{$class_set} = new \stdClass();
+			if (!isset($instance->{$class_set}) || !is_object($instance->{$class_set})) {
+				$instance->{$class_set} = new stdClass();
 			}
 
-			if (property_exists(pt_must_use_get_instance()->{$class_set}, $class_short)) {
+			if (property_exists($instance->{$class_set}, $class_short)) {
 				wp_die(sprintf(__('A problem has ocurred in the Theme. Only one PHP class named “%1$s” may be assigned to the “%2$s” object in the Theme.', 'sht'), $class_short, $class_set), 500);
 			}
 
-			pt_must_use_get_instance()->{$class_set}->{$class_short} = new $class();
+			$key = "{$class_set}_{$class_short}";
 
-			if (method_exists(pt_must_use_get_instance()->{$class_set}->{$class_short}, 'run')) {
-				pt_must_use_get_instance()->{$class_set}->{$class_short}->run();
+			$instance->{$key} = new $class();
+
+			if (method_exists($instance->{$key}, 'run')) {
+				$instance->{$key}->run();
 			}
 		}
 	}
