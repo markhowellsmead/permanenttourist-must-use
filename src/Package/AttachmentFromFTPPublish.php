@@ -284,7 +284,7 @@ class AttachmentFromFTPPublish
 		if (!empty($data['post_tags'])) {
 			// Retain current tags and add new ones
 			wp_set_post_terms($post_id, $data['post_tags'], $post_tag_name, true);
-			do_action('mhm-attachment-from-ftp-publish/post_tags_after', $post_id, $data['collection'], $post_tag_name);
+			do_action('mhm-attachment-from-ftp-publish/post_tags_after', $post_id, $data['collection'] ?? '', $post_tag_name);
 		}
 	}
 

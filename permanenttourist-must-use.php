@@ -4,7 +4,7 @@ Plugin Name: Permanent Tourist Must Use
 Plugin URI: #
 Description: This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch.
 Author: Mark Howells-Mead
-Version: 0.24.0
+Version: 0.24.1
 Author URI: https://www.permanenttourist.ch/
 Text Domain: pt-must-use
 Domain Path: languages
@@ -19,15 +19,6 @@ if (!function_exists('dump')) {
 		}
 	}
 }
-
-/*
-	 * This lot auto-loads a class or trait just when you need it. You don't need to
-	 * use require, include or anything to get the class/trait files, as long
-	 * as they are stored in the correct folder and use the correct namespaces.
-	 *
-	 * See http://www.php-fig.org/psr/psr-4/ for an explanation of the file structure
-	 * and https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md for usage examples.
-	 */
 
 spl_autoload_register(function ($class) {
 
@@ -58,8 +49,6 @@ spl_autoload_register(function ($class) {
 		require $file;
 	}
 });
-
-//require_once 'src/Plugin.php';
 
 /**
  * Returns the Theme Instance
