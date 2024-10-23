@@ -2,7 +2,7 @@
 
 namespace PT\MustUse\PostType;
 
-class Place
+class Explore
 {
 
 	public function run()
@@ -16,18 +16,18 @@ class Place
 	public function registerPostType()
 	{
 		register_post_type(
-			'mhm-place',
+			'mhm-explore',
 			[
-				'description' => _x('Places', 'Post type description', 'permanenttourist-must-use'),
+				'description' => _x('Destinations', 'Post type description', 'permanenttourist-must-use'),
 				'menu_icon' => 'dashicons-admin-site-alt',
 				'menu_position' => 10,
 				'hierarchical' => true,
 				'has_archive' => true,
 				'public' => true,
 				'show_in_rest' => true,
-				'rest_base' => 'places',
+				'rest_base' => 'explore',
 				'rewrite' => [
-					'slug' => 'places'
+					'slug' => 'explore'
 				],
 				'supports' => [
 					'title',
@@ -69,7 +69,7 @@ class Place
 			]
 		);
 
-		add_post_type_support('mhm-place', 'excerpt');
+		add_post_type_support('mhm-explore', 'excerpt');
 	}
 
 	public function registerFields()
@@ -103,7 +103,7 @@ class Place
 						array(
 							'param' => 'post_type',
 							'operator' => '==',
-							'value' => 'mhm-place',
+							'value' => 'mhm-explore',
 						),
 					),
 				),
@@ -136,7 +136,7 @@ class Place
 							'id' => '',
 						),
 						'post_type' => array(
-							0 => 'mhm-place',
+							0 => 'mhm-explore',
 						),
 						'taxonomy' => '',
 						'filters' => array(
@@ -155,7 +155,7 @@ class Place
 						array(
 							'param' => 'post_type',
 							'operator' => '==',
-							'value' => 'mhm-place',
+							'value' => 'mhm-explore',
 						),
 					),
 				),
