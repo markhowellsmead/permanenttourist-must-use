@@ -9,6 +9,7 @@ class Algolia
 	{
 		add_filter('algolia_search_params', [$this, 'modifyParams']);
 		add_filter('algolia_should_index_user', '__return_false');
+		add_filter('algolia_search_highlighting_enabled', '__return_false');
 		add_filter('algolia_excluded_taxonomies', [$this, 'excludeTaxonomies']);
 		add_filter('algolia_excluded_post_types', [$this, 'excludePostTypes']);
 	}
