@@ -31,7 +31,8 @@ class Plugin
 				include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 			}
 
-			$data = get_plugin_data($file);
+			// Don't translate plugin data
+			$data = get_plugin_data($file, false, false);
 
 			self::$instance->name = $data['Name'];
 			self::$instance->prefix = 'pt_must_use';
@@ -125,6 +126,7 @@ class Plugin
 				Package\Flickr::class,
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
+				Package\Language::class,
 				Package\LoginScreen::class,
 				//Package\MapFromMeta::class,
 				Package\Media::class,

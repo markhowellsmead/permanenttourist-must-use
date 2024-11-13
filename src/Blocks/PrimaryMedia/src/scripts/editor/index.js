@@ -29,7 +29,7 @@ registerBlockType(block_name, {
                                 __html: _x(
                                     'The preview of this block only appears in a page or post context .',
                                     'Block placeholder',
-                                    'permanenttourist-must-use'
+                                    'pt-must-use'
                                 ),
                             }}
                         />
@@ -53,17 +53,17 @@ registerBlockType(block_name, {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody title={_x('Settings', 'Block settings', 'textdomain')}>
+                    <PanelBody title={_x('Settings', 'Block settings', 'pt-must-use')}>
                         <PanelRow>
                             <ToggleControl
-                                label={_x('Hide inline embed', 'Block setting', 'textdomain')}
+                                label={_x('Hide inline embed', 'Block setting', 'pt-must-use')}
                                 checked={hideInlineEmbed}
                                 onChange={toggleHideInlineEmbed}
                             />
                         </PanelRow>
                         <PanelRow>
                             <SelectControl
-                                label={_x('Image resolution', 'Block setting', 'textdomain')}
+                                label={_x('Image resolution', 'Block setting', 'pt-must-use')}
                                 value={resolution}
                                 options={availableImageSizes.map(size => ({
                                     label: size.name,
