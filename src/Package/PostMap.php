@@ -22,7 +22,7 @@ class PostMap
 		add_action('admin_init', array($this, 'check_version'));
 
 		// Load translations
-		add_action('plugins_loaded', array($this, 'loadTextDomain'));
+		//add_action('plugins_loaded', array($this, 'loadTextDomain'));
 		add_action('plugins_loaded', array($this, 'initSettings'), 1);
 
 		// Load JavaScript
@@ -96,7 +96,7 @@ class PostMap
 						'markerContent' => '<a href="' . get_permalink($post->ID) . '">' . get_the_post_thumbnail($post->ID, 'thumbnail') . '</a>
 <div class="text">
 	<h2><a href="' . get_permalink($post->ID) . '">' . $post->post_title . '</a></h2>
-	<p class="link"><a href="' . get_permalink($post->ID) . '">' . __('View full-sized image', 'permanenttourist-must-use') . '</a></p>
+	<p class="link"><a href="' . get_permalink($post->ID) . '">' . __('View full-sized image', 'pt-must-use') . '</a></p>
 </div>'
 					);
 				}
@@ -136,8 +136,8 @@ class PostMap
 	{
 		echo '<div class="notice notice-error is-dismissible">
 	<p>' . sprintf(
-			__('The plugin “%1$s” requires WordPress %2$s or higher!', 'permanenttourist-must-use'),
-			_x('Map of posts', 'Plugin name', 'permanenttourist-must-use'),
+			__('The plugin “%1$s” requires WordPress %2$s or higher!', 'pt-must-use'),
+			_x('Map of posts', 'Plugin name', 'pt-must-use'),
 			$this->wpversion
 		) . '</p>
 </div>';

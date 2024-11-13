@@ -1,0 +1,292 @@
+# Copyright (C) 2024 Mark Howells-Mead
+# This file is distributed under the same license as the Permanent Tourist Must Use plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Permanent Tourist Must Use 0.25.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/permanenttourist-must-use\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-11-13T15:37:30+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: pt-must-use\n"
+
+#. Plugin Name of the plugin
+#: permanenttourist-must-use.php
+msgid "Permanent Tourist Must Use"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: permanenttourist-must-use.php
+msgid "#"
+msgstr ""
+
+#. Description of the plugin
+#: permanenttourist-must-use.php
+msgid "This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch."
+msgstr ""
+
+#. Author of the plugin
+#: permanenttourist-must-use.php
+msgid "Mark Howells-Mead"
+msgstr ""
+
+#. Author URI of the plugin
+#: permanenttourist-must-use.php
+msgid "https://www.permanenttourist.ch/"
+msgstr ""
+
+#: src/Block/CountPhotos.php:34
+msgid "%1$s photos published since %2$s"
+msgstr ""
+
+#: src/Block/CountPosts.php:33
+msgid "%1$s blog posts published since %2$s"
+msgstr ""
+
+#: src/Block/YearsOnline.php:34
+msgid "%s years online"
+msgstr ""
+
+#: src/Package/PostMap.php:99
+msgid "View full-sized image"
+msgstr ""
+
+#: src/Package/PostMap.php:139
+msgid "The plugin “%1$s” requires WordPress %2$s or higher!"
+msgstr ""
+
+#: src/Package/PostMap.php:140
+msgctxt "Plugin name"
+msgid "Map of posts"
+msgstr ""
+
+#: src/PostType/Explore.php:21
+msgctxt "Post type description"
+msgid "Destinations"
+msgstr ""
+
+#: src/PostType/Explore.php:39
+msgctxt "CPT name"
+msgid "Places"
+msgstr ""
+
+#: src/PostType/Explore.php:40
+msgctxt "CPT singular name"
+msgid "Place"
+msgstr ""
+
+#: src/PostType/Explore.php:41
+msgctxt "CPT add_new"
+msgid "Add new"
+msgstr ""
+
+#: src/PostType/Explore.php:42
+msgctxt "cpt name"
+msgid "Add new Place"
+msgstr ""
+
+#: src/PostType/Explore.php:43
+msgctxt "cpt name"
+msgid "Edit Place"
+msgstr ""
+
+#: src/PostType/Explore.php:44
+msgctxt "cpt name"
+msgid "New Place"
+msgstr ""
+
+#: src/PostType/Explore.php:45
+msgctxt "cpt name"
+msgid "View Place"
+msgstr ""
+
+#: src/PostType/Explore.php:46
+msgctxt "cpt name"
+msgid "View Places"
+msgstr ""
+
+#: src/PostType/Explore.php:47
+msgctxt "cpt name"
+msgid "Search Places"
+msgstr ""
+
+#: src/PostType/Explore.php:48
+msgctxt "cpt name"
+msgid "No Places"
+msgstr ""
+
+#: src/PostType/Explore.php:49
+msgctxt "cpt name"
+msgid "No Places in the trash"
+msgstr ""
+
+#: src/PostType/Explore.php:50
+msgctxt "cpt name"
+msgid "All Places"
+msgstr ""
+
+#: src/PostType/Explore.php:51
+msgctxt "cpt name"
+msgid "Place Places"
+msgstr ""
+
+#: src/PostType/Explore.php:52
+msgctxt "cpt name"
+msgid "Attributes"
+msgstr ""
+
+#: src/PostType/Explore.php:53
+msgctxt "Label for name admin bar"
+msgid "Place"
+msgstr ""
+
+#: src/PostType/Explore.php:54
+msgctxt "Label for name admin bar"
+msgid "Insert into Place"
+msgstr ""
+
+#: src/PostType/Explore.php:55
+msgctxt "Label for name admin bar"
+msgid "Uploaded to this Place"
+msgstr ""
+
+#: src/PostType/Explore.php:56
+msgctxt "Label for name admin bar"
+msgid "Filter Places"
+msgstr ""
+
+#: src/PostType/Explore.php:57
+msgctxt "Label for name admin bar"
+msgid "Place list navigation"
+msgstr ""
+
+#: src/PostType/Explore.php:58
+msgctxt "Label for name admin bar"
+msgid "List of Places"
+msgstr ""
+
+#: src/PostType/Explore.php:59
+msgctxt "Label for name admin bar"
+msgid "Place published."
+msgstr ""
+
+#: src/PostType/Explore.php:60
+msgctxt "Label for name admin bar"
+msgid "Place published privately."
+msgstr ""
+
+#: src/PostType/Explore.php:61
+msgctxt "Label for name admin bar"
+msgid "Place reverted to draft status."
+msgstr ""
+
+#: src/PostType/Explore.php:62
+msgctxt "Label for name admin bar"
+msgid "Place scheduled."
+msgstr ""
+
+#: src/PostType/Explore.php:63
+msgctxt "Label for name admin bar"
+msgid "Place updated."
+msgstr ""
+
+#: src/PostType/Photo.php:481
+msgid "All templates"
+msgstr ""
+
+#: assets/dist/blocks/blocks.js:2
+#: assets/src/blocks/language-excerpt/index.js:9
+msgctxt "Block title"
+msgid "Language excerpt"
+msgstr ""
+
+#: assets/dist/blocks/blocks.js:2
+#: assets/src/blocks/language-excerpt/index.js:10
+msgctxt "Block instructions"
+msgid "This block allows the provision of a text excerpt in an alternative language."
+msgstr ""
+
+#: assets/dist/blocks/blocks.js:2
+#: assets/src/blocks/post-excerpt/index.js:8
+msgctxt "Block title"
+msgid "Post excerpt"
+msgstr ""
+
+#: assets/dist/blocks/blocks.js:2
+#: assets/src/blocks/post-excerpt/index.js:9
+msgctxt "Block instructions"
+msgid "This block automatically shows the current post excerpt. There are no options for this block. Edit the post excerpt as usual."
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/dist/scripts/editor.js:1
+#: src/Blocks/PrimaryMedia/src/scripts/editor/index.js:29
+msgctxt "Block placeholder"
+msgid "The preview of this block only appears in a page or post context ."
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/dist/scripts/editor.js:1
+#: src/Blocks/PrimaryMedia/src/scripts/editor/index.js:56
+msgctxt "Block settings"
+msgid "Settings"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/dist/scripts/editor.js:1
+#: src/Blocks/PrimaryMedia/src/scripts/editor/index.js:59
+msgctxt "Block setting"
+msgid "Hide inline embed"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/dist/scripts/editor.js:1
+#: src/Blocks/PrimaryMedia/src/scripts/editor/index.js:66
+msgctxt "Block setting"
+msgid "Image resolution"
+msgstr ""
+
+#: src/Blocks/PostSeriesList/block.json
+msgctxt "block title"
+msgid "Post Series List"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block title"
+msgid "Primary media"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block keyword"
+msgid "image"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block keyword"
+msgid "featured-image"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block style label"
+msgid "Default"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block style label"
+msgid "3x2"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block style label"
+msgid "16x9"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block style label"
+msgid "2x1"
+msgstr ""
+
+#: src/Blocks/PrimaryMedia/block.json
+msgctxt "block style label"
+msgid "3x1"
+msgstr ""
