@@ -7,7 +7,7 @@
     "icon": "format-image",
     "description": "",
     "keywords": ["image", "featured-image"],
-    "textdomain": "permanenttourist_must_use",
+    "textdomain": "pt-must-use",
     "attributes": {
         "align": {
             "type": "string"

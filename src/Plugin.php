@@ -125,6 +125,7 @@ class Plugin
 				Package\Flickr::class,
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
+				Package\Language::class,
 				Package\LoginScreen::class,
 				//Package\MapFromMeta::class,
 				Package\Media::class,

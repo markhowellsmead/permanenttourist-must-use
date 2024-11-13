@@ -478,7 +478,7 @@ class Photo
 			$templates = get_page_templates(null, $post_type);
 ?>
 			<select name="template_filter" id="template_filter">
-				<option value=""><?php _e('All templates', 'permanenttourist-must-use'); ?></option>
+				<option value=""><?php _e('All templates', 'pt-must-use'); ?></option>
 				<?php foreach ($templates as $name => $key) : ?>
 					<option value="<?php echo $key; ?>" <?php selected($key, isset($_GET['template_filter']) ? $_GET['template_filter'] : ''); ?>><?php echo $name; ?></option>
 				<?php endforeach; ?>
