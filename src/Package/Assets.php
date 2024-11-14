@@ -22,6 +22,8 @@ class Assets
 		$dir_url = plugin_dir_url(pt_must_use_get_instance()->file);
 
 		wp_enqueue_style('permanenttourist-must-use-style', $dir_url . 'assets/dist/styles/ui' . ($min ? '.min' : '') . '.css', [], filemtime($dir_path . 'assets/dist/styles/ui' . ($min ? '.min' : '') . '.css'));
+
+		wp_enqueue_script('permanenttourist-must-use-video', $dir_url . 'assets/dist/scripts/video.js', ['jquery'], filemtime($dir_path . 'assets/dist/scripts/video.js'), true);
 	}
 
 	public function registerAdminAssets()
