@@ -101,15 +101,35 @@ class Page
 				transition: background-color 0.3s ease-in-out;
 			}
 
-			.c-masthead--custom-color {
+			html:not(.is--mobilemenu--open) .c-masthead--custom-color {
 				color: <?php echo esc_attr($color); ?> !important;
 				background: none transparent !important;
 				-webkit-backdrop-filter: none !important;
 				backdrop-filter: none !important;
 			}
 
-			.c-masthead--custom-color.c-masthead--custom-color--light {
+			html:not(.is--mobilemenu--open) .c-masthead--custom-color::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(180deg, #000 0%, transparent 50%);
+				opacity: .2;
+			}
+
+			html:not(.is--mobilemenu--open) .c-masthead--custom-color.c-masthead--custom-color--light {
 				text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+			}
+
+			html:not(.is--mobilemenu--open) .c-masthead--custom-color.c-masthead--custom-color--light button span {
+				box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+			}
+
+			html.is--mobilemenu--open .c-masthead {
+				transition: none;
+				background-color: rgba(255, 255, 255, .95) !important;
 			}
 
 			.c-masthead--custom-color * {
