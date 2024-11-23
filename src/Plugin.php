@@ -123,6 +123,7 @@ class Plugin
 				Package\AttachmentGeoMetadata::class,
 				Package\AttachmentFromFTPPublish::class,
 				// Package\CLI::class, // Only comment in when in use
+				Package\DarkMode::class,
 				Package\Flickr::class,
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
