@@ -1,6 +1,6 @@
 import { _x, __ } from '@wordpress/i18n';
 import { ColorPaletteControl } from '@wordpress/block-editor';
-import { ToggleControl } from '@wordpress/components';
+import { BaseControl, ToggleControl } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { registerPlugin } from '@wordpress/plugins';
@@ -18,13 +18,11 @@ let CustomLayoutPanel = () => {
         return null;
     }
 
-    const themeColors = useSelect(select => {
-        const settings = select('core/block-editor').getSettings();
-        return settings?.colors || [];
-    }, []);
+    const themeColors = useSelect(select => select('core/editor').getEditorSettings().colors);
 
     const { content_behind_masthead, masthead_color } = useSelect(select => {
         const meta = select('core/editor').getEditedPostAttribute('meta');
+        console.log(meta);
         return meta || {};
     });
 
@@ -35,12 +33,13 @@ let CustomLayoutPanel = () => {
     };
 
     const handleColorChange = color => {
+        console.log('color', color);
         editPost({ meta: { masthead_color: color } });
     };
 
     return (
         <PluginDocumentSettingPanel
-            title={_x('Page layout options', 'Editor sidebar panel title', 'pt-must-use')}
+            title={_x('Masthead', 'Editor sidebar panel title', 'pt-must-use')}
             initialOpen={true}
         >
             <ToggleControl
@@ -49,10 +48,13 @@ let CustomLayoutPanel = () => {
                 checked={!!content_behind_masthead}
             />
             {!!content_behind_masthead && (
-                <div>
-                    <label>{__('Masthead Background Color', 'pt-must-use')}</label>
-                    <ColorPaletteControl value={masthead_color} onChange={handleColorChange} />
-                </div>
+                <BaseControl label={__('Masthead text colour', 'pt-must-use')}>
+                    <ColorPaletteControl
+                        colors={themeColors}
+                        value={masthead_color}
+                        onChange={handleColorChange}
+                    />
+                </BaseControl>
             )}
         </PluginDocumentSettingPanel>
     );
