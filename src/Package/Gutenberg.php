@@ -9,6 +9,18 @@ namespace PT\MustUse\Package;
  */
 class Gutenberg
 {
+
+	private $plugin_data = [];
+	private $dir_path = '';
+	private $dir_url = '';
+
+	public function __construct()
+	{
+		$file = pt_must_use_get_instance()->file;
+		$this->plugin_data = get_plugin_data($file, false);
+		$this->dir_path = plugin_dir_path($file);
+		$this->dir_url = plugin_dir_url($file);
+	}
 	public function run()
 	{
 		add_action('admin_menu', [$this, 'reusableBlocksAdminMenu']);
@@ -37,19 +49,22 @@ class Gutenberg
 			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 		}
 
-		$plugin_data = get_plugin_data(pt_must_use_get_instance()->file, false);
+		$this->enqueueBlockScript('blocks.js');
+		$this->enqueueBlockScript('block-editor-page-controls.js');
+	}
 
-		$dir_path = plugin_dir_path(pt_must_use_get_instance()->file);
-		$dir_url = plugin_dir_url(pt_must_use_get_instance()->file);
+	private function enqueueBlockScript($name)
+	{
+		$asset_name = str_replace('.js', '.asset.php', $name);
 
-		$file = defined('WP_DEBUG') && WP_DEBUG ? 'blocks.js' : 'blocks.min.js';
-
-		$script_asset_path = "{$dir_path}assets/dist/blocks/blocks.asset.php";
-		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $plugin_data['Version'] ?? '0'];
+		$script_path = "{$this->dir_path}assets/dist/blocks/{$name}";
+		die($script_path);
+		$script_asset_path = "{$this->dir_path}assets/dist/blocks/{$asset_name}";
+		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => filemtime($script_path)];
 
 		wp_enqueue_script(
 			'pt-must-use-gutenberg-script',
-			"{$dir_url}assets/dist/blocks/{$file}",
+			"{$this->dir_url}assets/dist/blocks/{$name}",
 			$script_asset['dependencies'],
 			$script_asset['version']
 		);
