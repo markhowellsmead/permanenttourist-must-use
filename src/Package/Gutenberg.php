@@ -50,21 +50,22 @@ class Gutenberg
 		}
 
 		$this->enqueueBlockScript('blocks.js');
-		$this->enqueueBlockScript('block-editor-page-controls.js');
+		$this->enqueueBlockScript('page-controls.js', 'scripts');
 	}
 
-	private function enqueueBlockScript($name)
+	private function enqueueBlockScript($name, $folder = 'blocks')
 	{
 		$asset_name = str_replace('.js', '.asset.php', $name);
+		$asset_key = str_replace('.js', '', $name);
 
-		$script_path = "{$this->dir_path}assets/dist/blocks/{$name}";
-		die($script_path);
-		$script_asset_path = "{$this->dir_path}assets/dist/blocks/{$asset_name}";
+		$script_path = "{$this->dir_path}assets/dist/{$folder}/{$name}";
+
+		$script_asset_path = "{$this->dir_path}assets/dist/{$folder}/{$asset_name}";
 		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => filemtime($script_path)];
 
 		wp_enqueue_script(
-			'pt-must-use-gutenberg-script',
-			"{$this->dir_url}assets/dist/blocks/{$name}",
+			"ptmu-gb-{$asset_key}",
+			"{$this->dir_url}assets/dist/{$folder}/{$name}",
 			$script_asset['dependencies'],
 			$script_asset['version']
 		);
