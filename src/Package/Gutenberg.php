@@ -43,10 +43,6 @@ class Gutenberg
 
 	public function blockEditorAssets()
 	{
-		if (!function_exists('get_plugin_data')) {
-			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-		}
-
 		$this->enqueueBlockScript('blocks.js');
 		$this->enqueueBlockScript('page-controls.js', 'scripts');
 	}
