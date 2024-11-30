@@ -10,14 +10,12 @@ namespace PT\MustUse\Package;
 class Gutenberg
 {
 
-	private $plugin_data = [];
 	private $dir_path = '';
 	private $dir_url = '';
 
 	public function __construct()
 	{
 		$file = pt_must_use_get_instance()->file;
-		$this->plugin_data = get_plugin_data($file, false);
 		$this->dir_path = plugin_dir_path($file);
 		$this->dir_url = plugin_dir_url($file);
 	}

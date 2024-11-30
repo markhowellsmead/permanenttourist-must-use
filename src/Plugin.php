@@ -140,7 +140,6 @@ class Plugin
 				Pattern\HeaderMediaText::class,
 
 				Plugin\Algolia::class,
-				Plugin\GitInstaller::class,
 
 				PostType\Attachment::class,
 				PostType\BlockArea::class,
