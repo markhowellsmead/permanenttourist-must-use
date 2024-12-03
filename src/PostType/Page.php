@@ -127,9 +127,13 @@ class Page
 				box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 			}
 
-			html.is--mobilemenu--open .c-masthead {
-				transition: none;
-				background-color: rgba(255, 255, 255, .95) !important;
+			html:not(.is--mobilemenu--open) .c-masthead--custom-color.c-masthead--custom-color--light button svg {
+				filter: drop-shadow(0 0 4px rgba(0, 0, 0, 1));
+			}
+
+			html:not(.is--mobilemenu--open) .c-masthead--custom-color.c-masthead--custom-color--light .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container {
+				background-color: rgba(0, 0, 0, .2) !important;
+				border-color: transparent;
 			}
 
 			.c-masthead--custom-color * {
