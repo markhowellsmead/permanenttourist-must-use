@@ -405,7 +405,10 @@ class Media
 
 		libxml_use_internal_errors(true);
 		$dom = new DOMDocument();
-		$dom->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+
+		$html = $this->convertStringEncoding($html);
+
+		$dom->loadHTML($html);
 		$xpath = new DOMXPath($dom);
 		$nodeList = $xpath->query('//iframe');
 
@@ -434,5 +437,30 @@ class Media
 	{
 		$loading_attrs['decoding'] = 'sync';
 		return $loading_attrs;
+	}
+
+	/**
+	 * PHP 8.2-compatible string conversion.
+	 * Formerly mb_convert_encoding($string, 'HTML-ENTITIES', 'UTF-8')
+	 *
+	 * @param string $string
+	 * @param string $convert_from
+	 * @return string
+	 */
+	private function convertStringEncoding(string $string, $convert_from = 'UTF-8')
+	{
+		return mb_encode_numericentity(
+			htmlspecialchars_decode(
+				htmlentities(
+					$string,
+					ENT_NOQUOTES,
+					$convert_from,
+					false
+				),
+				ENT_NOQUOTES
+			),
+			[0x80, 0x10FFFF, 0, ~0],
+			$convert_from
+		);
 	}
 }
