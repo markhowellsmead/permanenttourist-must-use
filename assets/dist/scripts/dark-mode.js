@@ -1,0 +1,1 @@
+!function(){const e=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";"undefined"!=typeof _paq&&(console.log("_paq",_paq),_paq.push(["trackEvent","VisitorPreference","DarkModeOS",e]))}();
