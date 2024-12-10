@@ -17,6 +17,12 @@ class DarkMode
 
 	public function scripts()
 	{
+
+		$dir_path = plugin_dir_path(pt_must_use_get_instance()->file);
+		$dir_url = plugin_dir_url(pt_must_use_get_instance()->file);
+
+		wp_enqueue_script('pt-must-use-dark-mode', $dir_url . 'assets/dist/scripts/dark-mode.js', ['jquery'], filemtime($dir_path . 'assets/dist/scripts/dark-mode.js'), true);
+
 		// Register an empty script handle to attach the inline script.
 		wp_register_script('pt-must-use-dark-mode-inline', '');
 		wp_enqueue_script('pt-must-use-dark-mode-inline');
