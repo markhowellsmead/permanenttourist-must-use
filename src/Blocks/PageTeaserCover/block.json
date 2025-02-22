@@ -27,14 +27,8 @@
         "focalPoint": {
             "type": "object",
             "default": {
-                "x": {
-                    "type": "number",
-                    "default": 0.5
-                },
-                "y": {
-                    "type": "number",
-                    "default": 0.5
-                }
+                "x": 0.5,
+                "y": 0.5
             }
         },
         "imageSize": {
