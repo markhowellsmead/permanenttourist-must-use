@@ -1,5 +1,5 @@
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
-import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
+import { InspectorControls, RichText, useBlockProps, useSettings } from '@wordpress/block-editor';
 import {
     FocalPointPicker,
     PanelBody,
@@ -10,7 +10,7 @@ import {
 import { useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { Image } from './_image.js';
-import { contentStylesCalc, innerStylesCalc } from './_styles.js';
+import { contentStylesCalc, outerStylesCalc, innerStylesCalc } from './_styles.js';
 
 import block_json from '../../../block.json';
 const { name: block_name } = block_json;
@@ -19,12 +19,39 @@ const classNameBase = getBlockDefaultClassName(block_name);
 
 registerBlockType(block_name, {
     edit: props => {
-        const blockProps = useBlockProps();
         const { attributes, setAttributes } = props;
-        const { focalPoint, imageSize, linkText, postId, style } = attributes;
+        const {
+            aspectRatioMobile,
+            aspectRatioTablet,
+            aspectRatioDesktop,
+            focalPoint,
+            imageSize,
+            linkText,
+            postId,
+            style,
+        } = attributes;
+
+        const [defaultRatios, themeRatios] = useSettings(
+            'dimensions.aspectRatios.default',
+            'dimensions.aspectRatios.theme'
+        );
+
+        const aspectRatios = [...(defaultRatios || []), ...(themeRatios || [])];
+
+        const aspectRatioOptions = aspectRatios.map(ratio => {
+            return {
+                value: ratio.ratio,
+                label: ratio.name,
+            };
+        });
 
         const innerStyles = innerStylesCalc(style),
-            contentStyles = contentStylesCalc(style);
+            contentStyles = contentStylesCalc(style),
+            outerStyles = outerStylesCalc(attributes);
+
+        console.log('outerStyles', outerStyles);
+
+        const blockProps = useBlockProps({ style: outerStyles });
 
         const pageData = useSelect(select => {
             return select('core').getEntityRecord('postType', 'page', postId);
@@ -86,6 +113,44 @@ registerBlockType(block_name, {
                                 />
                             </PanelRow>
                         )}
+                        <PanelRow>
+                            <SelectControl
+                                label={_x(
+                                    'Aspect ratio (Desktop)',
+                                    'SelectControl label',
+                                    'pt-must-use'
+                                )}
+                                value={aspectRatioDesktop}
+                                options={aspectRatioOptions}
+                                onChange={aspectRatioDesktop =>
+                                    setAttributes({ aspectRatioDesktop })
+                                }
+                            />
+                        </PanelRow>
+                        <PanelRow>
+                            <SelectControl
+                                label={_x(
+                                    'Aspect ratio (Tablet)',
+                                    'SelectControl label',
+                                    'pt-must-use'
+                                )}
+                                value={aspectRatioTablet}
+                                options={aspectRatioOptions}
+                                onChange={aspectRatioTablet => setAttributes({ aspectRatioTablet })}
+                            />
+                        </PanelRow>
+                        <PanelRow>
+                            <SelectControl
+                                label={_x(
+                                    'Aspect ratio (Mobile)',
+                                    'SelectControl label',
+                                    'pt-must-use'
+                                )}
+                                value={aspectRatioMobile}
+                                options={aspectRatioOptions}
+                                onChange={aspectRatioMobile => setAttributes({ aspectRatioMobile })}
+                            />
+                        </PanelRow>
                         {postId &&
                             pageData &&
                             pageData?.featured_image?.media_details?.sizes[imageSize]

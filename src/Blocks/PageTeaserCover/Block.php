@@ -93,4 +93,31 @@ class Block
 			return "{$property}: {$value}";
 		}, $innerStyles, array_keys($innerStyles))) . ';' ?? '';
 	}
+
+	public static function outerStylesCalcString($attributes)
+	{
+		//$attributes['aspectRatioDesktop']
+
+		$outerStyles = [];
+
+		if (!empty($attributes['aspectRatioDesktop'] ?? '')) {
+			$outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = $attributes['aspectRatioDesktop'];
+		}
+
+		if (!empty($attributes['aspectRatioTablet'] ?? '')) {
+			$outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = $attributes['aspectRatioTablet'];
+		}
+
+		if (!empty($attributes['aspectRatioMobile'] ?? '')) {
+			$outerStyles['--sht-teaser-cover-aspect-ratio'] = $attributes['aspectRatioMobile'];
+		}
+
+		if (empty($outerStyles)) {
+			return '';
+		}
+
+		return implode('; ', array_map(function ($value, $property) {
+			return "{$property}: {$value}";
+		}, $outerStyles, array_keys($outerStyles))) . ';' ?? '';
+	}
 }

@@ -1,5 +1,7 @@
 .wp-block-sht-page-teaser-cover {
-  --sht-teaser-cover-aspect-ratio: 5/4;
+  --sht-teaser-cover-aspect-ratio: 3/2;
+  --sht-teaser-cover-aspect-ratio--tablet: var(--sht-teaser-cover-aspect-ratio);
+  --sht-teaser-cover-aspect-ratio--desktop: var(--sht-teaser-cover-aspect-ratio);
   position: relative;
   padding: 0 !important;
 }
@@ -26,6 +28,16 @@
   margin: 0;
   grid-column: 1;
   grid-row: 1;
+}
+@media screen and (min-width: 48em) {
+  .wp-block-sht-page-teaser-cover__figure {
+    aspect-ratio: var(--sht-teaser-cover-aspect-ratio--tablet);
+  }
+}
+@media screen and (min-width: 80em) {
+  .wp-block-sht-page-teaser-cover__figure {
+    aspect-ratio: var(--sht-teaser-cover-aspect-ratio--desktop);
+  }
 }
 .wp-block-sht-page-teaser-cover__figure--empty {
   background: var(--wp--preset--color--primary-verylight);

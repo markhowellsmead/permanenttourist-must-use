@@ -55,3 +55,21 @@ export const innerStylesCalc = style => {
     }
     return innerStyles;
 };
+
+export const outerStylesCalc = attributes => {
+    const outerStyles = {};
+
+    if (attributes?.aspectRatioMobile) {
+        outerStyles['--sht-teaser-cover-aspect-ratio'] = attributes.aspectRatioMobile;
+    }
+
+    if (attributes?.aspectRatioTablet) {
+        outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = attributes.aspectRatioTablet;
+    }
+
+    if (attributes?.aspectRatioDesktop) {
+        outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = attributes.aspectRatioDesktop;
+    }
+
+    return outerStyles;
+};

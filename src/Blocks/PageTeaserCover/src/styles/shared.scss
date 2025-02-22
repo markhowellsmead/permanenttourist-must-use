@@ -1,10 +1,8 @@
 .wp-block-sht-page-teaser-cover {
 
-    --sht-teaser-cover-aspect-ratio: 5/4;
-
-    // @media screen and (min-width: 48em) {
-    //     --sht-teaser-cover-aspect-ratio: 3/2;
-    // }
+    --sht-teaser-cover-aspect-ratio: 3/2;
+    --sht-teaser-cover-aspect-ratio--tablet: var(--sht-teaser-cover-aspect-ratio);
+    --sht-teaser-cover-aspect-ratio--desktop: var(--sht-teaser-cover-aspect-ratio);
 
     position: relative;
     padding: 0 !important; // Reset core styles applied by the editor
@@ -38,6 +36,14 @@
         margin: 0;
         grid-column: 1;
         grid-row: 1;
+
+        @media screen and (min-width: 48em) {
+            aspect-ratio: var(--sht-teaser-cover-aspect-ratio--tablet);
+        }
+
+        @media screen and (min-width: 80em) {
+            aspect-ratio: var(--sht-teaser-cover-aspect-ratio--desktop);
+        }
 
         &--empty {
             background: var(--wp--preset--color--primary-verylight);

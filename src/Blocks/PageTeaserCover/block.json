@@ -12,6 +12,18 @@
         "align": {
             "type": "string"
         },
+        "aspectRatioMobile": {
+            "type": "string",
+            "default": "5/4"
+        },
+        "aspectRatioTablet": {
+            "type": "string",
+            "default": "5/4"
+        },
+        "aspectRatioDesktop": {
+            "type": "string",
+            "default": "5/4"
+        },
         "focalPoint": {
             "type": "object",
             "default": {
