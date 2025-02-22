@@ -1,6 +1,12 @@
 import { getBlockDefaultClassName, registerBlockType } from '@wordpress/blocks';
 import { InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { PanelBody, PanelRow, SelectControl, Spinner } from '@wordpress/components';
+import {
+    FocalPointPicker,
+    PanelBody,
+    PanelRow,
+    SelectControl,
+    Spinner,
+} from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { Image } from './_image.js';
@@ -15,7 +21,7 @@ registerBlockType(block_name, {
     edit: props => {
         const blockProps = useBlockProps();
         const { attributes, setAttributes } = props;
-        const { imageSize, linkText, postId, style } = attributes;
+        const { focalPoint, imageSize, linkText, postId, style } = attributes;
 
         const innerStyles = innerStylesCalc(style),
             contentStyles = contentStylesCalc(style);
@@ -80,6 +86,26 @@ registerBlockType(block_name, {
                                 />
                             </PanelRow>
                         )}
+                        {postId &&
+                            pageData &&
+                            pageData?.featured_image?.media_details?.sizes[imageSize]
+                                ?.source_url && (
+                                <PanelRow>
+                                    <FocalPointPicker
+                                        label={_x(
+                                            'Image focal point',
+                                            'Block setting',
+                                            'pt-must-use'
+                                        )}
+                                        url={
+                                            pageData.featured_image.media_details.sizes[imageSize]
+                                                .source_url
+                                        }
+                                        value={focalPoint}
+                                        onChange={focalPoint => setAttributes({ focalPoint })}
+                                    />
+                                </PanelRow>
+                            )}
                     </PanelBody>
                 </InspectorControls>
                 <div {...blockProps}>
@@ -128,7 +154,9 @@ registerBlockType(block_name, {
                                     />
                                 </div>
                             </div>
-                            <Image props={{ classNameBase, postId, pageData, imageSize }} />
+                            <Image
+                                props={{ classNameBase, postId, pageData, imageSize, focalPoint }}
+                            />
                         </div>
                     )}
                 </div>
