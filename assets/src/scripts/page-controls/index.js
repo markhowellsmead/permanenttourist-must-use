@@ -22,7 +22,6 @@ let CustomLayoutPanel = () => {
 
     const { content_behind_masthead, masthead_color } = useSelect(select => {
         const meta = select('core/editor').getEditedPostAttribute('meta');
-        console.log(meta);
         return meta || {};
     });
 
@@ -33,7 +32,6 @@ let CustomLayoutPanel = () => {
     };
 
     const handleColorChange = color => {
-        console.log('color', color);
         editPost({ meta: { masthead_color: color } });
     };
 

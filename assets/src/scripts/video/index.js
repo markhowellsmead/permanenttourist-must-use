@@ -9,7 +9,6 @@ const createVideoPreview = (url, callback) => {
     });
 
     video.addEventListener('loadedmetadata', event => {
-        console.log(event);
         const assumedFrameRate = 30;
         const duration = video.duration;
         event.target.dataset.totalFrames = Math.floor(duration * assumedFrameRate);
