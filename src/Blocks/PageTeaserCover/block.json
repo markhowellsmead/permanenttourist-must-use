@@ -26,7 +26,8 @@
     "supports": {
         "align": ["wide", "full"],
         "spacing": {
-            "blockGap": true
+            "blockGap": true,
+            "padding": true
         },
         "color": {
             "background": true,

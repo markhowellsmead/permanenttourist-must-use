@@ -4,6 +4,7 @@ import { PanelBody, PanelRow, SelectControl, Spinner } from '@wordpress/componen
 import { useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { Image } from './_image.js';
+import { contentStylesCalc, innerStylesCalc } from './_styles.js';
 
 import block_json from '../../../block.json';
 const { name: block_name } = block_json;
@@ -16,18 +17,8 @@ registerBlockType(block_name, {
         const { attributes, setAttributes } = props;
         const { imageSize, linkText, postId, style } = attributes;
 
-        const innerStyles = {};
-
-        if (style?.spacing?.blockGap) {
-            if (style.spacing.blockGap.indexOf('var:preset') !== -1) {
-                const size = style.spacing.blockGap.split('|')[2];
-                innerStyles['--wp--style--block-gap'] = 'var(--wp--preset--spacing--' + size + ')';
-            } else {
-                innerStyles['--wp--style--block-gap'] = style.spacing.blockGap;
-            }
-        }
-
-        console.log(innerStyles);
+        const innerStyles = innerStylesCalc(style),
+            contentStyles = contentStylesCalc(style);
 
         const pageData = useSelect(select => {
             return select('core').getEntityRecord('postType', 'page', postId);
@@ -66,12 +57,15 @@ registerBlockType(block_name, {
                 <InspectorControls>
                     <PanelBody title={_x('Settings', 'Block settings', 'pt-must-use')}>
                         <PanelRow>
-                            <SelectControl
-                                label={_x('Choose page', 'Block setting', 'pt-must-use')}
-                                value={postId}
-                                options={selectPages}
-                                onChange={postId => setAttributes({ postId })}
-                            />
+                            {!pages?.length && <Spinner />}
+                            {!!pages?.length && (
+                                <SelectControl
+                                    label={_x('Choose page', 'Block setting', 'pt-must-use')}
+                                    value={postId}
+                                    options={selectPages}
+                                    onChange={postId => setAttributes({ postId })}
+                                />
+                            )}
                         </PanelRow>
                         {!!presetImageSizes?.length && (
                             <PanelRow>
@@ -106,7 +100,7 @@ registerBlockType(block_name, {
                     )}
                     {pageData && (
                         <div className={`${classNameBase}__inner`} style={innerStyles}>
-                            <div className={`${classNameBase}__content`}>
+                            <div className={`${classNameBase}__content`} style={contentStyles}>
                                 <h2 className={`${classNameBase}__title`}>
                                     {pageData.title.rendered}
                                 </h2>

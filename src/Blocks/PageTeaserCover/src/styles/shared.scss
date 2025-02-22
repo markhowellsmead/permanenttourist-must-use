@@ -1,12 +1,12 @@
 .wp-block-sht-page-teaser-cover {
 
     position: relative;
+    padding: 0 !important; // Reset core styles applied by the editor
 
     &__content {
         grid-column: 1;
         grid-row: 1;
         z-index: 1;
-        padding: var(--wp--preset--spacing--large);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -58,13 +58,6 @@
                 z-index: 0;
             }
         }
-    }
-
-    &__link {
-        display: inline-grid;
-        grid-template-columns: auto 1fr;
-        grid-gap: .5ch;
-        font-size: var(--wp--preset--font-size--smaller) !important;
     }
 }
 
