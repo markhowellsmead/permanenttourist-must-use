@@ -5,6 +5,9 @@
   position: relative;
   padding: 0 !important;
 }
+.wp-block-sht-page-teaser-cover.is-style-without-excerpt .wp-block-sht-page-teaser-cover__excerpt {
+  display: none;
+}
 .wp-block-sht-page-teaser-cover__content {
   grid-column: 1;
   grid-row: 1;
@@ -18,6 +21,10 @@
 }
 .wp-block-sht-page-teaser-cover__content > * + * {
   margin-block-start: var(--wp--style--block-gap);
+}
+.wp-block-sht-page-teaser-cover__excerpt {
+  text-wrap-style: balance;
+  max-width: 32rem;
 }
 .wp-block-sht-page-teaser-cover__excerpt > * {
   margin: 0;

@@ -7,6 +7,12 @@
     position: relative;
     padding: 0 !important; // Reset core styles applied by the editor
 
+    &.is-style-without-excerpt {
+        .wp-block-sht-page-teaser-cover__excerpt {
+            display: none;
+        }
+    }
+
     &__content {
         grid-column: 1;
         grid-row: 1;
@@ -25,6 +31,9 @@
     }
 
     &__excerpt {
+        text-wrap-style: balance;
+        max-width: 32rem;
+
         >* {
             margin: 0;
         }
