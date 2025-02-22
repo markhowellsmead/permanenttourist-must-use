@@ -1,5 +1,11 @@
 .wp-block-sht-page-teaser-cover {
 
+    --sht-teaser-cover-aspect-ratio: 5/4;
+
+    // @media screen and (min-width: 48em) {
+    //     --sht-teaser-cover-aspect-ratio: 3/2;
+    // }
+
     position: relative;
     padding: 0 !important; // Reset core styles applied by the editor
 
@@ -27,11 +33,15 @@
     }
 
     &__figure {
-        aspect-ratio: 3/2;
+        aspect-ratio: var(--sht-teaser-cover-aspect-ratio);
         overflow: hidden;
         margin: 0;
         grid-column: 1;
         grid-row: 1;
+
+        &--empty {
+            background: var(--wp--preset--color--primary-verylight);
+        }
     }
 
     &__image {
@@ -59,9 +69,26 @@
             }
         }
     }
-}
+
+    &__link {
+
+        &-text {
+            .wp-block-sht-page-teaser-cover:hover & {
+                text-decoration: underline;
+            }
+        }
 
 
-.editor-styles-wrapper .wp-block-sht-page-teaser-cover__link--flood {
-    pointer-events: none;
+        &--flood {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            background: transparent;
+            font-size: 0;
+            text-indent: -999rem;
+        }
+    }
 }

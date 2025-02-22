@@ -1,4 +1,5 @@
 .wp-block-sht-page-teaser-cover {
+  --sht-teaser-cover-aspect-ratio: 5/4;
   position: relative;
   padding: 0 !important;
 }
@@ -20,11 +21,14 @@
   margin: 0;
 }
 .wp-block-sht-page-teaser-cover__figure {
-  aspect-ratio: 3/2;
+  aspect-ratio: var(--sht-teaser-cover-aspect-ratio);
   overflow: hidden;
   margin: 0;
   grid-column: 1;
   grid-row: 1;
+}
+.wp-block-sht-page-teaser-cover__figure--empty {
+  background: var(--wp--preset--color--primary-verylight);
 }
 .wp-block-sht-page-teaser-cover__image {
   object-fit: cover;
@@ -47,7 +51,17 @@
   background: inherit;
   z-index: 0;
 }
-
-.editor-styles-wrapper .wp-block-sht-page-teaser-cover__link--flood {
-  pointer-events: none;
+.wp-block-sht-page-teaser-cover:hover .wp-block-sht-page-teaser-cover__link-text {
+  text-decoration: underline;
+}
+.wp-block-sht-page-teaser-cover__link--flood {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: transparent;
+  font-size: 0;
+  text-indent: -999rem;
 }
