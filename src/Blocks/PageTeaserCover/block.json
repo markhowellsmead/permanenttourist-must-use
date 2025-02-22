@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "sht/page-teaser-cover",
+    "title": "Page teaser (Cover)",
+    "category": "media",
+    "icon": "format-image",
+    "description": "",
+    "keywords": ["image", "featured-image", "cover"],
+    "textdomain": "pt-must-use",
+    "attributes": {
+        "align": {
+            "type": "string"
+        },
+        "imageSize": {
+            "type": "string",
+            "default": "large"
+        },
+        "linkText": {
+            "type": "string"
+        },
+        "postId": {
+            "type": "string"
+        }
+    },
+    "supports": {
+        "align": ["wide", "full"],
+        "spacing": {
+            "blockGap": true
+        },
+        "color": {
+            "background": true,
+            "text": true,
+            "gradients": true,
+            "link": true
+        },
+        "html": false
+    },
+    "editorStyle": "file:./dist/styles/edit.min.css",
+    "editorScript": "file:./dist/scripts/editor.js",
+    "style": "file:./dist/styles/shared.min.css",
+    "render": "file:./render.php"
+}
