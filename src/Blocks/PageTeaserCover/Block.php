@@ -2,6 +2,8 @@
 
 namespace PT\MustUse\Blocks\PageTeaserCover;
 
+use WP_Block;
+
 class Block
 {
 	public function run()
@@ -14,63 +16,70 @@ class Block
 		register_block_type(__DIR__);
 	}
 
-	public static function contentStylesCalcString(array $style): string
-	{
-		$contentStyles = [];
+	// public static function contentStylesCalcString(array $attributes): string
+	// {
+	// 	$contentStyles = [];
 
-		if ($style['spacing']['padding'] ?? false) {
-			if (!empty($style['spacing']['padding']['top'] ?? '')) {
-				if (strpos($style['spacing']['padding']['top'], 'var:preset') !== false) {
-					$parts = explode('|', $style['spacing']['padding']['top']);
-					$size = $parts[2] ?? '';
-					$contentStyles['padding-top'] = "var(--wp--preset--spacing--{$size})";
-				} else {
-					$contentStyles['padding-top'] = $style['spacing']['padding']['top'];
-				}
-			}
+	// 	$style = $attributes['style'] ?? [];
 
-			if (!empty($style['spacing']['padding']['right'] ?? '')) {
-				if (strpos($style['spacing']['padding']['right'], 'var:preset') !== false) {
-					$parts = explode('|', $style['spacing']['padding']['right']);
-					$size = $parts[2] ?? '';
-					$contentStyles['padding-right'] = "var(--wp--preset--spacing--{$size})";
-				} else {
-					$contentStyles['padding-right'] = $style['spacing']['padding']['right'];
-				}
-			}
+	// 	if (empty($style['spacing'] ?? '')) {
+	// 		return '';
+	// 	}
 
-			if (!empty($style['spacing']['padding']['bottom'] ?? '')) {
-				if (strpos($style['spacing']['padding']['bottom'], 'var:preset') !== false) {
-					$parts = explode('|', $style['spacing']['padding']['bottom']);
-					$size = $parts[2] ?? '';
-					$contentStyles['padding-bottom'] = "var(--wp--preset--spacing--{$size})";
-				} else {
-					$contentStyles['padding-bottom'] = $style['spacing']['padding']['bottom'];
-				}
-			}
+	// 	if ($style['spacing']['padding'] ?? false) {
+	// 		if (!empty($style['spacing']['padding']['top'] ?? '')) {
+	// 			if (strpos($style['spacing']['padding']['top'], 'var:preset') !== false) {
+	// 				$parts = explode('|', $style['spacing']['padding']['top']);
+	// 				$size = $parts[2] ?? '';
+	// 				$contentStyles['padding-top'] = "var(--wp--preset--spacing--{$size})";
+	// 			} else {
+	// 				$contentStyles['padding-top'] = $style['spacing']['padding']['top'];
+	// 			}
+	// 		}
 
-			if (!empty($style['spacing']['padding']['left'] ?? '')) {
-				if (strpos($style['spacing']['padding']['left'], 'var:preset') !== false) {
-					$parts = explode('|', $style['spacing']['padding']['left']);
-					$size = $parts[2] ?? '';
-					$contentStyles['padding-left'] = "var(--wp--preset--spacing--{$size})";
-				} else {
-					$contentStyles['padding-left'] = $style['spacing']['padding']['left'];
-				}
-			}
-		}
+	// 		if (!empty($style['spacing']['padding']['right'] ?? '')) {
+	// 			if (strpos($style['spacing']['padding']['right'], 'var:preset') !== false) {
+	// 				$parts = explode('|', $style['spacing']['padding']['right']);
+	// 				$size = $parts[2] ?? '';
+	// 				$contentStyles['padding-right'] = "var(--wp--preset--spacing--{$size})";
+	// 			} else {
+	// 				$contentStyles['padding-right'] = $style['spacing']['padding']['right'];
+	// 			}
+	// 		}
 
-		if (empty($contentStyles)) {
-			return '';
-		}
+	// 		if (!empty($style['spacing']['padding']['bottom'] ?? '')) {
+	// 			if (strpos($style['spacing']['padding']['bottom'], 'var:preset') !== false) {
+	// 				$parts = explode('|', $style['spacing']['padding']['bottom']);
+	// 				$size = $parts[2] ?? '';
+	// 				$contentStyles['padding-bottom'] = "var(--wp--preset--spacing--{$size})";
+	// 			} else {
+	// 				$contentStyles['padding-bottom'] = $style['spacing']['padding']['bottom'];
+	// 			}
+	// 		}
 
-		return implode('; ', array_map(function ($value, $property) {
-			return "{$property}: {$value}";
-		}, $contentStyles, array_keys($contentStyles))) . ';' ?? '';
-	}
+	// 		if (!empty($style['spacing']['padding']['left'] ?? '')) {
+	// 			if (strpos($style['spacing']['padding']['left'], 'var:preset') !== false) {
+	// 				$parts = explode('|', $style['spacing']['padding']['left']);
+	// 				$size = $parts[2] ?? '';
+	// 				$contentStyles['padding-left'] = "var(--wp--preset--spacing--{$size})";
+	// 			} else {
+	// 				$contentStyles['padding-left'] = $style['spacing']['padding']['left'];
+	// 			}
+	// 		}
+	// 	}
+
+	// 	if (empty($contentStyles)) {
+	// 		return '';
+	// 	}
+
+	// 	return implode('; ', array_map(function ($value, $property) {
+	// 		return "{$property}: {$value}";
+	// 	}, $contentStyles, array_keys($contentStyles))) . ';' ?? '';
+	// }
 
 	public static function innerStylesCalcString(array $style): string
 	{
+
 		$innerStyles = [];
 
 		if (empty($style['spacing']['blockGap'] ?? '')) {
@@ -96,8 +105,6 @@ class Block
 
 	public static function outerStylesCalcString($attributes)
 	{
-		//$attributes['aspectRatioDesktop']
-
 		$outerStyles = [];
 
 		if (!empty($attributes['aspectRatioDesktop'] ?? '')) {
