@@ -20,12 +20,13 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        padding: var(--wp--preset--spacing--medium);
 
         >* {
             margin-block: 0;
 
             +* {
-                margin-block-start: var(--wp--style--block-gap);
+                margin-block-start: var(--wp--preset--spacing--small);
             }
         }
     }
@@ -71,17 +72,15 @@
         grid-template-rows: 1fr;
         background: inherit;
 
-        .wp-block-sht-page-teaser-cover.has-background & {
-            &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
-                background: inherit;
-                z-index: 0;
-            }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: inherit;
+            z-index: 0;
         }
     }
 

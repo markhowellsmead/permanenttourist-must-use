@@ -14,7 +14,7 @@ $excerpt = get_the_excerpt($postId);
 $link = get_permalink($postId);
 $linkText = esc_html($attributes['linkText'] ?? $title);
 $classNameBase = wp_get_block_default_classname($block->name);
-$contentStyles = Block::contentStylesCalcString($attributes['style']);
+
 $outerStyles = Block::outerStylesCalcString($attributes);
 
 $objectPosition = 'center center';
@@ -25,11 +25,7 @@ if ($focalPoint) {
 	$objectPosition = "{$x}% {$y}%";
 }
 
-if (!empty($contentStyles)) {
-	$contentStyles = 'style="' . $contentStyles . '"';
-}
-
-$innerStyles = Block::innerStylesCalcString($attributes['style']);
+$innerStyles = Block::innerStylesCalcString($attributes['style'] ?? []);
 if (!empty($innerStyles)) {
 	$innerStyles = 'style="' . $innerStyles . '"';
 }
@@ -53,7 +49,7 @@ if (!empty($image)) {
 
 <div <?php echo get_block_wrapper_attributes(['style' => $outerStyles]); ?>>
 	<div class="<?php echo $classNameBase; ?>__inner" <?php echo $innerStyles; ?>>
-		<div class="<?php echo $classNameBase; ?>__content" <?php echo $contentStyles; ?>>
+		<div class="<?php echo $classNameBase; ?>__content">
 			<h2 class="<?php echo $classNameBase; ?>__title">
 				<?php echo $title; ?>
 			</h2>
