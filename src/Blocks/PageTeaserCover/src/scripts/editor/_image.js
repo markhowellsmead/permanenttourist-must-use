@@ -23,5 +23,6 @@ export const Image = ({ props }) => {
             </figure>
         );
     }
-    return <></>;
+
+    return <figure className={`${classNameBase}__figure ${classNameBase}__figure--empty`} />;
 };
