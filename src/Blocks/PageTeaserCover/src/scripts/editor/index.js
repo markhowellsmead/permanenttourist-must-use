@@ -49,8 +49,6 @@ registerBlockType(block_name, {
             contentStyles = contentStylesCalc(style),
             outerStyles = outerStylesCalc(attributes);
 
-        console.log('outerStyles', outerStyles);
-
         const blockProps = useBlockProps({ style: outerStyles });
 
         const pageData = useSelect(select => {
