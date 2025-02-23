@@ -14,6 +14,11 @@ class Block
 
 	public function render($html, $block)
 	{
+
+		if (empty($html)) {
+			return $html;
+		}
+
 		$className = $block['attrs']['className'] ?? '';
 		if (strpos($className, 'is-style-webcam') === false) {
 			return $html;
