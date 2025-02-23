@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "sht/page-teaser-cover",
+    "title": "Page teaser (Cover)",
+    "category": "media",
+    "icon": "format-image",
+    "description": "",
+    "keywords": ["image", "featured-image", "cover"],
+    "textdomain": "pt-must-use",
+    "attributes": {
+        "align": {
+            "type": "string"
+        },
+        "aspectRatioMobile": {
+            "type": "string",
+            "default": "5/4"
+        },
+        "aspectRatioTablet": {
+            "type": "string",
+            "default": "5/4"
+        },
+        "aspectRatioDesktop": {
+            "type": "string",
+            "default": "5/4"
+        },
+        "focalPoint": {
+            "type": "object",
+            "default": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        "imageSize": {
+            "type": "string",
+            "default": "large"
+        },
+        "linkText": {
+            "type": "string"
+        },
+        "postId": {
+            "type": "string"
+        }
+    },
+    "styles": [
+        { "name": "default", "label": "Default", "isDefault": true },
+        { "name": "without-excerpt", "label": "Without excerpt" }
+    ],
+    "supports": {
+        "align": ["wide", "full"],
+        "spacing": {
+            "blockGap": true,
+            "padding": true
+        },
+        "color": {
+            "background": true,
+            "text": true,
+            "gradients": true,
+            "link": true
+        },
+        "html": false
+    },
+    "editorStyle": "file:./dist/styles/edit.min.css",
+    "editorScript": "file:./dist/scripts/editor.js",
+    "style": "file:./dist/styles/shared.min.css",
+    "render": "file:./render.php"
+}

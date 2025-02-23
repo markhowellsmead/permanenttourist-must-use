@@ -1,0 +1,86 @@
+.wp-block-sht-page-teaser-cover {
+  --sht-teaser-cover-aspect-ratio: 3/2;
+  --sht-teaser-cover-aspect-ratio--tablet: var(--sht-teaser-cover-aspect-ratio);
+  --sht-teaser-cover-aspect-ratio--desktop: var(--sht-teaser-cover-aspect-ratio);
+  position: relative;
+  padding: 0 !important;
+}
+.wp-block-sht-page-teaser-cover.is-style-without-excerpt .wp-block-sht-page-teaser-cover__excerpt {
+  display: none;
+}
+.wp-block-sht-page-teaser-cover__content {
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.wp-block-sht-page-teaser-cover__content > * {
+  margin-block: 0;
+}
+.wp-block-sht-page-teaser-cover__content > * + * {
+  margin-block-start: var(--wp--style--block-gap);
+}
+.wp-block-sht-page-teaser-cover__excerpt {
+  text-wrap-style: balance;
+  max-width: 32rem;
+}
+.wp-block-sht-page-teaser-cover__excerpt > * {
+  margin: 0;
+}
+.wp-block-sht-page-teaser-cover__figure {
+  aspect-ratio: var(--sht-teaser-cover-aspect-ratio);
+  overflow: hidden;
+  margin: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+@media screen and (min-width: 48em) {
+  .wp-block-sht-page-teaser-cover__figure {
+    aspect-ratio: var(--sht-teaser-cover-aspect-ratio--tablet);
+  }
+}
+@media screen and (min-width: 80em) {
+  .wp-block-sht-page-teaser-cover__figure {
+    aspect-ratio: var(--sht-teaser-cover-aspect-ratio--desktop);
+  }
+}
+.wp-block-sht-page-teaser-cover__figure--empty {
+  background: var(--wp--preset--color--primary-verylight);
+}
+.wp-block-sht-page-teaser-cover__image {
+  object-fit: cover;
+  width: 100%;
+  height: 100% !important;
+}
+.wp-block-sht-page-teaser-cover__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  background: inherit;
+}
+.wp-block-sht-page-teaser-cover.has-background .wp-block-sht-page-teaser-cover__inner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: inherit;
+  z-index: 0;
+}
+.wp-block-sht-page-teaser-cover:hover .wp-block-sht-page-teaser-cover__link-text {
+  text-decoration: underline;
+}
+.wp-block-sht-page-teaser-cover__link--flood {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: transparent;
+  font-size: 0;
+  text-indent: -999rem;
+}
