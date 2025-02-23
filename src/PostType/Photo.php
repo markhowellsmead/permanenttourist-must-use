@@ -445,6 +445,20 @@ class Photo
 		$featured_image['description'] = $image->post_content;
 		$featured_image['media_type'] = wp_attachment_is_image($image_id) ? 'image' : 'file';
 		$featured_image['media_details'] = wp_get_attachment_metadata($image_id);
+
+		$registered_sizes = get_intermediate_image_sizes();
+
+		foreach ($registered_sizes as $registered_size) {
+			$image_src = wp_get_attachment_image_src($image_id, $registered_size);
+
+			$featured_image['media_details']['sizes'][$registered_size] = [
+				'width' => $image_src[1],
+				'height' => $image_src[2],
+				'source_url' => $image_src[0],
+			];
+		}
+
+
 		unset($featured_image['media_details']['file']);
 		$featured_image['post'] = !empty($image->post_parent) ? (int) $image->post_parent : null;
 		//$featured_image['source_url'] = wp_get_attachment_url($image_id);
