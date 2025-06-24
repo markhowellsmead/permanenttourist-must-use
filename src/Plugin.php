@@ -48,7 +48,7 @@ class Plugin
 
 	public function __get($name)
 	{
-		return $this->properties[$name];
+		return $this->properties[$name] ?? null;
 	}
 
 	public function __set($name, $value)
