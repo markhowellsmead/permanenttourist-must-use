@@ -61,8 +61,8 @@ class AttachmentFromFTPPublish
 
 		// NO MIN FILE AVAILABLE HERE!
 		$loader_script = "/assets/dist/scripts/attachment-from-ftp.js";
-		$filemtime = filemtime(pt_must_use_get_instance()->dir . $loader_script);
-		$script_asset_path = pt_must_use_get_instance()->dir . '/assets/dist/scripts/attachment-from-ftp.asset.php';
+		$filemtime = filemtime(pt_must_use_get_instance()->path . $loader_script);
+		$script_asset_path = pt_must_use_get_instance()->path . '/assets/dist/scripts/attachment-from-ftp.asset.php';
 		$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $filemtime];
 
 		wp_enqueue_script('pt-must-use-attachment-from-ftp', pt_must_use_get_instance()->url . $loader_script, $script_asset['dependencies'], $script_asset['version'], true);
@@ -73,8 +73,8 @@ class AttachmentFromFTPPublish
 			],
 			'version' => $filemtime,
 			'url' => pt_must_use_get_instance()->url,
-			'min' => $min ? 1 : 0,
-			'debug' => $min ? 0 : 1,
+			'min' => 0,
+			'debug' => defined('WP_DEBUG') && WP_DEBUG,
 		]);
 	}
 
