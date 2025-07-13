@@ -88,3 +88,52 @@ export const TitleField = ({ classNameBase, post }) => {
         </div>
     );
 };
+
+export const CreateButton = ({ classNameBase, attachment_id }) => {
+    const { api } = attachment_from_ftp;
+    const api_create = `${api.root}mhm/v1/photo-from-attachment/${attachment_id}`;
+    const [disabled, setDisabled] = useState(false);
+    const [newPost, setNewPost] = useState(null);
+
+    const createPost = () => {
+        setDisabled(true);
+        fetch(api_create, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': api.nonce,
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post created:', data);
+                setDisabled(false);
+                setNewPost(data.data || false);
+            })
+            .catch(error => {
+                console.error('Error creating post:', error);
+                setDisabled(false);
+            });
+    };
+
+    return (
+        <>
+            {newPost && (
+                <div className={`${classNameBase}__new-post`}>
+                    <a href={newPost.link} target='_blank' rel='noopener noreferrer'>
+                        {newPost.id}
+                    </a>
+                </div>
+            )}
+            {!newPost && (
+                <button
+                    className={`button button-primary`}
+                    onClick={createPost}
+                    disabled={disabled}
+                >
+                    Create photo post
+                </button>
+            )}
+        </>
+    );
+};

@@ -33,7 +33,7 @@ class AttachmentFromFTPPublish
 	public function registerRestRoute()
 	{
 		register_rest_route('mhm/v1', '/photo-from-attachment/(?P<id>\d+)', [
-			'methods' => 'GET',
+			'methods' => 'POST',
 			'callback' => [$this, 'restPhotoFromAttachment'],
 			'permission_callback' => function () {
 				return true; //current_user_can('edit_photos');
@@ -121,8 +121,8 @@ class AttachmentFromFTPPublish
 		$post_data = $this->postFromAttachment(attachment_id: $attachment_id, rest_response: true);
 
 		if ($post_data) {
-			$controller = new WP_REST_Attachments_Controller('attachment');
-			$attachment = get_post($attachment_id);
+			$controller = new WP_REST_Attachments_Controller($this->post_type);
+			$attachment = get_post($post_data['ID']);
 			$data = $controller->prepare_item_for_response($attachment, $request);
 			return new WP_REST_Response($data, 200);
 		} else {
@@ -222,7 +222,7 @@ class AttachmentFromFTPPublish
 
 		// Remove post meta into its own variable, so that wp_insert_post
 		// doesn't try to save it directly to the post entry. We'll save it separately in a minute.
-		$post_meta = $data['post_meta'];
+		// $post_meta = $data['post_meta'];
 		unset($data['post_meta']);
 
 		// Store the new post in the database. If all is well, we'll get the new $post_id back.
