@@ -52,7 +52,11 @@
         @extend %stack;
 
         &--disabled {
-            opacity: .35;
+            // opacity: .5;
+
+            .c-attachment-from-ftp__fieldwrap {
+                pointer-events: none;
+            }
         }
 
         &--no-title {
@@ -98,9 +102,14 @@
     }
 
     &__figure {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1em;
+
         * {
             font-size: 1em;
-            @extend %stack;
+            margin-block: 0;
         }
     }
 

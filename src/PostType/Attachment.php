@@ -35,6 +35,7 @@ class Attachment
 
 				if (count($photo_posts)) {
 					foreach ($photo_posts as $photo_post) {
+						$photo_post->link = get_permalink($photo_post->ID);
 						$fields['photo_posts'][] = $photo_post;
 					}
 				}

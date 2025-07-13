@@ -3,13 +3,14 @@ import { Spinner } from '@wordpress/components';
 import classnames from 'classnames';
 
 import { apiGet } from './_api';
-import { TitleField } from './_fields';
+import { CreateButton, TitleField } from './_fields';
 
 import './index.scss';
 
 export const App = ({ element }) => {
     const classNameBase = 'c-attachment-from-ftp';
     const { api } = attachment_from_ftp;
+    const api_create = `${api.root}mhm/v1/photo-from-attachment/{attachment_id}`;
 
     const { data, loading, error } = apiGet(
         `${api.root}wp/v2/media/?per_page=24&media_type=image&orderby=date&order=desc`,
@@ -70,15 +71,25 @@ export const App = ({ element }) => {
                                 {meta_date && <p>{meta_date}</p>}
                                 {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
                                 {!!photo_posts.length && (
-                                    <p>
-                                        Connected to {photo_posts.length} photo post
-                                        {photo_posts.length > 1 ? 's' : ''}
-                                    </p>
+                                    <>
+                                        <p>
+                                            Connected to {photo_posts.length} photo post
+                                            {photo_posts.length > 1 ? 's' : ''}:
+                                        </p>
+                                        {photo_posts.map(post => (
+                                            <p key={post.id}>
+                                                <a href={post.link} target='_blank'>
+                                                    {post.ID}
+                                                </a>
+                                            </p>
+                                        ))}
+                                    </>
                                 )}
                                 {!photo_posts.length && (
-                                    <button className={`button button-primary`} disabled>
-                                        Create photo post
-                                    </button>
+                                    <CreateButton
+                                        classNameBase={classNameBase}
+                                        attachment_id={id}
+                                    />
                                 )}
                             </figcaption>
                         </figure>
