@@ -2,7 +2,7 @@ import { Spinner } from '@wordpress/components';
 
 import classnames from 'classnames';
 
-import { apiGet } from './_api';
+import { apiGetAll } from './_api';
 import { CreateButton, TitleField } from './_fields';
 
 import './index.scss';
@@ -12,9 +12,10 @@ export const App = ({ element }) => {
     const { api } = attachment_from_ftp;
     const api_create = `${api.root}mhm/v1/photo-from-attachment/{attachment_id}`;
 
-    const { data, loading, error } = apiGet(
-        `${api.root}wp/v2/media/?per_page=24&media_type=image&orderby=date&order=desc`,
-        api.nonce
+    const { data, loading, error } = apiGetAll(
+        `${api.root}wp/v2/media/?media_type=image&orderby=date&order=desc&pt_nophoto_posts=1`,
+        api.nonce,
+        1000
     );
 
     if (loading) {
