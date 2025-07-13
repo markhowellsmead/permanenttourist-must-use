@@ -17,7 +17,7 @@ export const TitleField = ({ classNameBase, post }) => {
         setUpdating(true);
 
         const data = {
-            title: fieldValue,
+            title: fieldValue.replace(/<\/?[^>]+(>|$)/g, ''),
         };
 
         fetch(`${api.root}wp/v2/media/${id}`, {
