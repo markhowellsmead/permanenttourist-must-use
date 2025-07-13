@@ -70,10 +70,19 @@ export const App = ({ element }) => {
                                 {meta_date && <p>{meta_date}</p>}
                                 {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
                                 {!!photo_posts.length && (
-                                    <p>
-                                        Connected to {photo_posts.length} photo post
-                                        {photo_posts.length > 1 ? 's' : ''}
-                                    </p>
+                                    <>
+                                        <p>
+                                            Connected to {photo_posts.length} photo post
+                                            {photo_posts.length > 1 ? 's' : ''}:
+                                        </p>
+                                        {photo_posts.map(post => (
+                                            <p key={post.id}>
+                                                <a href={post.link} target='_blank'>
+                                                    {post.ID}
+                                                </a>
+                                            </p>
+                                        ))}
+                                    </>
                                 )}
                                 {!photo_posts.length && (
                                     <button className={`button button-primary`} disabled>

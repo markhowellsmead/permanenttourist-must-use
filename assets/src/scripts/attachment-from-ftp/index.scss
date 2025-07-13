@@ -52,7 +52,11 @@
         @extend %stack;
 
         &--disabled {
-            opacity: .35;
+            // opacity: .5;
+
+            .c-attachment-from-ftp__fieldwrap {
+                pointer-events: none;
+            }
         }
 
         &--no-title {
