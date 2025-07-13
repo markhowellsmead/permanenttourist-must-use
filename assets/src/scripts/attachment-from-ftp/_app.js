@@ -31,6 +31,11 @@ export const App = ({ element }) => {
                 {data.map(item => {
                     const { id, title, media_details } = item;
                     const { width, height, image_meta } = media_details;
+
+                    if (!image_meta) {
+                        return null;
+                    }
+
                     const { created_timestamp } = image_meta;
                     const { photo_posts } = item.pt;
 
