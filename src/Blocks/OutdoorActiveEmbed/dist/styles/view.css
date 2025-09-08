@@ -1,3 +1,10 @@
+.wp-block-sht-outdoor-active-embed {
+  display: grid;
+  gap: var(--wp--style--block-gap, 0);
+}
+.wp-block-sht-outdoor-active-embed > * {
+  margin-block: 0;
+}
 .wp-block-sht-outdoor-active-embed__figure {
   display: flex;
   flex-direction: column-reverse;

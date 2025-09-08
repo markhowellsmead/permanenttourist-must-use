@@ -20,7 +20,8 @@
     },
     "supports": {
         "align": ["wide", "full"],
-        "html": false
+        "html": false,
+        "spacing": { "margin": true }
     },
     "usesContext": ["postId"],
     "editorScript": "file:./dist/scripts/editor.js",
