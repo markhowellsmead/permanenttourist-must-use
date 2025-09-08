@@ -15,7 +15,7 @@ export const App = ({ element }) => {
     const { data, loading, error } = apiGetAll(
         `${api.root}wp/v2/media/?media_type=image&orderby=date&order=desc&pt_nophoto_posts=1`,
         api.nonce,
-        20
+        200
     );
 
     if (loading) {

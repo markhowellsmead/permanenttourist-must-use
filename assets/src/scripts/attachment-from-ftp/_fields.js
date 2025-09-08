@@ -67,7 +67,7 @@ export const TitleField = ({ classNameBase, post }) => {
 };
 
 export const KeywordField = ({ classNameBase, post }) => {
-    const { api } = attachment_from_ftp;
+    // const { api } = attachment_from_ftp;
     const { id, meta, media_details } = post;
     const { image_meta } = media_details;
     // Assume meta.keywords is an array of keywords, fallback to empty array
@@ -76,52 +76,53 @@ export const KeywordField = ({ classNameBase, post }) => {
         : '';
 
     const [fieldValue, setFieldValue] = useState(initialKeywords);
-    const [updating, setUpdating] = useState(false);
+    // const [updating, setUpdating] = useState(false);
 
-    const updateKeywords = () => {
-        if (!fieldValue.length) {
-            return;
-        }
+    // const updateKeywords = () => {
+    //     if (!fieldValue.length) {
+    //         return;
+    //     }
 
-        setUpdating(true);
+    //     setUpdating(true);
 
-        // Split by comma, trim whitespace, filter out empty
-        const keywordsArray = fieldValue
-            .split(',')
-            .map(k => k.trim())
-            .filter(Boolean);
+    //     // Split by comma, trim whitespace, filter out empty
+    //     const keywordsArray = fieldValue
+    //         .split(',')
+    //         .map(k => k.trim())
+    //         .filter(Boolean);
 
-        const data = {
-            meta: {
-                keywords: keywordsArray,
-            },
-        };
+    //     const data = {
+    //         meta: {
+    //             keywords: keywordsArray,
+    //         },
+    //     };
 
-        fetch(`${api.root}wp/v2/media/${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': api.nonce,
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(data => {
-                setUpdating(false);
-            })
-            .catch(error => {
-                console.error('Error updating keywords:', error);
-            })
-            .finally(() => {
-                setUpdating(false);
-            });
-    };
+    //     fetch(`${api.root}wp/v2/media/${id}`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-WP-Nonce': api.nonce,
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setUpdating(false);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error updating keywords:', error);
+    //         })
+    //         .finally(() => {
+    //             setUpdating(false);
+    //         });
+    // };
 
     const empty_class = !fieldValue || !fieldValue.length ? `${classNameBase}__field--empty` : '';
 
     return (
         <div className={`${classNameBase}__fieldwrap ${classNameBase}__fieldwrap--keywords`}>
             <input
+                disabled={true}
                 type='text'
                 className={`${classNameBase}__keywords ${classNameBase}__field ${classNameBase}__field--keywords ${empty_class}`}
                 value={fieldValue}
@@ -132,7 +133,7 @@ export const KeywordField = ({ classNameBase, post }) => {
                 disabled={true}
                 //disabled={!fieldValue.length || updating}
                 className='button button-primary'
-                onClick={updateKeywords}
+                //onClick={updateKeywords}
             >
                 Update
             </button>
