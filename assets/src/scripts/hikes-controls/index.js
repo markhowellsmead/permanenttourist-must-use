@@ -1,11 +1,10 @@
 import { _x, __ } from '@wordpress/i18n';
-import { ColorPaletteControl } from '@wordpress/block-editor';
-import { BaseControl, TextControl, ToggleControl } from '@wordpress/components';
+import { TextControl } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { registerPlugin } from '@wordpress/plugins';
 
-const validPostTypes = ['mhm_hike'];
+const validPostTypes = ['mhm_hike', 'post'];
 
 const isValidPostType = function (name) {
     return validPostTypes.includes(name);
