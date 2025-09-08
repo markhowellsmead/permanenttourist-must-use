@@ -147,8 +147,9 @@ class Plugin
 				PostType\Feature::class,
 				PostType\Page::class,
 				PostType\Photo::class,
+				PostType\Post::class,
 				PostType\Explore::class,
-				PostType\Hike::class,
+				//PostType\Hike::class,
 				//PostType\Viewpoints::class,
 
 				Blocks\CoreEmbed\Block::class,
