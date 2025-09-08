@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sht/outdoor-active-embed",
+    "title": "Outdoor Active Embed",
+    "category": "widgets",
+    "icon": "format-image",
+    "description": "",
+    "keywords": [],
+    "version": "0.0.1",
+    "textdomain": "pt-must-use",
+    "attributes": {
+        "align": {
+            "type": "string"
+        },
+        "title": {
+            "type": "string",
+            "default": "Outdooractive Route"
+        }
+    },
+    "supports": {
+        "align": ["wide", "full"],
+        "html": false
+    },
+    "usesContext": ["postId"],
+    "editorScript": "file:./dist/scripts/editor.js",
+    "editorStyle": "file:./dist/styles/editor.css",
+    "style": "file:./dist/styles/view.min.css",
+    "render": "file:./render.php"
+}

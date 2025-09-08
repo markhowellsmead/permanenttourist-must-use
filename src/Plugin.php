@@ -154,6 +154,7 @@ class Plugin
 				Blocks\CoreEmbed\Block::class,
 				Blocks\CoreImage\Block::class,
 				Blocks\CoreVideo\Block::class,
+				Blocks\OutdoorActiveEmbed\Block::class,
 				Blocks\PageTeaserCover\Block::class,
 				Blocks\PrimaryMedia\Block::class,
 				// Blocks\PostSeriesList\Block::class,

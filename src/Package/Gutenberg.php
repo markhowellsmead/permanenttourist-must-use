@@ -45,6 +45,7 @@ class Gutenberg
 	{
 		$this->enqueueBlockScript('blocks.js');
 		$this->enqueueBlockScript('page-controls.js', 'scripts');
+		$this->enqueueBlockScript('hikes-controls.js', 'scripts');
 	}
 
 	private function enqueueBlockScript($name, $folder = 'blocks')
