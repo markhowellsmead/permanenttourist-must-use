@@ -23,6 +23,7 @@ class Hike
 			'show_in_rest' => true,
 			'rest_base' => 'hikes',
 			'supports' => ['title', 'editor', 'thumbnail', 'custom-fields', 'revisions'],
+			'rewrite' => ['slug' => 'hikes'],
 		]);
 
 		$admin = get_role('administrator');
