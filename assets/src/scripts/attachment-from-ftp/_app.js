@@ -3,7 +3,7 @@ import { Spinner } from '@wordpress/components';
 import classnames from 'classnames';
 
 import { apiGetAll } from './_api';
-import { CreateButton, TitleField } from './_fields';
+import { CreateButton, TitleField, KeywordField } from './_fields';
 
 import './index.scss';
 
@@ -15,7 +15,7 @@ export const App = ({ element }) => {
     const { data, loading, error } = apiGetAll(
         `${api.root}wp/v2/media/?media_type=image&orderby=date&order=desc&pt_nophoto_posts=1`,
         api.nonce,
-        1000
+        20
     );
 
     if (loading) {
@@ -75,7 +75,7 @@ export const App = ({ element }) => {
                             <figcaption className={`${classNameBase}__figure`}>
                                 <TitleField classNameBase={classNameBase} post={item} />
                                 {meta_date && <p>{meta_date}</p>}
-                                {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
+                                <KeywordField classNameBase={classNameBase} post={item} />
                                 {!!photo_posts.length && (
                                     <>
                                         <p>
