@@ -128,6 +128,18 @@ class Media
 	}
 
 	/**
+	 * Extracts the YouTube video ID from a URL
+	 *
+	 * @param string $video_url The YouTube video URL
+	 * @return string|null The YouTube video ID or null if not found
+	 */
+	public function getYoutubeId($video_url)
+	{
+		preg_match('/(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"\'<> #]+)/', $video_url, $matches);
+		return $matches[5] ?? null;
+	}
+
+	/**
 	 * Get remote video thumbnail URL
 	 *
 	 * @param  string $source_url The video URL

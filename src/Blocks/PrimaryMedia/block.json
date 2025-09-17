@@ -35,5 +35,6 @@
     "editorStyle": "file:./dist/styles/edit.min.css",
     "editorScript": "file:./dist/scripts/editor.js",
     "style": "file:./dist/styles/view.min.css",
+    "viewScript": "file:./dist/scripts/view.js",
     "render": "file:./render.php"
 }
