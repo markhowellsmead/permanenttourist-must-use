@@ -132,7 +132,7 @@ class Media
 	 * @param  string $source_url The video URL
 	 * @return string The Video Thumbnail URL
 	 **/
-	public static function getVideoThumbnail($source_url)
+	public static function getVideoThumbnail($source_url, $image_size = 'hqdefault')
 	{
 		if ($source_url == '' || is_array($source_url)) {
 			return '';
@@ -156,7 +156,7 @@ class Media
 		switch ($aPath['host']) {
 			case 'youtu.be':
 				$atts['id'] = preg_replace('~^/~', '', $aPath['path']);
-				return 'https://i.ytimg.com/vi/' . $atts['id'] . '/hqdefault.jpg';
+				return "https://i.ytimg.com/vi/{$atts['id']}/{$image_size}.jpg";
 				break;
 
 			case 'youtube.com':
@@ -171,7 +171,7 @@ class Media
 				if (!isset($atts['id']) || !$atts['id']) {
 					return '';
 				} else {
-					return 'https://i.ytimg.com/vi/' . $atts['id'] . '/hqdefault.jpg';
+					return "https://i.ytimg.com/vi/{$atts['id']}/{$image_size}.jpg";
 				}
 				break;
 
