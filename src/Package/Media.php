@@ -3,6 +3,7 @@
 namespace PT\MustUse\Package;
 
 use DOMDocument;
+use DOMElement;
 use DOMXPath;
 
 /**
@@ -413,6 +414,10 @@ class Media
 		$nodeList = $xpath->query('//iframe');
 
 		foreach ($nodeList as $node) {
+			if (!$node instanceof DOMElement) {
+				continue;
+			}
+
 			$host = parse_url($node->getAttribute('src'), PHP_URL_HOST);
 			if (strpos($host, 'youtube.com') === false && strpos($host, 'youtu.be') === false) {
 				continue;
