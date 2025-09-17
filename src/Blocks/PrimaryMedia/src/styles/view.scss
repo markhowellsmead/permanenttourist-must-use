@@ -33,11 +33,9 @@
             aspect-ratio: 16/9;
         }
 
-        &--thumbnail {
-            >a {
-                display: block;
-                height: 100%;
-            }
+        >a {
+            display: block;
+            height: 100%;
         }
 
         &--video {
