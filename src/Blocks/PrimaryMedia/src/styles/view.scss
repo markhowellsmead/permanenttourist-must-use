@@ -32,6 +32,20 @@
             overflow: hidden;
             aspect-ratio: 16/9;
         }
+
+        &--video {
+            >a {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                aspect-ratio: 16/9;
+
+                >* {
+                    grid-row: 1;
+                    grid-column: 1;
+                }
+            }
+        }
     }
 
     &__videoplayer {
