@@ -62,7 +62,7 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 
 			if (!empty($thumbnail)) {
 				$thumbnail = sprintf(
-					'<link itemprop="thumbnailUrl" href="%1$s"><meta itemprop="thumbnail" content="%1$s"><meta itemprop="name" content="%3$s"><img src="%1$s" class="%2$s__image" alt="%3$s" /><button class="shp-video-play-button" aria-label="Play video">Play video</button>',
+					'<link itemprop="thumbnailUrl" href="%1$s"><meta itemprop="thumbnail" content="%1$s"><meta itemprop="name" content="%3$s"><img loading="lazy" src="%1$s" class="%2$s__image" alt="%3$s" /><button class="shp-video-play-button" aria-label="Play video">Play video</button>',
 					$thumbnail,
 					$classNameBase,
 					get_the_title($post_id)
@@ -96,7 +96,7 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 
 		if (!empty($thumbnail)) {
 			$content = sprintf(
-				'<figure class="%1$s%2$s__figure %2$s__figure--%3$s"><a href="%6$s"><img class="%2$s__image" src="%4$s" alt="%5$s" /></a></figure>',
+				'<figure class="%1$s%2$s__figure %2$s__figure--%3$s"><a href="%6$s"><img loading="lazy" class="%2$s__image" src="%4$s" alt="%5$s" /></a></figure>',
 				$className,
 				$classNameBase,
 				$media_size,
