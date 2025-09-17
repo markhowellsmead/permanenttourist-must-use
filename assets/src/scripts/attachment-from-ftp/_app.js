@@ -2,8 +2,8 @@ import { Spinner } from '@wordpress/components';
 
 import classnames from 'classnames';
 
-import { apiGet } from './_api';
-import { CreateButton, TitleField } from './_fields';
+import { apiGetAll } from './_api';
+import { CreateButton, TitleField, KeywordField } from './_fields';
 
 import './index.scss';
 
@@ -12,9 +12,10 @@ export const App = ({ element }) => {
     const { api } = attachment_from_ftp;
     const api_create = `${api.root}mhm/v1/photo-from-attachment/{attachment_id}`;
 
-    const { data, loading, error } = apiGet(
-        `${api.root}wp/v2/media/?per_page=24&media_type=image&orderby=date&order=desc`,
-        api.nonce
+    const { data, loading, error } = apiGetAll(
+        `${api.root}wp/v2/media/?media_type=image&orderby=date&order=desc&pt_nophoto_posts=1`,
+        api.nonce,
+        200
     );
 
     if (loading) {
@@ -31,6 +32,11 @@ export const App = ({ element }) => {
                 {data.map(item => {
                     const { id, title, media_details } = item;
                     const { width, height, image_meta } = media_details;
+
+                    if (!image_meta) {
+                        return null;
+                    }
+
                     const { created_timestamp } = image_meta;
                     const { photo_posts } = item.pt;
 
@@ -69,7 +75,7 @@ export const App = ({ element }) => {
                             <figcaption className={`${classNameBase}__figure`}>
                                 <TitleField classNameBase={classNameBase} post={item} />
                                 {meta_date && <p>{meta_date}</p>}
-                                {image_meta?.keywords && <p>{image_meta?.keywords.join(', ')}</p>}
+                                <KeywordField classNameBase={classNameBase} post={item} />
                                 {!!photo_posts.length && (
                                     <>
                                         <p>

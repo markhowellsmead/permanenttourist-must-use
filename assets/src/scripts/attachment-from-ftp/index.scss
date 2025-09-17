@@ -73,6 +73,10 @@
         &--empty {
             border-color: red;
         }
+
+        &--keywords {
+            width: 100%;
+        }
     }
 
     &__fieldwrap {
@@ -81,6 +85,12 @@
         align-items: flex-start;
         column-gap: .5rem;
         row-gap: .25rem;
+
+        &--keywords,
+        &--title {
+            display: block;
+            width: 100%;
+        }
 
         * {
             flex: 1;
@@ -123,6 +133,10 @@
             height: 100%;
             object-fit: cover;
         }
+    }
+
+    &__title {
+        min-width: 50% !important;
     }
 
 }
