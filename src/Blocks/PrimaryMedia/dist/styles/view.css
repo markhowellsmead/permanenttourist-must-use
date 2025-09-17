@@ -25,6 +25,10 @@
   overflow: hidden;
   aspect-ratio: 16/9;
 }
+.wp-block-sht-primary-media__figure--thumbnail > a {
+  display: block;
+  height: 100%;
+}
 .wp-block-sht-primary-media__figure--video {
   aspect-ratio: 16/9;
 }
