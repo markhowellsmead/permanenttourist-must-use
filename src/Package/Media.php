@@ -3,6 +3,7 @@
 namespace PT\MustUse\Package;
 
 use DOMDocument;
+use DOMElement;
 use DOMXPath;
 
 /**
@@ -127,12 +128,24 @@ class Media
 	}
 
 	/**
+	 * Extracts the YouTube video ID from a URL
+	 *
+	 * @param string $video_url The YouTube video URL
+	 * @return string|null The YouTube video ID or null if not found
+	 */
+	public function getYoutubeId($video_url)
+	{
+		preg_match('/(youtu\.be\/|youtube\.com\/(watch\?(.*&)?v=|(embed|v)\/))([^\?&"\'<> #]+)/', $video_url, $matches);
+		return $matches[5] ?? null;
+	}
+
+	/**
 	 * Get remote video thumbnail URL
 	 *
 	 * @param  string $source_url The video URL
 	 * @return string The Video Thumbnail URL
 	 **/
-	public static function getVideoThumbnail($source_url)
+	public static function getVideoThumbnail($source_url, $image_size = 'hqdefault')
 	{
 		if ($source_url == '' || is_array($source_url)) {
 			return '';
@@ -156,7 +169,7 @@ class Media
 		switch ($aPath['host']) {
 			case 'youtu.be':
 				$atts['id'] = preg_replace('~^/~', '', $aPath['path']);
-				return 'https://i.ytimg.com/vi/' . $atts['id'] . '/hqdefault.jpg';
+				return "https://i.ytimg.com/vi/{$atts['id']}/{$image_size}.jpg";
 				break;
 
 			case 'youtube.com':
@@ -171,7 +184,7 @@ class Media
 				if (!isset($atts['id']) || !$atts['id']) {
 					return '';
 				} else {
-					return 'https://i.ytimg.com/vi/' . $atts['id'] . '/hqdefault.jpg';
+					return "https://i.ytimg.com/vi/{$atts['id']}/{$image_size}.jpg";
 				}
 				break;
 
@@ -413,6 +426,10 @@ class Media
 		$nodeList = $xpath->query('//iframe');
 
 		foreach ($nodeList as $node) {
+			if (!$node instanceof DOMElement) {
+				continue;
+			}
+
 			$host = parse_url($node->getAttribute('src'), PHP_URL_HOST);
 			if (strpos($host, 'youtube.com') === false && strpos($host, 'youtu.be') === false) {
 				continue;

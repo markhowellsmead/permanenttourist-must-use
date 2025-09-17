@@ -35,13 +35,9 @@ $media_package = new MediaPackage();
 
 if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 
-	if (is_singular('post') || is_singular('page') && !$attributes['hideInlineEmbed'] ?? false) {
+	if (is_singular('post') || is_singular('page') && !($attributes['hideInlineEmbed'] ?? false)) {
 
 		$url_parts = parse_url($video_url, PHP_URL_QUERY);
-
-		if (strpos($video_url, 'youtube.com') !== false || strpos($video_url, 'youtu.be') !== false) {
-			$video_url = add_query_arg('hq', '1', $video_url);
-		}
 
 		$video_player = wp_oembed_get($video_url);
 
@@ -49,25 +45,63 @@ if (!empty($video_url = get_post_meta($post_id, 'video_ref', true))) {
 			return $video_player;
 		}
 
-		$video_player = $media_package->addHqParam($video_player);
+		$youtube_video_id = $media_package->getYoutubeId($video_url);
 
-		$content = sprintf(
-			'<figure class="%1$s%2$s__figure %2$s__figure--video">%3$s</figure>',
-			$className,
-			$classNameBase,
-			$video_player,
-		);
+		if (!$youtube_video_id) {
+			$content = sprintf(
+				'<figure class="%1$s%2$s__figure %2$s__figure--video">%3$s</figure>',
+				$className,
+				$classNameBase,
+				$video_player
+			);
+		} else {
+			$video_player = $media_package->addHqParam($video_player);
+
+			//$thumbnail = $media_package->getVideoThumbnail($video_url, 'maxresdefault');
+			$thumbnail = "https://{$_SERVER['HTTP_HOST']}/youtube-thumbnail.php?id={$youtube_video_id}";
+
+			if (!empty($thumbnail)) {
+				$thumbnail = sprintf(
+					'<link itemprop="thumbnailUrl" href="%1$s"><meta itemprop="thumbnail" content="%1$s"><meta itemprop="name" content="%3$s"><img loading="lazy" src="%1$s" class="%2$s__image" alt="%3$s" /><button class="shp-video-play-button" aria-label="Play video">Play video</button>',
+					$thumbnail,
+					$classNameBase,
+					get_the_title($post_id)
+				);
+
+				$thumbnail = sprintf('<figure class="%1$s%2$s__figure %2$s__figure--video shp-video-play-button-wrapper">%3$s</figure>', $className, $classNameBase, $thumbnail);
+			}
+
+			$template_figure = sprintf(
+				'<figure class="%1$s%2$s__figure %2$s__figure--video">%3$s</figure>',
+				$className,
+				$classNameBase,
+				$video_player
+			);
+
+			$content = sprintf(
+				'%1$s<template>%2$s</template>',
+				$thumbnail,
+				$template_figure
+			);
+		}
 	} else {
 
-		$thumbnail = $media_package->getVideoThumbnail($video_url);
+		$youtube_video_id = $media_package->getYoutubeId($video_url);
+
+		if ($youtube_video_id) {
+			$thumbnail = "https://{$_SERVER['HTTP_HOST']}/youtube-thumbnail.php?id={$youtube_video_id}";
+		} else {
+			$thumbnail = $media_package->getVideoThumbnail($video_url);
+		}
 
 		if (!empty($thumbnail)) {
 			$content = sprintf(
-				'<figure class="%1$s%2$s__figure %2$s__figure--%3$s"><a href="%6$s"><img class="%2$s__image" src="%4$s" alt="%5$s" /></a></figure>',
+				'<figure class="%1$s%2$s__figure %2$s__figure--%3$s"><a href="%6$s"><img loading="lazy" class="%2$s__image" src="%4$s" alt="%5$s" /></a></figure>',
 				$className,
 				$classNameBase,
 				$media_size,
-				$media_package->getVideoThumbnail($video_url),
+				//$media_package->getVideoThumbnail($video_url),
+				$thumbnail,
 				get_the_title($post_id),
 				get_the_permalink($post_id)
 			);

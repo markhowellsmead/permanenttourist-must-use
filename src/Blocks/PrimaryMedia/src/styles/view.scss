@@ -32,6 +32,78 @@
             overflow: hidden;
             aspect-ratio: 16/9;
         }
+
+        &--thumbnail {
+            >a {
+                display: block;
+                height: 100%;
+            }
+        }
+
+        &--video {
+            aspect-ratio: 16/9;
+
+            >a {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                height: 100%;
+
+                >* {
+                    grid-row: 1;
+                    grid-column: 1;
+                }
+            }
+
+            .shp-video-play-button {
+                --hd-play-button-size: 80px;
+                --hd-play-button-background-color: #FFFFFF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 2;
+                width: var(--hd-play-button-size);
+                height: var(--hd-play-button-size);
+                cursor: pointer;
+                background-color: transparent !important;
+                border: none !important;
+                margin: 0;
+                padding: 0;
+                text-indent: -999rem;
+                font-size: 0;
+                border-radius: 50%;
+                --hd-play-button-size: 64px;
+                padding: 1rem;
+                border-radius: 50%;
+                box-sizing: content-box;
+                background-color: rgba(0, 0, 0, 0.5) !important;
+                transform-origin: center;
+                transition: transform 0.3s;
+
+                &::after {
+                    --hd-play-button-opacity: 1;
+                    content: '';
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 37.5px 0 37.5px 65.0px;
+                    border-color: transparent transparent transparent var(--hd-play-button-background-color);
+                    opacity: var(--hd-play-button-opacity);
+                    transition: all 0.2s linear;
+                    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 1));
+                    --hd-play-button-opacity: 1;
+                    width: 100%;
+                    height: 100%;
+                    background: url(/wp-content/themes/latrigg/assets/img/icons/play_circle_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.min.svg) center / contain no-repeat;
+                    border: none;
+                }
+            }
+        }
     }
 
     &__videoplayer {
