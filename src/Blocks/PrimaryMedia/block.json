@@ -1,6 +1,6 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
+    "apiVersion": 3,
     "name": "sht/primary-media",
     "title": "Primary media",
     "category": "media",
@@ -34,7 +34,7 @@
     "usesContext": ["postId", "postType"],
     "editorStyle": "file:./dist/styles/edit.min.css",
     "editorScript": "file:./dist/scripts/editor.js",
-    "style": "file:./dist/styles/view.min.css",
+    "style": ["file:./dist/styles/view.min.css", "sht-block-primary-media-20250922"],
     "viewScript": "file:./dist/scripts/view.js",
     "render": "file:./render.php"
 }
