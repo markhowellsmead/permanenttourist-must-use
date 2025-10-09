@@ -30,7 +30,7 @@ class Photo
 		add_filter('permanenttourist-v10/post_meta_information', [$this, 'postThumbnailMeta'], 10, 2);
 		add_filter('sherborne_road/post_meta_information', [$this, 'postThumbnailMeta'], 10, 2);
 		add_action('mhm-attachment-from-ftp-publish/post_created', [$this, 'changePostSlug'], 10, 1);
-		//add_action('wp_enqueue_scripts', array( $this, 'addScripts' ));
+		add_action('wp_enqueue_scripts', array($this, 'addScripts'));
 		add_action('init', [$this, 'restFeaturedImage'], 12);
 		add_action('restrict_manage_posts', [$this, 'templateDropdown']);
 		add_action('pre_get_posts', [$this, 'adminListFilterByTemplate']);
@@ -364,7 +364,26 @@ class Photo
 	 */
 	public function addScripts()
 	{
-		wp_enqueue_script('permanenttourist-photo-collection-api', plugins_url('Resources/Public/JavaScript/collection-api.js', __FILE__), ['jquery'], 1.5, true);
+		// Enqueue the photo archive delete script only on the photo archive page
+		if (is_post_type_archive('photo') && is_user_logged_in() && current_user_can('delete_photos')) {
+			$loader_script = "/assets/dist/scripts/photo-archive-delete.js";
+			$filemtime = filemtime(pt_must_use_get_instance()->path . $loader_script);
+			$script_asset_path = pt_must_use_get_instance()->path . 'assets/dist/scripts/photo-archive-delete.asset.php';
+			$script_asset = file_exists($script_asset_path) ? require($script_asset_path) : ['dependencies' => [], 'version' => $filemtime];
+
+			wp_enqueue_script('pt-photo-archive-delete', pt_must_use_get_instance()->url . $loader_script, $script_asset['dependencies'], $script_asset['version'], true);
+
+			// // Pass the REST API nonce to JS via meta tag if not already present
+			// if (!wp_script_is('wp-api', 'enqueued')) {
+			// 	wp_enqueue_script('wp-api');
+			// }
+
+			wp_localize_script('pt-photo-archive-delete', 'wpApiSettings', [
+				'nonce' => wp_create_nonce('wp_rest'),
+			]);
+		}
+
+		//wp_enqueue_script('permanenttourist-photo-collection-api', plugins_url('Resources/Public/JavaScript/collection-api.js', __FILE__), ['jquery'], 1.5, true);
 	}
 
 	public function shortcode($atts)
