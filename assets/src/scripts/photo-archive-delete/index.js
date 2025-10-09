@@ -23,7 +23,22 @@ import './_index.scss';
         return;
     }
 
-    document.querySelectorAll('.wp-block-post.type-photo').forEach(entry => {
+    // Get all entries as an array and loop in reverse
+    const entries = Array.from(document.querySelectorAll('.wp-block-post.type-photo'));
+    const seenSrcs = new Set();
+    for (let i = entries.length - 1; i >= 0; i--) {
+        const entry = entries[i];
+        const img = entry.querySelector('img');
+        if (img && img.src) {
+            if (seenSrcs.has(img.src)) {
+                entry.style.border = '2px solid red';
+            }
+            seenSrcs.add(img.src);
+        }
+    }
+
+    // Now add the delete buttons and tooltips
+    entries.forEach(entry => {
         const postId = getPostIdFromClassList(entry.classList);
         if (!postId) {
             return;
