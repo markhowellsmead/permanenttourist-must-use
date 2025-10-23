@@ -47,3 +47,31 @@ if (videos.length) {
         });
     });
 }
+
+const playButtons = document.querySelectorAll(
+    '.wp-block-video .play-button, .wp-block-image .play-button, .shp-video-play-button'
+);
+
+if (playButtons.length) {
+    playButtons.forEach(button => {
+        button.addEventListener('click', event => {
+            if (window._paq) {
+                // add click handler to ping matomo analytics with a custom event.
+                const button = event.currentTarget;
+                if (button.dataset?.attributeUrl) {
+                    window._paq.push(['trackEvent', 'Video', 'Play', button.dataset.attributeUrl]);
+                    return;
+                }
+
+                const root = button.closest('[data-attribute-url]');
+
+                if (root && root.dataset?.attributeUrl) {
+                    window._paq.push(['trackEvent', 'Video', 'Play', root.dataset.attributeUrl]);
+                    return;
+                }
+
+                return;
+            }
+        });
+    });
+}
