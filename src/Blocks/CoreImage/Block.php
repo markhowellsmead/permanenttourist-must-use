@@ -3,16 +3,24 @@
 namespace PT\MustUse\Blocks\CoreImage;
 
 use DOMDocument;
+use DOMElement;
 use DOMXPath;
 
 class Block
 {
 	public function run()
 	{
-		add_filter('render_block_core/image', [$this, 'render'], 10, 2);
+		add_filter('render_block_core/image', [$this, 'addWebcamForce'], 10, 2);
 	}
 
-	public function render($html, $block)
+	/**
+	 * Adds a random URL query parameter to webcam images
+	 *
+	 * @param string $html
+	 * @param array $block
+	 * @return string
+	 */
+	public function addWebcamForce($html, $block)
 	{
 
 		if (empty($html)) {
@@ -31,6 +39,10 @@ class Block
 		$nodeList = $xpath->query('//img');
 
 		foreach ($nodeList as $node) {
+			if (!$node instanceof DOMElement) {
+				continue;
+			}
+
 			$new_src = $node->getAttribute('src') . (parse_url($node->getAttribute('src'), PHP_URL_QUERY) ? '&' : '?') . 'force=' . rand(1, 1000000);
 			$node->setAttribute('src', $new_src);
 		}
