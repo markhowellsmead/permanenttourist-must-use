@@ -16,14 +16,6 @@ class MapFromMeta
 		add_shortcode('mapfrommeta', array($this, 'shortcode'));
 	}
 
-	public function dump($var, $die = false)
-	{
-		echo '<pre>' . print_r($var, 1) . '</pre>';
-		if ($die) {
-			die();
-		}
-	}
-
 	public function shortcode($atts)
 	{
 
