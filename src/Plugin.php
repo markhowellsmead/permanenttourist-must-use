@@ -155,6 +155,7 @@ class Plugin
 				Blocks\CoreEmbed\Block::class,
 				Blocks\CoreImage\Block::class,
 				Blocks\CoreVideo\Block::class,
+				Blocks\MeowGallery\Block::class,
 				Blocks\OutdoorActiveEmbed\Block::class,
 				Blocks\PageTeaserCover\Block::class,
 				Blocks\PrimaryMedia\Block::class,
