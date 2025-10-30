@@ -5,7 +5,7 @@ Plugin URI: https://github.com/markhowellsmead/permanenttourist-must-use
 Update URI: https://github.com/markhowellsmead/permanenttourist-must-use
 Description: This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch.
 Author: Mark Howells-Mead
-Version: 0.33.4
+Version: 0.33.5
 Author URI: https://www.permanenttourist.ch/
 Text Domain: pt-must-use
 Domain Path: languages
