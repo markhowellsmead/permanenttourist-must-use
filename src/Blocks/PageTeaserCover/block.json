@@ -1,6 +1,7 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 2,
+    "apiVersion": 3,
+    "version": "2025103001",
     "name": "sht/page-teaser-cover",
     "title": "Page teaser (Cover)",
     "category": "media",

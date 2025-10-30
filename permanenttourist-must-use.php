@@ -7,7 +7,7 @@ GitHub Plugin URI: https://github.com/markhowellsmead/permanenttourist-must-use
 Primary Branch: main
 Description: This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch.
 Author: Mark Howells-Mead
-Version: 0.33.6
+Version: 0.33.7
 Author URI: https://www.permanenttourist.ch/
 Text Domain: pt-must-use
 Domain Path: languages
