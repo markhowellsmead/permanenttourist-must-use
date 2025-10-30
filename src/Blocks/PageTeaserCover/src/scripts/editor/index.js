@@ -6,6 +6,7 @@ import {
     PanelRow,
     SelectControl,
     Spinner,
+    ToggleControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
@@ -24,8 +25,11 @@ registerBlockType(block_name, {
             aspectRatioMobile,
             aspectRatioTablet,
             aspectRatioDesktop,
+            aspectRatioLargeDesktop,
+            aspectRatioXLargeDesktop,
             focalPoint,
             imageSize,
+            innerConstraint,
             linkText,
             postId,
             style,
@@ -49,7 +53,10 @@ registerBlockType(block_name, {
             contentStyles = contentStylesCalc(style),
             outerStyles = outerStylesCalc(attributes);
 
-        const blockProps = useBlockProps({ style: outerStyles });
+        const blockProps = useBlockProps({
+            style: outerStyles,
+            className: innerConstraint ? 'is-style-inner-constraint' : '',
+        });
 
         const pageData = useSelect(select => {
             return select('core').getEntityRecord('postType', 'page', postId);
@@ -98,6 +105,19 @@ registerBlockType(block_name, {
                                 />
                             )}
                         </PanelRow>
+                        <PanelRow>
+                            <ToggleControl
+                                label={_x(
+                                    'Constrain content width',
+                                    'Block setting',
+                                    'pt-must-use'
+                                )}
+                                checked={!!innerConstraint}
+                                onChange={() =>
+                                    setAttributes({ innerConstraint: !innerConstraint })
+                                }
+                            />
+                        </PanelRow>
                         {!!presetImageSizes?.length && (
                             <PanelRow>
                                 <SelectControl
@@ -111,6 +131,30 @@ registerBlockType(block_name, {
                                 />
                             </PanelRow>
                         )}
+                        <PanelRow>
+                            <SelectControl
+                                label={_x(
+                                    'Aspect ratio (XL)',
+                                    'SelectControl label',
+                                    'pt-must-use'
+                                )}
+                                value={aspectRatioXLargeDesktop}
+                                options={aspectRatioOptions}
+                                onChange={aspectRatioXLargeDesktop =>
+                                    setAttributes({ aspectRatioXLargeDesktop })
+                                }
+                            />
+                        </PanelRow>
+                        <PanelRow>
+                            <SelectControl
+                                label={_x('Aspect ratio (L)', 'SelectControl label', 'pt-must-use')}
+                                value={aspectRatioLargeDesktop}
+                                options={aspectRatioOptions}
+                                onChange={aspectRatioLargeDesktop =>
+                                    setAttributes({ aspectRatioLargeDesktop })
+                                }
+                            />
+                        </PanelRow>
                         <PanelRow>
                             <SelectControl
                                 label={_x(

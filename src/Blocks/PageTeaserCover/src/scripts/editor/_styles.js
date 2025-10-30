@@ -71,5 +71,15 @@ export const outerStylesCalc = attributes => {
         outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = attributes.aspectRatioDesktop;
     }
 
+    if (attributes?.aspectRatioLargeDesktop) {
+        outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] =
+            attributes.aspectRatioLargeDesktop;
+    }
+
+    if (attributes?.aspectRatioXLargeDesktop) {
+        outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] =
+            attributes.aspectRatioXLargeDesktop;
+    }
+
     return outerStyles;
 };
