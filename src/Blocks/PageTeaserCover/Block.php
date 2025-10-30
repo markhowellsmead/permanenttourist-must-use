@@ -119,6 +119,10 @@ class Block
 			$outerStyles['--sht-teaser-cover-aspect-ratio'] = $attributes['aspectRatioMobile'];
 		}
 
+		if (!empty($attributes['aspectRatioLaptop'] ?? '')) {
+			$outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = $attributes['aspectRatioLaptop'];
+		}
+
 		if (!empty($attributes['aspectRatioLargeDesktop'] ?? '')) {
 			$outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] = $attributes['aspectRatioLargeDesktop'];
 		}

@@ -20,6 +20,10 @@
             "type": "string",
             "default": "5/4"
         },
+        "aspectRatioLaptop": {
+            "type": "string",
+            "default": "16/9"
+        },
         "aspectRatioDesktop": {
             "type": "string",
             "default": "5/4"

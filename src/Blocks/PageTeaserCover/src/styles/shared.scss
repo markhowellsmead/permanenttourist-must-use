@@ -17,11 +17,16 @@
 
     &.is-style-inner-constraint {
         .wp-block-sht-page-teaser-cover__content {
-            max-width: 80rem;
+            max-width: var(--wp--style--global--wide-size);
 
-            @media screen and (min-width: 100em) {
+            @media screen and (min-width: 67.5em) {
                 padding-inline: 0;
             }
+
+            @media screen and (min-width: 100em) {
+                max-width: 80rem;
+            }
+
         }
     }
 
@@ -68,6 +73,10 @@
         }
 
         @media screen and (min-width: 80em) {
+            aspect-ratio: var(--sht-teaser-cover-aspect-ratio--laptop);
+        }
+
+        @media screen and (min-width: 100em) {
             aspect-ratio: var(--sht-teaser-cover-aspect-ratio--desktop);
         }
 

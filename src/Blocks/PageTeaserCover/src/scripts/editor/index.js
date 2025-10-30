@@ -24,6 +24,7 @@ registerBlockType(block_name, {
         const {
             aspectRatioMobile,
             aspectRatioTablet,
+            aspectRatioLaptop,
             aspectRatioDesktop,
             aspectRatioLargeDesktop,
             aspectRatioXLargeDesktop,
@@ -167,6 +168,18 @@ registerBlockType(block_name, {
                                 onChange={aspectRatioDesktop =>
                                     setAttributes({ aspectRatioDesktop })
                                 }
+                            />
+                        </PanelRow>
+                        <PanelRow>
+                            <SelectControl
+                                label={_x(
+                                    'Aspect ratio (Laptop)',
+                                    'SelectControl label',
+                                    'pt-must-use'
+                                )}
+                                value={aspectRatioLaptop}
+                                options={aspectRatioOptions}
+                                onChange={aspectRatioLaptop => setAttributes({ aspectRatioLaptop })}
                             />
                         </PanelRow>
                         <PanelRow>
