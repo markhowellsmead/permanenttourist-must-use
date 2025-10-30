@@ -25,6 +25,14 @@ if ($focalPoint) {
 	$objectPosition = "{$x}% {$y}%";
 }
 
+$outerClasses = [];
+
+$innerConstraint = (bool) ($attributes['innerConstraint'] ?? false);
+
+if ($innerConstraint) {
+	$outerClasses[] = "is-style-inner-constraint";
+}
+
 $innerStyles = Block::innerStylesCalcString($attributes['style'] ?? []);
 if (!empty($innerStyles)) {
 	$innerStyles = 'style="' . $innerStyles . '"';
@@ -47,9 +55,9 @@ if (!empty($image)) {
 
 ?>
 
-<div <?php echo get_block_wrapper_attributes(['style' => $outerStyles]); ?>>
+<div <?php echo get_block_wrapper_attributes(['style' => $outerStyles, 'class' => implode(' ', $outerClasses)]); ?>>
 	<div class="<?php echo $classNameBase; ?>__inner" <?php echo $innerStyles; ?>>
-		<div class="<?php echo $classNameBase; ?>__content">
+		<div class="<?php echo $classNameBase; ?>__content with--text-shadow">
 			<h2 class="<?php echo $classNameBase; ?>__title">
 				<?php echo $title; ?>
 			</h2>
