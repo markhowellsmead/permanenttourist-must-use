@@ -25,9 +25,9 @@ class Explore
 				'has_archive' => true,
 				'public' => true,
 				'show_in_rest' => true,
-				'rest_base' => 'explore',
+				'rest_base' => 'exploring',
 				'rewrite' => [
-					'slug' => 'explore'
+					'slug' => 'exploring'
 				],
 				'supports' => [
 					'title',
