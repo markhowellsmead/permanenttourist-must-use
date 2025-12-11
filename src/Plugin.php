@@ -168,6 +168,9 @@ class Plugin
 		add_action('comment_form_before', [$this, 'enqueueReplyScript']);
 		add_action('wp_head', [$this, 'noJsScript']);
 		add_action('wp_head', [$this, 'mastodonValidation']);
+
+		// 2025-12-11: Disable Jetpack subscription checkbox site-wide
+		add_filter('show_subscription_checkbox', '__return_false');
 	}
 
 	public function registerPostMeta()
