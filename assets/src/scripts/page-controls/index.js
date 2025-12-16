@@ -20,7 +20,7 @@ let CustomLayoutPanel = () => {
 
     const themeColors = useSelect(select => select('core/editor').getEditorSettings().colors);
 
-    const { content_behind_masthead, masthead_color } = useSelect(select => {
+    const { content_behind_masthead, masthead_shadow, masthead_color } = useSelect(select => {
         const meta = select('core/editor').getEditedPostAttribute('meta');
         return meta || {};
     });
@@ -35,6 +35,10 @@ let CustomLayoutPanel = () => {
         editPost({ meta: { masthead_color: color } });
     };
 
+    const handleShadowChange = value => {
+        editPost({ meta: { masthead_shadow: value } });
+    };
+
     return (
         <PluginDocumentSettingPanel
             title={_x('Masthead', 'Editor sidebar panel title', 'pt-must-use')}
@@ -46,13 +50,24 @@ let CustomLayoutPanel = () => {
                 checked={!!content_behind_masthead}
             />
             {!!content_behind_masthead && (
-                <BaseControl label={__('Masthead text colour', 'pt-must-use')}>
-                    <ColorPaletteControl
-                        colors={themeColors}
-                        value={masthead_color}
-                        onChange={handleColorChange}
-                    />
-                </BaseControl>
+                <>
+                    <BaseControl label={__('Masthead text colour', 'pt-must-use')}>
+                        <ColorPaletteControl
+                            colors={themeColors}
+                            value={masthead_color}
+                            onChange={handleColorChange}
+                            enableAlpha={true}
+                        />
+                    </BaseControl>
+                    <BaseControl label={__('Masthead shadow', 'pt-must-use')}>
+                        <ColorPaletteControl
+                            colors={themeColors}
+                            value={masthead_shadow}
+                            onChange={handleShadowChange}
+                            enableAlpha={true}
+                        />
+                    </BaseControl>
+                </>
             )}
         </PluginDocumentSettingPanel>
     );
