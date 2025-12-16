@@ -14,6 +14,7 @@ class Page
 		add_filter('init', [$this, 'allowExcerpt']);
 		add_filter('init', [$this, 'registerMeta']);
 		add_action('wp_footer', [$this, 'mastheadColor']);
+		add_action('wp_footer', [$this, 'mastheadColorShadow']);
 	}
 
 	public function allowExcerpt()
@@ -34,6 +35,16 @@ class Page
 		]);
 
 		register_meta('post', 'masthead_color', [
+			'show_in_rest' => true,
+			'type' => 'string',
+			'single' => true,
+			'sanitize_callback' => 'sanitize_text_field',
+			'auth_callback' => function () {
+				return current_user_can('edit_posts');
+			}
+		]);
+
+		register_meta('post', 'masthead_shadow', [
 			'show_in_rest' => true,
 			'type' => 'string',
 			'single' => true,
@@ -143,6 +154,28 @@ class Page
 			body.body--content_behind_masthead .c-main {
 				margin-top: 0 !important;
 				--main--offset: 0;
+			}
+		</style>
+	<?php
+	}
+
+	public function mastheadColorShadow()
+	{
+		if (get_post_type() !== 'page') {
+			return;
+		}
+
+		$shadow = get_post_meta(get_the_ID(), 'masthead_shadow', true);
+
+		if (empty($shadow)) {
+			return;
+		}
+
+	?>
+		<style>
+			.c-masthead::after {
+				background: linear-gradient(to bottom, <?php echo $shadow; ?>, transparent) !important;
+				opacity: 1 !important;
 			}
 		</style>
 <?php
