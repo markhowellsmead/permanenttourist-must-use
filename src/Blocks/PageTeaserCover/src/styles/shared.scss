@@ -144,7 +144,7 @@
         --wp--preset--font-size--slammer: clamp(1.5rem, 1.4rem + 0.5vw, 2rem);
         font-size: var(--wp--preset--font-size--slammer);
         font-style: normal;
-        font-weight: 900;
+        color: inherit;
 
         @container sht-page-teaser-cover-content (inline-size > 30rem) {
             --wp--preset--font-size--slammer: clamp(1.5rem, 1.2rem + 1.5vw, 3rem);
