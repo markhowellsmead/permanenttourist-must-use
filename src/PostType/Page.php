@@ -81,7 +81,7 @@ class Page
 		$content_behind_masthead_rule = $content_behind_masthead ? 'document.body.classList.add("body--content_behind_masthead");' : '';
 		$color = get_post_meta(get_the_ID(), 'masthead_color', true);
 
-		if (empty($color)) {
+		if (empty($color) || !$content_behind_masthead) {
 			return;
 		}
 
