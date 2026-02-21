@@ -152,6 +152,7 @@ class Plugin
 				//PostType\Hike::class,
 				//PostType\Viewpoints::class,
 
+				Blocks\ACFImages\Block::class,
 				Blocks\CoreEmbed\Block::class,
 				Blocks\CoreImage\Block::class,
 				Blocks\CoreVideo\Block::class,

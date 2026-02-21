@@ -1,0 +1,26 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "sht/acf-images",
+    "title": "ACF Images",
+    "category": "media",
+    "icon": "format-image",
+    "description": "",
+    "keywords": ["image", "gallery"],
+    "textdomain": "pt-must-use",
+    "attributes": {
+        "align": {
+            "type": "string"
+        }
+    },
+    "supports": {
+        "align": ["wide", "full"],
+        "html": false
+    },
+    "usesContext": ["postId", "postType"],
+    "editorStyle": "file:./dist/styles/edit.min.css",
+    "editorScript": "file:./dist/scripts/editor.js",
+    "style": "file:./dist/styles/view.min.css",
+    "viewScript": "file:./dist/scripts/view.js",
+    "render": "file:./render.php"
+}
