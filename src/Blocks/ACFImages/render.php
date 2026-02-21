@@ -20,7 +20,9 @@ $image_ids = array_filter($image_ids, function ($id) {
 if (empty($image_ids)) {
 	return;
 }
+
 ?>
 <div <?php echo get_block_wrapper_attributes(); ?>>
+	<h2 class="wp-block-title"><?php echo get_field('title') ?? 'Gallery images'; ?></h2>
 	<?php get_template_part('partials/grid500', false, ['post_ids' => $image_ids]); ?>
 </div>
