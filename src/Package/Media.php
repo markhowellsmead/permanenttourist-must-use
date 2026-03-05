@@ -29,6 +29,8 @@ class Media
 		add_action('wpseo_add_opengraph_images', [$this, 'videoThumbnail']);
 		add_filter('wpseo_opengraph_image_size', [$this, 'yoastSeoOpengraphChangeImageSize'], 10, 0);
 		add_filter('wp_get_loading_optimization_attributes', [$this, 'removeAsyncDecoding']);
+		add_action("wplr_update_folder", [$this, 'flushCacheOnUpdateLightroom']);
+		add_action("wplr_update_gallery", [$this, 'flushCacheOnUpdateLightroom']);
 	}
 
 	public function addImageSizes()
@@ -479,5 +481,18 @@ class Media
 			[0x80, 0x10FFFF, 0, ~0],
 			$convert_from
 		);
+	}
+
+	/**
+	 * Flushes the cache after updating a Lightroom gallery
+	 *
+	 * @return void
+	 */
+	public function flushCacheOnUpdateLightroom(): void
+	{
+		if (defined('WP_CLI') && WP_CLI) {
+			WP_CLI::runcommand('litespeed-purge all');
+			wp_mail(get_option('admin_email'), 'Cache flushed', 'The cache has been flushed after updating a Lightroom gallery');
+		}
 	}
 }
