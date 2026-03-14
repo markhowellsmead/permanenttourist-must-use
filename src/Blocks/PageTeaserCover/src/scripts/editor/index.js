@@ -41,7 +41,14 @@ registerBlockType(block_name, {
             'dimensions.aspectRatios.theme'
         );
 
-        const aspectRatios = [...(defaultRatios || []), ...(themeRatios || [])];
+        const aspectRatios = [
+            ...(defaultRatios || []),
+            ...(themeRatios || []),
+            {
+                ratio: 'stretch',
+                name: _x('Stretch height', 'Aspect ratio option', 'pt-must-use'),
+            },
+        ];
 
         const aspectRatioOptions = aspectRatios.map(ratio => {
             return {
@@ -135,7 +142,7 @@ registerBlockType(block_name, {
                         <PanelRow>
                             <SelectControl
                                 label={_x(
-                                    'Aspect ratio (XL)',
+                                    'Aspect ratio (1920)',
                                     'SelectControl label',
                                     'pt-must-use'
                                 )}
@@ -148,7 +155,11 @@ registerBlockType(block_name, {
                         </PanelRow>
                         <PanelRow>
                             <SelectControl
-                                label={_x('Aspect ratio (L)', 'SelectControl label', 'pt-must-use')}
+                                label={_x(
+                                    'Aspect ratio (1600)',
+                                    'SelectControl label',
+                                    'pt-must-use'
+                                )}
                                 value={aspectRatioLargeDesktop}
                                 options={aspectRatioOptions}
                                 onChange={aspectRatioLargeDesktop =>
@@ -159,7 +170,7 @@ registerBlockType(block_name, {
                         <PanelRow>
                             <SelectControl
                                 label={_x(
-                                    'Aspect ratio (Desktop)',
+                                    'Aspect ratio (1440)',
                                     'SelectControl label',
                                     'pt-must-use'
                                 )}
@@ -173,7 +184,7 @@ registerBlockType(block_name, {
                         <PanelRow>
                             <SelectControl
                                 label={_x(
-                                    'Aspect ratio (Laptop)',
+                                    'Aspect ratio (1280)',
                                     'SelectControl label',
                                     'pt-must-use'
                                 )}
@@ -185,7 +196,7 @@ registerBlockType(block_name, {
                         <PanelRow>
                             <SelectControl
                                 label={_x(
-                                    'Aspect ratio (Tablet)',
+                                    'Aspect ratio (768)',
                                     'SelectControl label',
                                     'pt-must-use'
                                 )}

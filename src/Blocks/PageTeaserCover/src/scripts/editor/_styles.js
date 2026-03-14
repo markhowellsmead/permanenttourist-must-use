@@ -60,25 +60,59 @@ export const outerStylesCalc = attributes => {
     const outerStyles = {};
 
     if (attributes?.aspectRatioMobile) {
-        outerStyles['--sht-teaser-cover-aspect-ratio'] = attributes.aspectRatioMobile;
+        if (attributes?.aspectRatioMobile === 'stretch') {
+            outerStyles['--sht-teaser-cover-aspect-ratio'] = 'auto';
+            outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else {
+            outerStyles['--sht-teaser-cover-aspect-ratio'] = attributes.aspectRatioMobile;
+        }
     }
 
     if (attributes?.aspectRatioTablet) {
-        outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = attributes.aspectRatioTablet;
+        if (attributes?.aspectRatioTablet === 'stretch') {
+            outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = 'auto';
+            outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else {
+            outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = attributes.aspectRatioTablet;
+        }
+    }
+
+    if (attributes?.aspectRatioLaptop) {
+        if (attributes?.aspectRatioLaptop === 'stretch') {
+            outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = 'auto';
+            outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else {
+            outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = attributes.aspectRatioLaptop;
+        }
     }
 
     if (attributes?.aspectRatioDesktop) {
-        outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = attributes.aspectRatioDesktop;
+        if (attributes?.aspectRatioDesktop === 'stretch') {
+            outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = 'auto';
+            outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else {
+            outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = attributes.aspectRatioDesktop;
+        }
     }
 
     if (attributes?.aspectRatioLargeDesktop) {
-        outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] =
-            attributes.aspectRatioLargeDesktop;
+        if (attributes?.aspectRatioLargeDesktop === 'stretch') {
+            outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] = 'auto';
+            outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else {
+            outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] =
+                attributes.aspectRatioLargeDesktop;
+        }
     }
 
     if (attributes?.aspectRatioXLargeDesktop) {
-        outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] =
-            attributes.aspectRatioXLargeDesktop;
+        if (attributes?.aspectRatioXLargeDesktop === 'stretch') {
+            outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] = 'auto';
+            outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else {
+            outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] =
+                attributes.aspectRatioXLargeDesktop;
+        }
     }
 
     return outerStyles;
