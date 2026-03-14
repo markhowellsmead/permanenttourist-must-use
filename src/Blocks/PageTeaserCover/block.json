@@ -59,10 +59,6 @@
             "type": "string"
         }
     },
-    "styles": [
-        { "name": "default", "label": "Default", "isDefault": true },
-        { "name": "without-excerpt", "label": "Without excerpt" }
-    ],
     "supports": {
         "align": ["wide", "full"],
         "spacing": {
