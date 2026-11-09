@@ -59,61 +59,34 @@ export const innerStylesCalc = style => {
 export const outerStylesCalc = attributes => {
     const outerStyles = {};
 
-    if (attributes?.aspectRatioMobile) {
-        if (attributes?.aspectRatioMobile === 'stretch') {
-            outerStyles['--sht-teaser-cover-aspect-ratio'] = 'auto';
-            outerStyles['--sht-teaser-cover-height'] = '100%';
-        } else {
-            outerStyles['--sht-teaser-cover-aspect-ratio'] = attributes.aspectRatioMobile;
-        }
-    }
+    // attribute => CSS property suffix (empty for the mobile-first base size)
+    const breakpoints = {
+        aspectRatioMobile: '',
+        aspectRatioTablet: '--tablet',
+        aspectRatioLaptop: '--laptop',
+        aspectRatioDesktop: '--desktop',
+        aspectRatioLargeDesktop: '--large-desktop',
+        aspectRatioXLargeDesktop: '--xlarge-desktop',
+    };
 
-    if (attributes?.aspectRatioTablet) {
-        if (attributes?.aspectRatioTablet === 'stretch') {
-            outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = 'auto';
-            outerStyles['--sht-teaser-cover-height'] = '100%';
-        } else {
-            outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = attributes.aspectRatioTablet;
-        }
-    }
+    Object.entries(breakpoints).forEach(([attribute, suffix]) => {
+        const value = attributes?.[attribute];
 
-    if (attributes?.aspectRatioLaptop) {
-        if (attributes?.aspectRatioLaptop === 'stretch') {
-            outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = 'auto';
-            outerStyles['--sht-teaser-cover-height'] = '100%';
-        } else {
-            outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = attributes.aspectRatioLaptop;
+        if (!value) {
+            return;
         }
-    }
 
-    if (attributes?.aspectRatioDesktop) {
-        if (attributes?.aspectRatioDesktop === 'stretch') {
-            outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = 'auto';
+        if (value === 'stretch') {
+            outerStyles[`--sht-teaser-cover-aspect-ratio${suffix}`] = 'auto';
             outerStyles['--sht-teaser-cover-height'] = '100%';
+        } else if (value === '100svh') {
+            outerStyles[`--sht-teaser-cover-aspect-ratio${suffix}`] = 'auto';
+            outerStyles[`--sht-teaser-cover-height${suffix || '--mobile'}`] =
+                'calc(100svh - var(--masthead--height, 0px))';
         } else {
-            outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = attributes.aspectRatioDesktop;
+            outerStyles[`--sht-teaser-cover-aspect-ratio${suffix}`] = value;
         }
-    }
-
-    if (attributes?.aspectRatioLargeDesktop) {
-        if (attributes?.aspectRatioLargeDesktop === 'stretch') {
-            outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] = 'auto';
-            outerStyles['--sht-teaser-cover-height'] = '100%';
-        } else {
-            outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] =
-                attributes.aspectRatioLargeDesktop;
-        }
-    }
-
-    if (attributes?.aspectRatioXLargeDesktop) {
-        if (attributes?.aspectRatioXLargeDesktop === 'stretch') {
-            outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] = 'auto';
-            outerStyles['--sht-teaser-cover-height'] = '100%';
-        } else {
-            outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] =
-                attributes.aspectRatioXLargeDesktop;
-        }
-    }
+    });
 
     return outerStyles;
 };

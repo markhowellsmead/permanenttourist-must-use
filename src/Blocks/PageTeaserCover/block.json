@@ -57,6 +57,10 @@
         },
         "postId": {
             "type": "string"
+        },
+        "postType": {
+            "type": "string",
+            "default": "page"
         }
     },
     "supports": {
