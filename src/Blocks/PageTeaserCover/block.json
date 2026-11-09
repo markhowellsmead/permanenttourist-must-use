@@ -63,6 +63,7 @@
             "default": "page"
         }
     },
+    "usesContext": ["postId", "postType"],
     "supports": {
         "align": ["wide", "full"],
         "spacing": {
