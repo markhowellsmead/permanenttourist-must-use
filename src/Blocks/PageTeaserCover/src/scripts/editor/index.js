@@ -33,6 +33,7 @@ registerBlockType(block_name, {
             innerConstraint,
             linkText,
             postId,
+            postType = 'page',
             style,
         } = attributes;
 
@@ -47,6 +48,10 @@ registerBlockType(block_name, {
             {
                 ratio: 'stretch',
                 name: _x('Stretch height', 'Aspect ratio option', 'pt-must-use'),
+            },
+            {
+                ratio: '100svh',
+                name: _x('100vh', 'Aspect ratio option', 'pt-must-use'),
             },
         ];
 
@@ -67,24 +72,31 @@ registerBlockType(block_name, {
         });
 
         const pageData = useSelect(select => {
-            return select('core').getEntityRecord('postType', 'page', postId);
-        });
+            return select('core').getEntityRecord('postType', postType, postId);
+        }, [postType, postId]);
 
         const presetImageSizes = useSelect(select => {
             return select('core/editor').getEditorSettings().imageSizes;
         });
 
         const pages = useSelect(select => {
-            return select('core').getEntityRecords('postType', 'page', {
+            return select('core').getEntityRecords('postType', postType, {
                 per_page: -1,
                 order: 'asc',
                 orderby: 'title',
             });
-        });
+        }, [postType]);
+
+        const postTypeOptions = useSelect(select => {
+            const types = select('core').getPostTypes({ per_page: -1 });
+            return (types || [])
+                .filter(type => type.viewable && type.slug !== 'attachment')
+                .map(type => ({ value: type.slug, label: type.name }));
+        }, []);
 
         const selectPages = [
             {
-                label: 'Select a page',
+                label: _x('Select a post', 'Block setting', 'pt-must-use'),
                 value: 0,
             },
         ];
@@ -103,11 +115,23 @@ registerBlockType(block_name, {
                 <InspectorControls>
                     <PanelBody title={_x('Settings', 'Block settings', 'pt-must-use')}>
                         <PanelRow>
-                            {!pages?.length && <Spinner />}
-                            {!!pages?.length && (
+                            <SelectControl
+                                label={_x('Post type', 'Block setting', 'pt-must-use')}
+                                value={postType}
+                                options={
+                                    postTypeOptions.length
+                                        ? postTypeOptions
+                                        : [{ value: 'page', label: 'Pages' }]
+                                }
+                                onChange={postType => setAttributes({ postType, postId: '' })}
+                            />
+                        </PanelRow>
+                        <PanelRow>
+                            {!pages && <Spinner />}
+                            {!!pages && (
                                 <SelectControl
-                                    label={_x('Choose page', 'Block setting', 'pt-must-use')}
-                                    value={postId}
+                                    label={_x('Choose post', 'Block setting', 'pt-must-use')}
+                                    value={postId || 0}
                                     options={selectPages}
                                     onChange={postId => setAttributes({ postId })}
                                 />

@@ -57,31 +57,36 @@
   margin: 0;
   grid-column: 1;
   grid-row: 1;
-  height: var(--sht-teaser-cover-height);
+  height: var(--sht-teaser-cover-height--mobile, var(--sht-teaser-cover-height));
 }
 @media screen and (min-width: 48em) and (max-width: 79.99em) {
   .wp-block-sht-page-teaser-cover__figure {
     aspect-ratio: var(--sht-teaser-cover-aspect-ratio--tablet);
+    height: var(--sht-teaser-cover-height--tablet, var(--sht-teaser-cover-height));
   }
 }
 @media screen and (min-width: 80em) and (max-width: 89.99em) {
   .wp-block-sht-page-teaser-cover__figure {
     aspect-ratio: var(--sht-teaser-cover-aspect-ratio--laptop);
+    height: var(--sht-teaser-cover-height--laptop, var(--sht-teaser-cover-height));
   }
 }
 @media screen and (min-width: 90em) and (max-width: 99.99em) {
   .wp-block-sht-page-teaser-cover__figure {
     aspect-ratio: var(--sht-teaser-cover-aspect-ratio--desktop);
+    height: var(--sht-teaser-cover-height--desktop, var(--sht-teaser-cover-height));
   }
 }
 @media screen and (min-width: 100em) and (max-width: 119.99em) {
   .wp-block-sht-page-teaser-cover__figure {
     aspect-ratio: var(--sht-teaser-cover-aspect-ratio--large-desktop);
+    height: var(--sht-teaser-cover-height--large-desktop, var(--sht-teaser-cover-height));
   }
 }
 @media screen and (min-width: 120em) {
   .wp-block-sht-page-teaser-cover__figure {
     aspect-ratio: var(--sht-teaser-cover-aspect-ratio--xlarge-desktop);
+    height: var(--sht-teaser-cover-height--xlarge-desktop, var(--sht-teaser-cover-height));
   }
 }
 .wp-block-sht-page-teaser-cover__figure--empty {
