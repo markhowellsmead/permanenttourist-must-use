@@ -2,7 +2,13 @@
 
 namespace PT\MustUse\Blocks\PageTeaserCover;
 
-$postId = (int) ($attributes['postId'] ?? null);
+// Use the explicitly selected post; otherwise inherit it from the block context
+// (e.g. when placed inside a Query Loop).
+$postId = (int) ($attributes['postId'] ?? 0);
+
+if (!$postId) {
+	$postId = (int) ($block->context['postId'] ?? 0);
+}
 
 if (!$postId) {
 	return '';
@@ -12,7 +18,7 @@ $imageSize = $attributes['imageSize'];
 $title = esc_html(get_the_title($postId));
 $excerpt = get_the_excerpt($postId);
 $link = get_permalink($postId);
-$linkText = esc_html($attributes['linkText'] ?? $title);
+$linkText = !empty($attributes['linkText']) ? esc_html($attributes['linkText']) : $title;
 $classNameBase = wp_get_block_default_classname($block->name);
 
 $outerStyles = Block::outerStylesCalcString($attributes);

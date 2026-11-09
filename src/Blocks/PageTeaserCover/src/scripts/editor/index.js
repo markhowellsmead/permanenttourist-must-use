@@ -20,7 +20,7 @@ const classNameBase = getBlockDefaultClassName(block_name);
 
 registerBlockType(block_name, {
     edit: props => {
-        const { attributes, setAttributes } = props;
+        const { attributes, setAttributes, context = {} } = props;
         const {
             aspectRatioMobile,
             aspectRatioTablet,
@@ -32,10 +32,15 @@ registerBlockType(block_name, {
             imageSize,
             innerConstraint,
             linkText,
-            postId,
-            postType = 'page',
+            postId: selectedPostId,
+            postType: selectedPostType = 'page',
             style,
         } = attributes;
+
+        // Inherit the post from the surrounding context (e.g. a Query Loop)
+        // when no post has been chosen explicitly.
+        const postId = selectedPostId || context.postId || '';
+        const postType = selectedPostId ? selectedPostType : context.postType || selectedPostType;
 
         const [defaultRatios, themeRatios] = useSettings(
             'dimensions.aspectRatios.default',
@@ -117,7 +122,7 @@ registerBlockType(block_name, {
                         <PanelRow>
                             <SelectControl
                                 label={_x('Post type', 'Block setting', 'pt-must-use')}
-                                value={postType}
+                                value={selectedPostType}
                                 options={
                                     postTypeOptions.length
                                         ? postTypeOptions
@@ -131,7 +136,7 @@ registerBlockType(block_name, {
                             {!!pages && (
                                 <SelectControl
                                     label={_x('Choose post', 'Block setting', 'pt-must-use')}
-                                    value={postId || 0}
+                                    value={selectedPostId || 0}
                                     options={selectPages}
                                     onChange={postId => setAttributes({ postId })}
                                 />
