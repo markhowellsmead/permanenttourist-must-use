@@ -54,5 +54,8 @@
         "sass-loader": "^13.3.2",
         "style-loader": "^3.3.3",
         "webpack-stream": "^7.0.0"
+    },
+    "devDependencies": {
+        "baseline-browser-mapping": "^2.11.35"
     }
 }
