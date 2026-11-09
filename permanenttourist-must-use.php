@@ -7,7 +7,7 @@ GitHub Plugin URI: https://github.com/markhowellsmead/permanenttourist-must-use
 Primary Branch: main
 Description: This WordPress plugin contains all of the blocks and portable functionality for permanenttourist.ch.
 Author: Mark Howells-Mead
-Version: 0.37.2
+Version: 0.38.0
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 8.3
