@@ -107,59 +107,32 @@ class Block
 	{
 		$outerStyles = [];
 
+		// attribute => CSS property suffix (empty for the mobile-first base size)
+		$breakpoints = [
+			'aspectRatioMobile' => '',
+			'aspectRatioTablet' => '--tablet',
+			'aspectRatioLaptop' => '--laptop',
+			'aspectRatioDesktop' => '--desktop',
+			'aspectRatioLargeDesktop' => '--large-desktop',
+			'aspectRatioXLargeDesktop' => '--xlarge-desktop',
+		];
 
-		if (!empty($attributes['aspectRatioMobile'] ?? '')) {
-			if ($attributes['aspectRatioMobile'] === 'stretch') {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--mobile'] = 'unset';
-				$outerStyles['--sht-teaser-cover-height'] = '100%';
-			} else {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--mobile'] = $attributes['aspectRatioMobile'];
-				$outerStyles['--sht-teaser-cover-aspect-ratio'] = $attributes['aspectRatioMobile']; // Basis size, mobile first
+		foreach ($breakpoints as $attribute => $suffix) {
+			$value = $attributes[$attribute] ?? '';
+
+			if (empty($value)) {
+				continue;
 			}
-		}
 
-		if (!empty($attributes['aspectRatioTablet'] ?? '')) {
-			if ($attributes['aspectRatioTablet'] === 'stretch') {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = 'unset';
+			if ($value === 'stretch') {
+				$outerStyles["--sht-teaser-cover-aspect-ratio{$suffix}"] = 'unset';
 				$outerStyles['--sht-teaser-cover-height'] = '100%';
+			} elseif ($value === '100svh') {
+				$outerStyles["--sht-teaser-cover-aspect-ratio{$suffix}"] = 'auto';
+				$heightSuffix = $suffix === '' ? '--mobile' : $suffix;
+				$outerStyles["--sht-teaser-cover-height{$heightSuffix}"] = 'calc(100svh - var(--masthead--height, 0px) - var(--wp--preset--spacing--medium))';
 			} else {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--tablet'] = $attributes['aspectRatioTablet'];
-			}
-		}
-
-		if (!empty($attributes['aspectRatioLaptop'] ?? '')) {
-			if ($attributes['aspectRatioLaptop'] === 'stretch') {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = 'unset';
-				$outerStyles['--sht-teaser-cover-height'] = '100%';
-			} else {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--laptop'] = $attributes['aspectRatioLaptop'];
-			}
-		}
-
-		if (!empty($attributes['aspectRatioDesktop'] ?? '')) {
-			if ($attributes['aspectRatioDesktop'] === 'stretch') {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = 'unset';
-				$outerStyles['--sht-teaser-cover-height'] = '100%';
-			} else {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--desktop'] = $attributes['aspectRatioDesktop'];
-			}
-		}
-
-		if (!empty($attributes['aspectRatioLargeDesktop'] ?? '')) {
-			if ($attributes['aspectRatioLargeDesktop'] === 'stretch') {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] = 'unset';
-				$outerStyles['--sht-teaser-cover-height'] = '100%';
-			} else {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--large-desktop'] = $attributes['aspectRatioLargeDesktop'];
-			}
-		}
-
-		if (!empty($attributes['aspectRatioXLargeDesktop'] ?? '')) {
-			if ($attributes['aspectRatioXLargeDesktop'] === 'stretch') {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] = 'unset';
-				$outerStyles['--sht-teaser-cover-height'] = '100%';
-			} else {
-				$outerStyles['--sht-teaser-cover-aspect-ratio--xlarge-desktop'] = $attributes['aspectRatioXLargeDesktop'];
+				$outerStyles["--sht-teaser-cover-aspect-ratio{$suffix}"] = $value;
 			}
 		}
 
