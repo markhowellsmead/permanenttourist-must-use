@@ -130,7 +130,7 @@ class Block
 			} elseif ($value === '100svh') {
 				$outerStyles["--sht-teaser-cover-aspect-ratio{$suffix}"] = 'auto';
 				$heightSuffix = $suffix === '' ? '--mobile' : $suffix;
-				$outerStyles["--sht-teaser-cover-height{$heightSuffix}"] = 'calc(100svh - var(--masthead--height, 0px) - var(--wp--preset--spacing--medium))';
+				$outerStyles["--sht-teaser-cover-height{$heightSuffix}"] = 'calc(100svh - var(--masthead--height, 0px) - var(--wp--preset--spacing--regular))';
 			} else {
 				$outerStyles["--sht-teaser-cover-aspect-ratio{$suffix}"] = $value;
 			}
