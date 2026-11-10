@@ -23,6 +23,28 @@ class Gutenberg
 	{
 		add_action('admin_menu', [$this, 'reusableBlocksAdminMenu']);
 		add_action('enqueue_block_editor_assets', [$this, 'blockEditorAssets']);
+		add_filter('query_loop_block_query_vars', [$this, 'queryLoopIgnoreCustomSort'], 10, 2);
+	}
+
+	/**
+	 * Stops the Post Types Order plugin from replacing the order chosen in a
+	 * Query Loop (including Advanced Query Loop) with the manual menu_order.
+	 * The editor preview uses the REST API and so already follows the block's
+	 * setting; this makes the front end match it.
+	 *
+	 * @param array $query Query vars for the Query Loop.
+	 * @param \WP_Block $block The Query block.
+	 * @return array
+	 */
+	public function queryLoopIgnoreCustomSort($query, $block)
+	{
+		$orderBy = $block->context['query']['orderBy'] ?? '';
+
+		if ($orderBy !== 'menu_order') {
+			$query['ignore_custom_sort'] = true;
+		}
+
+		return $query;
 	}
 
 	public function isContextEdit()
