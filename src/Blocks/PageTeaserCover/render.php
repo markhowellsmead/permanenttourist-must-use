@@ -2,12 +2,18 @@
 
 namespace PT\MustUse\Blocks\PageTeaserCover;
 
-// Use the explicitly selected post; otherwise inherit it from the block context
-// (e.g. when placed inside a Query Loop).
+// "inherit" follows the surrounding query (Query Loop, Advanced Query Loop).
+// A post chosen explicitly in the block takes precedence over the context.
+$postType = $attributes['postType'] ?? 'inherit';
 $postId = (int) ($attributes['postId'] ?? 0);
 
 if (!$postId) {
-	$postId = (int) ($block->context['postId'] ?? 0);
+	$contextPostId = (int) ($block->context['postId'] ?? 0);
+	$contextPostType = $block->context['postType'] ?? get_post_type($contextPostId);
+
+	if ($contextPostId && ($postType === 'inherit' || $postType === $contextPostType)) {
+		$postId = $contextPostId;
+	}
 }
 
 if (!$postId) {

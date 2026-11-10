@@ -60,7 +60,7 @@
         },
         "postType": {
             "type": "string",
-            "default": "page"
+            "default": "inherit"
         }
     },
     "usesContext": ["postId", "postType"],
