@@ -33,14 +33,22 @@ registerBlockType(block_name, {
             innerConstraint,
             linkText,
             postId: selectedPostId,
-            postType: selectedPostType = 'page',
+            postType: selectedPostType = 'inherit',
             style,
         } = attributes;
 
-        // Inherit the post from the surrounding context (e.g. a Query Loop)
-        // when no post has been chosen explicitly.
-        const postId = selectedPostId || context.postId || '';
-        const postType = selectedPostId ? selectedPostType : context.postType || selectedPostType;
+        // "inherit" means: follow the surrounding query (e.g. Query Loop or
+        // Advanced Query Loop) when there is one. Explicit choices win only
+        // when the editor has deliberately made them.
+        const isInheritType = selectedPostType === 'inherit';
+        const contextPostId = context.postId || '';
+        const contextPostType = context.postType || '';
+        const postType = isInheritType ? contextPostType || 'page' : selectedPostType;
+        const inheritedPostId =
+            contextPostId && (isInheritType || contextPostType === selectedPostType)
+                ? contextPostId
+                : '';
+        const postId = selectedPostId || inheritedPostId;
 
         const [defaultRatios, themeRatios] = useSettings(
             'dimensions.aspectRatios.default',
@@ -101,7 +109,9 @@ registerBlockType(block_name, {
 
         const selectPages = [
             {
-                label: _x('Select a post', 'Block setting', 'pt-must-use'),
+                label: inheritedPostId
+                    ? _x('Inherit from query', 'Block setting', 'pt-must-use')
+                    : _x('Select a post', 'Block setting', 'pt-must-use'),
                 value: 0,
             },
         ];
@@ -123,11 +133,19 @@ registerBlockType(block_name, {
                             <SelectControl
                                 label={_x('Post type', 'Block setting', 'pt-must-use')}
                                 value={selectedPostType}
-                                options={
-                                    postTypeOptions.length
+                                options={[
+                                    {
+                                        value: 'inherit',
+                                        label: _x(
+                                            'Inherit from query',
+                                            'Block setting',
+                                            'pt-must-use'
+                                        ),
+                                    },
+                                    ...(postTypeOptions.length
                                         ? postTypeOptions
-                                        : [{ value: 'page', label: 'Pages' }]
-                                }
+                                        : [{ value: 'page', label: 'Pages' }]),
+                                ]}
                                 onChange={postType => setAttributes({ postType, postId: '' })}
                             />
                         </PanelRow>
@@ -138,7 +156,9 @@ registerBlockType(block_name, {
                                     label={_x('Choose post', 'Block setting', 'pt-must-use')}
                                     value={selectedPostId || 0}
                                     options={selectPages}
-                                    onChange={postId => setAttributes({ postId })}
+                                    onChange={postId =>
+                                        setAttributes({ postId: postId === '0' ? '' : postId })
+                                    }
                                 />
                             )}
                         </PanelRow>
@@ -271,7 +291,11 @@ registerBlockType(block_name, {
                 <div {...blockProps}>
                     {!postId && (
                         <div className='c-editormessage'>
-                            {_x('No page selected', 'Block placeholder', 'pt-must-use')}
+                            {_x(
+                                'No post selected. Choose one, or place this block in a query loop.',
+                                'Block placeholder',
+                                'pt-must-use'
+                            )}
                         </div>
                     )}
                     {!!postId && !pageData && (
