@@ -128,6 +128,7 @@ class Plugin
 				Package\Gutenberg::class,
 				Package\Footnotes::class,
 				Package\Language::class,
+				Package\LightroomGalleryModified::class,
 				Package\LoginScreen::class,
 				//Package\MapFromMeta::class,
 				Package\Media::class,
