@@ -11,6 +11,7 @@ class Feature
 	public function run()
 	{
 		add_action('init', [$this, 'registerPostType']);
+		add_action('init', [$this, 'registerCustomTaxonomies'], 0);
 		add_action('init', [$this, 'addCapabilities']);
 		add_action('init', [$this, 'acf']);
 		add_filter('manage_edit-post_columns', [$this, 'adminColumnHeaders']);
@@ -66,7 +67,7 @@ class Feature
 					'page-attributes'
 				],
 				'labels' => [
-					'name' => _x('Feature', 'CPT name', 'picard'),
+					'name' => _x('Features', 'CPT name', 'picard'),
 					'singular_name' => _x('Feature', 'CPT singular name', 'picard'),
 					'add_new' => _x('Add new', 'CPT add_new', 'picard'),
 					'add_new_item' => _x('Add new', 'cpt name', 'picard'),
@@ -82,6 +83,35 @@ class Feature
 					'attributes' => _x('Attribute', 'cpt name', 'picard'),
 					'name_admin_bar' => _x('Feature', 'Label for name admin bar', 'picard'),
 				]
+			]
+		);
+	}
+
+	public function registerCustomTaxonomies()
+	{
+		register_taxonomy(
+			'mhm_feature_type',
+			'mhm_feature',
+			[
+				'labels'            => [
+					'name'              => _x('Feature types', 'taxonomy general name', 'picard'),
+					'singular_name'     => _x('Feature type', 'taxonomy singular name', 'picard'),
+					'search_items'      => __('Search Feature types', 'picard'),
+					'all_items'         => __('All Feature types', 'picard'),
+					'parent_item'       => __('Parent Feature type', 'picard'),
+					'parent_item_colon' => __('Parent Feature type:', 'picard'),
+					'edit_item'         => __('Edit Feature type', 'picard'),
+					'update_item'       => __('Update Feature type', 'picard'),
+					'add_new_item'      => __('Add New Feature type', 'picard'),
+					'new_item_name'     => __('New Feature type Name', 'picard'),
+					'menu_name'         => __('Feature types', 'picard'),
+				],
+				'hierarchical'      => true,
+				'show_ui'           => true,
+				'show_in_rest'      => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => ['slug' => 'feature-type'],
 			]
 		);
 	}
