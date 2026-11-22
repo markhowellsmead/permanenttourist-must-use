@@ -45,6 +45,8 @@
         padding: var(--wp--preset--spacing--xlarge) var(--wp--preset--spacing--medium);
         width: 100%;
         margin-inline: auto;
+        // Fluid between 16px (at 320px viewport) and 18px (at 1600px viewport)
+        font-size: clamp(1rem, 0.96875rem + 0.15625vw, 1.125rem);
 
         >* {
             margin-block: 0;
@@ -53,6 +55,21 @@
                 margin-block-start: var(--wp--preset--spacing--small);
             }
         }
+    }
+
+    // Layered text shadow: a tight, crisp edge for definition, a slightly wider
+    // one for contrast, and a soft diffuse shadow for overall separation from the image.
+    // Doubled class selector overrides the theme's generic .with--text-shadow.
+    &__content.with--text-shadow {
+        // One shared hue/chroma keeps the layers consistent; change the hue to retint.
+        --sht-teaser-cover-shadow-hue: 260;
+        --sht-teaser-cover-shadow-chroma: 0.03;
+
+        text-shadow:
+            0 1px 1px oklch(14% var(--sht-teaser-cover-shadow-chroma) var(--sht-teaser-cover-shadow-hue) / 55%),
+            0 0 2px oklch(14% var(--sht-teaser-cover-shadow-chroma) var(--sht-teaser-cover-shadow-hue) / 40%),
+            0 2px 8px oklch(18% var(--sht-teaser-cover-shadow-chroma) var(--sht-teaser-cover-shadow-hue) / 35%),
+            0 6px 24px oklch(22% var(--sht-teaser-cover-shadow-chroma) var(--sht-teaser-cover-shadow-hue) / 30%);
     }
 
     &__excerpt {
