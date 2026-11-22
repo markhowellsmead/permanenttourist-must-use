@@ -9,6 +9,7 @@
 
     position: relative;
     padding: 0 !important; // Reset core styles applied by the editor
+    margin-block: 0 !important; // Reset flow/constrained layout gaps (e.g. entries after the first in a Query Loop)
     height: var(--sht-teaser-cover-height);
 
     &.is-style-without-excerpt {

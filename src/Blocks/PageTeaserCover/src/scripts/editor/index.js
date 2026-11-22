@@ -119,7 +119,7 @@ registerBlockType(block_name, {
         if (pages?.length) {
             pages.forEach(page => {
                 selectPages.push({
-                    label: page.title.rendered,
+                    label: page.title?.rendered || `#${page.id}`,
                     value: page.id,
                 });
             });
@@ -268,7 +268,7 @@ registerBlockType(block_name, {
                         </PanelRow>
                         {postId &&
                             pageData &&
-                            pageData?.featured_image?.media_details?.sizes[imageSize]
+                            pageData?.featured_image?.media_details?.sizes?.[imageSize]
                                 ?.source_url && (
                                 <PanelRow>
                                     <FocalPointPicker
@@ -278,7 +278,7 @@ registerBlockType(block_name, {
                                             'pt-must-use'
                                         )}
                                         url={
-                                            pageData.featured_image.media_details.sizes[imageSize]
+                                            pageData.featured_image.media_details.sizes?.[imageSize]
                                                 .source_url
                                         }
                                         value={focalPoint}
@@ -312,15 +312,21 @@ registerBlockType(block_name, {
                         <div className={`${classNameBase}__inner`} style={innerStyles}>
                             <div className={`${classNameBase}__content`} style={contentStyles}>
                                 <h2 className={`${classNameBase}__title`}>
-                                    {pageData.title.rendered}
+                                    {pageData.title?.rendered}
                                 </h2>
-                                {pageData.excerpt.rendered && (
+                                {pageData.excerpt?.rendered ? (
                                     <div
                                         className={`${classNameBase}__excerpt`}
                                         dangerouslySetInnerHTML={{
                                             __html: pageData.excerpt.rendered,
                                         }}
                                     />
+                                ) : (
+                                    !!pageData.teaser_excerpt && (
+                                        <div className={`${classNameBase}__excerpt`}>
+                                            {pageData.teaser_excerpt}
+                                        </div>
+                                    )
                                 )}
                                 <div
                                     className={`${classNameBase}__link-wrapper wp-block-button is-style-with-arrow-right has-smaller-font-size`}
