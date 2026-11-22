@@ -465,7 +465,8 @@ class Photo
 		$featured_image['media_type'] = wp_attachment_is_image($image_id) ? 'image' : 'file';
 		$featured_image['media_details'] = wp_get_attachment_metadata($image_id);
 
-		$registered_sizes = get_intermediate_image_sizes();
+		// Include "full" so that blocks using the original size (e.g. Page teaser cover) get a preview image.
+		$registered_sizes = array_merge(get_intermediate_image_sizes(), ["full"]);
 
 		foreach ($registered_sizes as $registered_size) {
 			$image_src = wp_get_attachment_image_src($image_id, $registered_size);

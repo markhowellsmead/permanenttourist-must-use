@@ -9,6 +9,30 @@ class Block
 	public function run()
 	{
 		add_action('init', [$this, 'register']);
+		add_action('rest_api_init', [$this, 'registerRestField']);
+	}
+
+	/**
+	 * Exposes the excerpt the front end shows, so that the editor preview matches it.
+	 * Post types without excerpt support have no `excerpt` field in the REST API,
+	 * but get_the_excerpt() still generates one from the content.
+	 */
+	public function registerRestField()
+	{
+		register_rest_field(
+			get_post_types(['show_in_rest' => true]),
+			'teaser_excerpt',
+			[
+				'get_callback' => function ($object) {
+					return get_the_excerpt((int) ($object['id'] ?? 0));
+				},
+				'schema' => [
+					'type' => 'string',
+					'context' => ['view', 'edit'],
+					'readonly' => true,
+				],
+			]
+		);
 	}
 
 	public function register()

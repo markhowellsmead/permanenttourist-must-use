@@ -4,7 +4,7 @@ export const Image = ({ props }) => {
     if (
         postId &&
         pageData &&
-        pageData?.featured_image?.media_details?.sizes[imageSize]?.source_url
+        pageData?.featured_image?.media_details?.sizes?.[imageSize]?.source_url
     ) {
         const objectPosition = focalPoint
             ? `${focalPoint.x * 100}% ${focalPoint.y * 100}%`
@@ -15,10 +15,10 @@ export const Image = ({ props }) => {
                 <img
                     style={{ objectPosition }}
                     className={`${classNameBase}__image`}
-                    src={pageData.featured_image.media_details.sizes[imageSize].source_url}
+                    src={pageData.featured_image.media_details.sizes?.[imageSize].source_url}
                     alt={pageData.featured_image.alt_text || ''}
-                    width={pageData.featured_image.media_details.sizes[imageSize].width}
-                    height={pageData.featured_image.media_details.sizes[imageSize].height}
+                    width={pageData.featured_image.media_details.sizes?.[imageSize].width}
+                    height={pageData.featured_image.media_details.sizes?.[imageSize].height}
                 />
             </figure>
         );
