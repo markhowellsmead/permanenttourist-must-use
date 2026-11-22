@@ -14,11 +14,83 @@ class Feature
 		add_action('init', [$this, 'registerCustomTaxonomies'], 0);
 		add_action('init', [$this, 'addCapabilities']);
 		add_action('init', [$this, 'acf']);
+		add_action('init', [$this, 'registerPostMeta']);
+		add_action('init', [$this, 'registerBlockBindings']);
+		add_filter('render_block_core/paragraph', [$this, 'hideEmptyBoundParagraph'], 10, 2);
 		add_filter('manage_edit-post_columns', [$this, 'adminColumnHeaders']);
 		add_action('manage_post_posts_custom_column', [$this, 'adminColumnContent'], 10, 2);
 		add_filter('manage_edit-photo_columns', [$this, 'adminColumnHeaders']);
 		add_action('manage_photo_posts_custom_column', [$this, 'adminColumnContent'], 10, 2);
 		add_filter('get_the_archive_title', [$this, 'changeTheTitle'], 20);
+	}
+
+	/**
+	 * Registers the post meta fields (core custom fields, available to block bindings)
+	 * @return void
+	 */
+	public function registerPostMeta(): void
+	{
+		register_post_meta('mhm_feature', 'featured_image_description', [
+			'show_in_rest' => true,
+			'single' => true,
+			'type' => 'string',
+			'description' => 'Description of the featured image (e.g. a lead photo caption)',
+			'sanitize_callback' => 'sanitize_text_field',
+			'auth_callback' => function () {
+				return current_user_can('edit_posts');
+			}
+		]);
+	}
+
+	/**
+	 * Registers the block binding source for the featured image description.
+	 * The value is prefixed with "Lead photo: " when it is not empty.
+	 * The editor-side counterpart is in assets/src/scripts/feature-controls.
+	 * @return void
+	 */
+	public function registerBlockBindings(): void
+	{
+		if (!function_exists('register_block_bindings_source')) {
+			return;
+		}
+
+		register_block_bindings_source('pt/featured-image-description', [
+			'label' => _x('Featured image description', 'Block binding source label', 'pt-must-use'),
+			'uses_context' => ['postId'],
+			'get_value_callback' => function (array $source_args, $block_instance) {
+				$post_id = (int) ($block_instance->context['postId'] ?? get_the_ID());
+				$value = trim((string) get_post_meta($post_id, 'featured_image_description', true));
+
+				if ($value === '') {
+					return '';
+				}
+
+				return sprintf(
+					/* translators: %s: description of the featured image */
+					_x('Lead photo: %s', 'Featured image description prefix', 'pt-must-use'),
+					$value
+				);
+			},
+		]);
+	}
+
+	/**
+	 * Removes the empty paragraph that a block binding leaves behind when
+	 * the featured image description has no value.
+	 *
+	 * @param string $content
+	 * @param array $block
+	 * @return string
+	 */
+	public function hideEmptyBoundParagraph($content, $block)
+	{
+		$source = $block['attrs']['metadata']['bindings']['content']['source'] ?? '';
+
+		if ($source === 'pt/featured-image-description' && trim(wp_strip_all_tags($content)) === '') {
+			return '';
+		}
+
+		return $content;
 	}
 
 	/**
@@ -64,6 +136,8 @@ class Feature
 					'title',
 					'editor',
 					'thumbnail',
+					'excerpt',
+					'custom-fields', // Required for post meta to be available in the REST API (and so the block editor)
 					'page-attributes'
 				],
 				'labels' => [

@@ -68,6 +68,7 @@ class Gutenberg
 		$this->enqueueBlockScript('blocks.js');
 		$this->enqueueBlockScript('page-controls.js', 'scripts');
 		$this->enqueueBlockScript('hikes-controls.js', 'scripts');
+		$this->enqueueBlockScript('feature-controls.js', 'scripts');
 		$this->enqueueBlockScript('meow-gallery.js', 'scripts');
 	}
 
