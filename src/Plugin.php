@@ -141,6 +141,7 @@ class Plugin
 				Pattern\HeaderMediaText::class,
 
 				Plugin\Algolia::class,
+				Plugin\YoastSEO::class,
 
 				PostType\Attachment::class,
 				PostType\BlockArea::class,
