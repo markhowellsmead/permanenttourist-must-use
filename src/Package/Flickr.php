@@ -11,12 +11,12 @@ class Flickr
 	public function run()
 	{
 		add_shortcode('pt_flickr', [$this, 'shortcode']);
+		add_action('save_post', [$this, 'clearTransients'], 10, 2);
 	}
 
-	public function shortcode($atts)
+	private function normaliseAtts($atts)
 	{
-
-		$atts = shortcode_atts(array(
+		return shortcode_atts(array(
 			'id' => '',
 			'size' => 'medium',
 			'align' => '',
@@ -25,13 +25,48 @@ class Flickr
 			'tags' => '',
 			'number' => null,
 		), $atts);
+	}
+
+	private function transientKey(array $atts)
+	{
+		return 'pt_flickr_' . md5(json_encode($atts));
+	}
+
+	/**
+	 * Delete the cached HTML of every pt_flickr shortcode in the saved post.
+	 */
+	public function clearTransients($post_id, $post)
+	{
+		if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id) || empty($post->post_content)) {
+			return;
+		}
+
+		if (!has_shortcode($post->post_content, 'pt_flickr')) {
+			return;
+		}
+
+		preg_match_all('/' . get_shortcode_regex(['pt_flickr']) . '/', $post->post_content, $matches, PREG_SET_ORDER);
+
+		foreach ($matches as $match) {
+			$atts = $this->normaliseAtts(shortcode_parse_atts($match[3]));
+
+			if ((int) $atts['id']) {
+				delete_transient($this->transientKey($atts));
+			}
+		}
+	}
+
+	public function shortcode($atts)
+	{
+
+		$atts = $this->normaliseAtts($atts);
 
 		if ((int) $atts['id']) {
 
 			$filename = $atts['id'];
-			$md5 = md5(json_encode($atts));
+			$transient_key = $this->transientKey($atts);
 
-			$html = get_transient("pt_flickr_{$md5}");
+			$html = get_transient($transient_key);
 
 			if (!empty($html) && !is_user_logged_in()) {
 				return $html;
@@ -74,7 +109,8 @@ class Flickr
 				!empty($atts['caption'] ?? '') ? '<figcaption class="pt_flickr__caption">' . str_replace('"', '&quot;', $atts['caption']) . '</figcaption>' : ''
 			);
 
-			set_transient("pt_flickr_{$filename}", $html, 365 * DAY_IN_SECONDS);
+			// Only reached when a matching file was found. Same key as the lookup above.
+			set_transient($transient_key, $html, YEAR_IN_SECONDS);
 
 			return $html;
 
